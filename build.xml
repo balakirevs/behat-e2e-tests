@@ -1,0 +1,33 @@
+<project name="behat" basedir=".">
+
+    <target name="run">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel"/>
+        <parallel>
+            <antcall target="chrome"></antcall>
+            <antcall target="chrome_mobile"></antcall>
+            <antcall target="firefox"></antcall>
+            <antcall target="safari"></antcall>
+        </parallel>
+        </target>
+        <target name="chrome">
+            <exec dir="${basedir}" executable="php" failonerror="true">
+                <arg line= "bin/behat -f html --out report/parallel/chrome -p chrome"/>
+            </exec>
+        </target>
+        <target name="chrome_mobile">
+            <exec dir="${basedir}" executable="php" failonerror="true">
+                <arg line= "bin/behat -f html --out report/parallel/chrome_mobile -p chrome_mobile"/>
+            </exec>
+        </target>
+        <target name="firefox">
+            <exec dir="${basedir}" executable="php" failonerror="true">
+                <arg line= "bin/behat -f html --out report/parallel/firefox -p firefox"/>
+            </exec>
+        </target>
+        <target name="safari">
+            <exec dir="${basedir}" executable="php" failonerror="true">
+                <arg line= "bin/behat -f html --out report/parallel/safari -p safari"/>
+            </exec>
+        </target>
+    </project>

@@ -1,0 +1,188 @@
+default:
+  formatters:
+    html:
+      output_path: %paths.base%/report/firefox
+  extensions:
+    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+      name: html
+      renderer: Twig,Behat2
+      file_name: index
+      print_args: true
+      print_outp: true
+      loop_break: true
+    Behat\MinkExtension:
+      base_url: "https://www.wingo.ch/fr"         #"https://wingo-preprod.wingo.ch/fr"
+      default_session: selenium2
+      javascript_session: selenium2
+      browser_name: firefox
+      files_path: assets
+      goutte:
+        guzzle_parameters:
+          curl.options:
+            CURLOPT_SSL_VERIFYPEER: false
+            CURLOPT_CERTINFO: false
+          defaults:
+            verify: false
+            ssl.certificate_authority: false
+      selenium2:
+        wd_host: "http://127.0.0.1:4444/wd/hub"
+        #wd_host: "http://10.5.0.42:4444/wd/hub/static/resource/hub/html"
+        #wd_host: "http://0.0.0.0:4444/wd/hub"   # selenium 3 address
+        capabilities: { 'browser': 'firefox', 'version': 'ANY' }
+    SensioLabs\Behat\PageObjectExtension:
+      namespaces:
+         page: [Page]
+         element: [Page\Element]
+    Bex\Behat\ScreenshotExtension:
+      screenshot_taking_mode: failed_steps
+      image_drivers:
+        local:
+          screenshot_directory: screenshots
+          clear_screenshot_directory: true
+
+#====================================================================================================================#
+
+chrome:
+  formatters:
+    html:
+      output_path: %paths.base%/report/chrome
+  extensions:
+    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+      name: html
+      renderer: Twig,Behat2
+      file_name: index
+      print_args: true
+      print_outp: true
+      loop_break: true
+    Behat\MinkExtension:
+      browser_name: chrome
+      #wd_host: "http://127.0.0.1:4444/wd/hub"
+
+#====================================================================================================================#
+
+firefox:
+  formatters:
+    html:
+      output_path: %paths.base%/report/firefox
+  extensions:
+    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+      name: html
+      renderer: Twig,Behat2
+      file_name: index
+      print_args: true
+      print_outp: true
+      loop_break: true
+    Behat\MinkExtension:
+      browser_name: firefox
+      #wd_host: "http://127.0.0.1:4444/wd/hub"
+
+#====================================================================================================================#
+
+safari:
+  formatters:
+    html:
+      output_path: %paths.base%/report/safari
+  extensions:
+    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+      name: html
+      renderer: Twig,Behat2
+      file_name: index
+      print_args: true
+      print_outp: true
+      loop_break: true
+    Behat\MinkExtension\Extension:
+      browser_name: safari
+       #wd_host: "http://127.0.0.1:4444/wd/hub"
+
+#====================================================================================================================#
+
+chrome_mobile:
+  formatters:
+    html:
+      output_path: %paths.base%/report/chrome_mobile
+  extensions:
+    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+      name: html
+      renderer: Twig,Behat2
+      file_name: index
+      print_args: true
+      print_outp: true
+      loop_break: true
+    Behat\MinkExtension:
+      browser_name: chrome
+      selenium2:
+        capabilities:
+          extra_capabilities:
+            chromeOptions:
+              mobileEmulation:
+                deviceName: # "Google Nexus 5"
+                            # "Samsung Galaxy S4"
+                            # "Samsung Galaxy Note 3"
+                            # "Samsung Galaxy Note II"
+                            # "Apple iPhone 4"
+                            # "Apple iPhone 5"
+                            # "Apple iPad 3 / 4"
+                            # "Apple iPhone 5"
+                            # "Apple iPhone 6"
+                            "Apple iPhone 6 Plus"
+        #wd_host: "http://127.0.0.1:4444/wd/hub"
+
+#====================================================================================================================#
+
+phantomjs:
+  formatters:
+    html:
+      output_path: %paths.base%/report/phantomjs
+  extensions:
+    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+      name: html
+      renderer: Twig,Behat2
+      file_name: index
+      print_args: true
+      print_outp: true
+      loop_break: true
+    Behat\MinkExtension:
+      base_url: "https://www.wingo.ch/fr"     #"https://wingo-preprod.wingo.ch/fr"
+      browser_name: phantomjs
+      default_session: selenium2
+      javascript_session: selenium2
+      selenium2:
+        browser: phantomjs
+        capabilities:
+          browser: phantomjs
+          version: ""
+        wd_host: "http://127.0.0.1:4445/wd/hub"
+
+#====================================================================================================================#
+
+sauce:
+  context:
+    class:  'FeatureContext'
+  extensions:
+    Behat\MinkExtension\Extension:
+      selenium2:
+        browser: iexplore
+        wd_host: username:apikey@ondemand.saucelabs.com/wd/hub
+        capabilities: { "platform": "VISTA", "browser": "iexplore", "version": "9"}
+
+#====================================================================================================================#
+
+sauce-rc:
+  context:
+    class:  'FeatureContext'
+  extensions:
+    Behat\MinkExtension\Extension:
+      base_url:  'https://wingo-preprod.wingo.ch/fr'
+      javascript_session: selenium2
+      selenium:
+        host: ondemand.saucelabs.com
+        port: 80
+        browser: >
+          {
+            "username":         "username",
+            "access-key":       "apikey",
+            "browser":          "firefox",
+            "browser-version":  "7",
+            "os":               "Windows 2003",
+            "name":             "Wingo Copper e2e Tests"
+          }
