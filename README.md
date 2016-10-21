@@ -1,4 +1,4 @@
-# Wingo Copper e2e automation tests
+# E2E automation tests
 
 Key components:
 ===============
