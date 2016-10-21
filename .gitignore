@@ -4,7 +4,6 @@
 *.phar
 composer.lock
 bin
-vendor
 .idea/
 .DS_Store
 build/
