@@ -7,7 +7,7 @@
       "MinkFieldRandomizer\\Registry\\": "src"
     }
   },
-  "name": "Wingo Copper e2e automation tests",
+  "name": "E2E automation tests",
 
   "require": {
     "behat/behat": "3.*@stable",
@@ -26,7 +26,7 @@
     "authors": [
       {
         "name": "Aleksandr Balakiriev",
-        "email": "abalakiriev@openwt.com"
+        "email": "info@balakiriev.com"
       }
     ]
 }

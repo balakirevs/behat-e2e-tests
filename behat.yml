@@ -184,5 +184,5 @@ sauce-rc:
             "browser":          "firefox",
             "browser-version":  "7",
             "os":               "Windows 2003",
-            "name":             "Wingo Copper e2e Tests"
+            "name":             "E2E Automation Tests"
           }
