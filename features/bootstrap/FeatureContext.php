@@ -2,14 +2,8 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Mink\Exception\ResponseTextException;
-use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\MinkExtension\Context\MinkContext;
-use Behat\Mink\Exception\ElementNotFoundException;
 use MinkFieldRandomizer\Context\FilterContext;
 
 /**
@@ -18,6 +12,7 @@ use MinkFieldRandomizer\Context\FilterContext;
 class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
 {
    use FilterContext;
+
     /**
      * Initializes context.
      *
@@ -30,57 +25,31 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
     }
 
-    /**
-     * @Given /^the browser is set to size$/
-     */
-    public function setBrowserToSize()
+    public function __call($method, $parameters)
     {
-        if ($this->getBrowserName() == 'PhantomJS') {
-            $this->getSession()->resizeWindow(1440, 900);
-        } else {
-            $this->getSession()->maximizeWindow();
+        $page = $this->getSession()->getPage();
+        if (method_exists($page, $method)) {
+            return call_user_func_array(array($page, $method), $parameters);
         }
-    }
 
-    /*
-     * Get browser name
-     */
-    public function getBrowserName()
-    {
+        $session = $this->getSession();
+        if (method_exists($session, $method)) {
+            return call_user_func_array(array($session, $method), $parameters);
+        }
+
         $driver = $this->getSession()->getDriver();
-        $userAgent = $driver->evaluateScript('return navigator.userAgent');
-        $provider = $driver->evaluateScript('return navigator.vendor');
-        $browser = null;
-        if (preg_match('/google/i', $provider)) {
-            $browser = 'Chrome';
-        } elseif (preg_match('/firefox/i', $userAgent)) {
-            $browser = 'Firefox';
-        } elseif ((strpos('Safari', $userAgent) !== false)) {
-            $browser = 'Safari';
-        } elseif (preg_match('/MSIE/i', $userAgent)) {
-            $browser = 'Internet Explorer';
-        } elseif (preg_match('/phantomjs/i', $userAgent)) {
-            $browser = 'PhantomJS';
-        } else {
-            print 'Unknown Browser ' . $userAgent . $provider;
+        if (method_exists($driver, $method)) {
+            return call_user_func_array(array($driver, $method), $parameters);
         }
-        return $browser;
-    }
 
-    /**
-     * @When I click menu icon
-     */
-    public function iClickMenuIcon()
-    {
-        $this->getSession()->getPage()->find("css", ".burger-icon")->click();
-    }
+        $assert = $this->assertSession();
+        if (method_exists($assert, $method)) {
+            return call_user_func_array(array($assert, $method), $parameters);
+        }
 
-    /**
-     * @Then navigation bar is displayed
-     */
-    public function navigationBarIsDisplayed()
-    {
-        $this->getSession()->getPage()->find('css', '.navbar-wrapper')->isVisible();
+        throw new \RuntimeException(sprintf(
+            'The "%s()" method does not exist.', $method
+        ));
     }
 
     /**
@@ -88,16 +57,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iClickLink($link)
     {
-        $this->getSession()->getPage()->clickLink($link);
-    }
-
-    /**
-     * @Given I should be redirected to :arg1
-     */
-    public function iShouldBeRedirectedTo($url)
-    {
-        $this->getSession()->wait(1000);
-        $this->assertPageAddress($url);
+        $this->clickLink($link);
     }
 
     /**
@@ -105,7 +65,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iShouldSeeEligibilityFormContainer()
     {
-        $this->assertSession()->elementExists('css', '#eligibilityFormContainer');
+        $this->elementExists('css', '#eligibilityFormContainer');
     }
 
     /**
@@ -113,24 +73,34 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iClickButtonOfAProduct($colour)
     {
-        $element = $this->getSession()->getPage()->find('css', ".price.$colour-bkg-30 > a");
+        $element = $this->find('css', ".price.$colour-bkg-30 > a");
         $element->click();
     }
 
     /**
-     * @Then I fill in the eligibility form with
+     * @Given I should be redirected to :arg1
      */
-    public function iFillInTheEligibilityFormWith(TableNode $table)
+    public function iShouldBeRedirectedTo($url)
     {
-        $browser = $this->getBrowserName();
-        if ($browser == 'Firefox') {
-            $this->autocompleteForm($table, 'eligibilityPostCode', '#ui-id-1', 'NPA');
-            $this->autocompleteForm($table, 'eligibilityStreetName', '#ui-id-2', 'Street');
-        } else {
-            $this->autocompleteForm($table, 'eligibilityPostCode', '#ui-id-5', 'NPA');
-            $this->autocompleteForm($table, 'eligibilityStreetName', '#ui-id-6', 'Street');
-        }
-        $this->autocompleteForm($table, 'eligibilityStreetNumber', '.ui-menu-item-wrapper', 'Number');
+        $this->waitForUrlRedirect($url);
+    }
+
+    /**
+     * @When I wait for :url to redirect
+     * @Then I should see :url redirect
+     * @param $url
+     * @throws \Exception
+     */
+    public function waitForUrlRedirect($url)
+    {
+        $this->spin(function (FeatureContext $context) use ($url) {
+            try {
+                $context->assertPageAddress($url);
+                return true;
+            } catch (ResponseTextException $e) {
+            }
+            return false;
+        });
     }
 
     /**
@@ -138,16 +108,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iClickTheVerificationButton()
     {
-        $this->getSession()->getPage()->find('css', '#eligibilitySubmit')->click();
-    }
-
-    /**
-     * @Given /^I should see the warning of an invalid address$/
-     */
-    public function iShouldSeeTheWarningOfAnInvalidAddress($text)
-    {
-        $this->getSession()->getPage()->find('css', '#error_invalid_address')->isVisible();
-        $this->iWaitForTextToAppear($text);
+        $this->find('css', '#eligibilitySubmit')->click();
     }
 
     /**
@@ -163,12 +124,10 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
                 $context->assertPageContainsText($text);
                 return true;
             } catch (ResponseTextException $e) {
-                // NOOP
             }
             return false;
         });
     }
-
 
     /**
      * @When I wait for :text to disappear
@@ -201,7 +160,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iShouldSeeASpinnerRunning()
     {
-        $this->getSession()->getPage()->find('css', '#spinnerElig')->isVisible();
+        $this->find('css', '#spinnerElig')->isVisible();
     }
 
     /**
@@ -209,7 +168,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iClickCheckoutButton()
     {
-        $this->getSession()->getPage()->find('css', "#fiberEligOk > a")->click();
+        $this->find('css', "#fiberEligOk > a")->click();
     }
 
     /**
@@ -218,8 +177,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iTickTheCheckbox($labelText, $productCode = null)
     {
-        $page = $this->getSession()->getPage();
-        $checkboxes = $page->findAll('css', 'label.label_checkbox');
+        $checkboxes = $this->findAll('css', 'label.label_checkbox');
 
         foreach ($checkboxes as $checkbox) {
             if ($checkbox->getText() == $labelText) {
@@ -229,13 +187,15 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
                 }
             }
         }
-        $this->getSession()->wait(10000, '(0 === jQuery.active)');
+        $this->wait(10000, '(0 === jQuery.active)');
     }
 
+    /*
+     * @param $productCode
+     */
     public function getProductId($productCode)
     {
-        $page = $this->getSession()->getPage();
-        $inputIds = $page->findAll('css', '.dsl_provider.required');
+        $inputIds = $this->findAll('css', '.dsl_provider.required');
 
         foreach ($inputIds as $inputId) {
             if ($inputId->getAttribute('product_code') == $productCode) {
@@ -244,23 +204,18 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         }
     }
 
+    /*
+     * @param $productId
+     * @param $productCode
+     * @throws \Exception
+     */
     public function checkIfCheckboxIsChecked($productCode)
     {
         $productId = $this->getProductId($productCode);
         $checkedElement = $productId->find('css', 'input[type="checkbox"]:checked#' . $productId);
-        print $checkedElement . ' ---- checked element';
         if (!$checkedElement) {
             throw new \Exception('Checkbox with id ' . $productId . ' is not checked');
         }
-    }
-
-    public function acceptAlert()
-    {
-        /** @var \Behat\Mink\Driver\Selenium2Driver $driver Needed because no cross-driver way yet */
-        $driver = $this->getSession()->getDriver();
-
-        /** Accept the alert so you don't get a runtime exception when the steps try to continue **/
-        $driver->getWebDriverSession()->accept_alert();
     }
 
     /**
@@ -272,53 +227,11 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @Then /^I should see "([^"]*)" of "([^"]*)" in the field$/
-     * @Then /^I should see (.*) of "([^"]*)" in the field$/
-     * @Then /^I should see (.*) of errors on each field$/
-     */
-    public function iShouldSeeOfInTheField($num)
-    {
-        $this->assertSession()->elementsCount('css', '.required.error', intval($num));
-    }
-
-    /**
-     * @Given /^I fill in the content form with random credentials$/
-     */
-    public function iFillInTheContentFormWith(TableNode $table)
-    {
-        $page = $this->getSession()->getPage();
-        $hash = $table->getHash();
-
-        foreach ($hash as $row) {
-            $field = $page->findField($row['Field']);
-
-            $id = $field->getAttribute('id');
-            $options = $field->findAll('named', array('option', $row['Title']));
-            foreach ($options as $option) {
-                $value = $option->getValue();
-            }
-
-            $js = "jQuery('#$id').val('$value');
-                           jQuery('#$id').trigger('chosen:updated');
-                           jQuery('#$id').trigger('change');";
-
-            $this->getSession()->executeScript($js);
-        }
-
-        $this->fillFieldWithRandomName('checkout_service_address_firstname');
-        $this->fillFieldWithRandomSurname('checkout_service_address_lastname');
-        $this->fillFieldWithRandomMail('email');
-        $this->fillFieldWithExistentMail('email_conf');
-        $this->fillFieldWithRandomPhone('lead_mobile_phone');
-    }
-
-    /**
      * @Given /^I check radio button with "([^"]*)"$/
      */
     public function iCheckRadioButtonWith($text)
     {
-        $page = $this->getSession()->getPage();
-        $radioButtons = $page->findAll('css', '.activation-option-title');
+        $radioButtons = $this->findAll('css', '.activation-option-title');
 
         foreach ($radioButtons as $radioButton) {
             if ($radioButton->getText() == $text) {
@@ -328,35 +241,40 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * Click some text
-     *
-     * @When /^I click on the text "([^"]*)"$/
+     * Based on Behat's own example
+     * @see http://docs.behat.org/en/v2.5/cookbook/using_spin_functions.html#adding-a-timeout
+     * @param $lambda
+     * @param int $wait
+     * @throws \Exception
      */
-    public function iClickOnTheText($text)
+    public function spin($lambda, $wait = 60)
     {
-        $session = $this->getSession();
-        $element = $session->getPage()->find(
-            'xpath',
-            $session->getSelectorsHandler()->selectorToXpath('xpath', '*//*[text()="'. $text .'"]')
-        );
-        if (null === $element) {
-            throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', $text));
+        $time = time();
+        $stopTime = $time + $wait;
+        while (time() < $stopTime)
+        {
+            try {
+                if ($lambda($this)) {
+                    return;
+                }
+            } catch (\Exception $e) {
+                // do nothing
+            }
+            usleep(250000);
         }
-
-        $element->click();
-
+        throw new \Exception("Spin function timed out after {$wait} seconds");
     }
 
     /**
-     * @Then /^I fill in random contact details$/
+     * @When I wait for :cssSelector
+     * @param $cssSelector
+     * @throws \Exception
      */
-    public function iFillInRandomContactDetails()
+    public function iWaitFor($cssSelector)
     {
-        $this->fillFieldWithRandomLoremIpsum('comment');
-        $this->fillFieldWithRandomName('firstname');
-        $this->fillFieldWithRandomSurname('name');
-        $this->fillFieldWithRandomPhone('telephone');
-        $this->fillFieldWithRandomMail('email');
-        $this->fillFieldWithRandomNumber('customernumber');
+        $this->spin(function($context) use ($cssSelector) {
+            /** @var $context */
+            return !is_null($context->find('css', $cssSelector));
+        });
     }
 }

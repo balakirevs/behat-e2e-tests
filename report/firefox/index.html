@@ -332,150 +332,74 @@
         <div class="feature">
             <h2>
                 <span id="feat1" class="keyword"> Feature: </span>
-                <span class="title">Check eligibility</span>
+                <span class="title">Homepage Content</span>
             </h2>
             <p></p>
             <ul class="tags">
             </ul>
+            <div class="scenario">
+                <ul class="tags">
+                    <li>@javascript</li>
+                    <li>@home</li>
+                </ul>
+                <h3>
+                    <span class="keyword"> Scenario: </span>
+                    <span class="title">Check homepage content</span>
+                </h3>
+                <ol>
                     <li class="passed">
                         <div class="step">
-                            <span class="keyword">Given </span>
-                            <span class="text">the browser is set to size </span>
-                            <span class="path">FeatureContext::setBrowserToSize()</span>
-                        </div>
-                    </li>
-                    <li class="passed">
-                        <div class="step">
-                            <span class="keyword">Then </span>
+                            <span class="keyword">When </span>
                             <span class="text">I am on "/" </span>
                             <span class="path">FeatureContext::visit()</span>
                         </div>
                     </li>
                     <li class="failed">
                         <div class="step">
-                            <span class="keyword">And </span>
-                            <span class="text">I fill in the eligibility form with </span>
-                            <span class="path">FeatureContext::iFillInTheEligibilityFormWith()</span>
+                            <span class="keyword">Then </span>
+                            <span class="text">I should see "Wingo Internet" </span>
+                            <span class="path">FeatureContext::assertPageContainsText()</span>
                         </div>
-                        <pre class="backtrace">Error: Permission denied to access property "navigator"
-Build info: version: '3.0.1', revision: '1969d75', time: '2016-10-18 09:48:19 -0700'
-System info: host: 'dell', ip: '127.0.0.1', os.name: 'Linux', os.arch: 'amd64', os.version: '3.13.0-98-generic', java.version: '1.8.0_101'
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities [{rotatable=false, raisesAccessibilityExceptions=false, firefoxOptions={args=[], profile=UEsDBBQACAgIAECKVEkAAAAAAAAAAAAAAAAHAAAAdXNlci5qc51WTW/bMAy971cMOW3AKqTretlOXdcBA4Z1aFDsKMgSbauRJU0fcfPvR/mjSRNHbndKbJMS+fj4yOjBUeugfLconGnxiXhWQvdf6oo0TLXMAQHNCgVi8eFtyZSH91/exJ2nYAFtrHEhudTAVKj7Z4JGG8ln/DWE1rg1qUOwxNbS19uz9Nky788U6CrU6Pjx8vK52xiwAybwR0AAHkB8l86HK4yFK0C34OJhuKbBvB4pr51pgHrupA3URU2DbJLLxXL6osAKTxAOfauvlfEwnc1oLUyrlWEC79KsSsDWpv1Tg14hWgmpaXeLQdng02W0MYKpGexhE4xRnoBzxnGjvVH7cB+n72WljUbUGmgKcKvu0edz8eC9RKtgkAsOfETcSgyUcsd8nfdVUq+JsaApPAZwmqlUzFczqExlvYt6+rIWCuHkBp8Z54DljBoz90gHysEFP4nEU6Wkt4ptQdycL1e/DDInlfbTtDG+Erf6j9RYX3++JBIvMvd3P9FjwQoTw+dCMb1eHHOuT4gypeiDRzBSnLKH/ji2RysRbrQlbS0DKOkDHvA3SneKCYkGaxnI0E0j6zC5xIUsAIphYbAB8lTzibfRkhq7xuLZtAXFUwdFl0q6OEg5VVt3rCHRYoGBaIS23N6jyat1JNrUSjfZ8IBHJ8MWmaIA/xEfnOSBGicrqak1SvJtnqoaWmw7MuSTqeazQPuTSXq5ikUju1b53b286sj4Mt2cPCab8VN3DoVJRUHLE+q160NMs+34e9yIpizRDs6YtZ4g+0xLiy0VULKowrScjLBzbwf+TEd7zIcs20Y6I/dRqYLbkl4ZO/uPc7bZo0dEbu5/XpELwnZFOk7vgW1YPyGyonpYirFH8jw6jtvBQzfEspf0NE3H5/PcQ5zFYL71SrDiSIIkOufLUxran0o1C/hIYQM6zAyIvdF4ixSbjadQhq87UXtRpTwwx+uBN3NjtyE9u4mIjc1WDVn+Ii4+I4xBhJwU04p6JEKH6nMxvfr0an02th/SKMQZyAfbE9Iy7Djzy83e5PTdXN9NTpSg2Gl1FrlErekg9nrH9KOu24F+6Ot+TTm5nQ0zi3ZqJRBGXdGk/zMkqQHHJa+Br7/1gvW1//L6cUaYEDJFzGYmweTS/L/LsjJVlV4OW1xW+/d6qcv4GrUR27WQKrFPy6oO6sS023Mdb/wfaaNjI5AG98KOiIu0Szo4wGi3yqTVE4mNC+TMLrPre1X6aPsVYLdl/ANQSwcIy87bUaYDAAC2DAAAUEsBAhQAFAAICAgAQIpUScvO21GmAwAAtgwAAAcAAAAAAAAAAAAAAAAAAAAAAHVzZXIuanNQSwUGAAAAAAEAAQA1AAAA2wMAAAAA}, ignoreZoomSetting=false, appBuildId=20160502172042, version=46.0.1, platform=LINUX, tags=[dell, PHP 5.5.9-1ubuntu4.20], proxy={}, specificationLevel=1, acceptSslCerts=false, browser=firefox, browserVersion=46.0.1, platformVersion=3.13.0-98-generic, name=Behat feature suite, XULappId={ec8030f7-c20a-464f-9b0e-13a3a9e97384}, browserName=Firefox, takesScreenshot=true, takesElementScreenshot=true, platformName=Linux, device=desktop}]
-Session ID: fb84b821-f213-432b-a262-4009cd8aad0e</pre>
+                        <pre class="backtrace">Element not found with xpath, //html
+</pre>
                     </li>
                     <li class="skipped">
                         <div class="step">
                             <span class="keyword">When </span>
-                            <span class="text">I click the verification button </span>
-                            <span class="path">FeatureContext::iClickTheVerificationButton()</span>
+                            <span class="text">I click menu icon </span>
+                            <span class="path">FeatureContext::iClickMenuIcon()</span>
                         </div>
                     </li>
                     <li class="skipped">
                         <div class="step">
                             <span class="keyword">Then </span>
-                            <span class="text">I should see a spinner running </span>
-                            <span class="path">FeatureContext::iShouldSeeASpinnerRunning()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">And </span>
-                            <span class="text">I should see the message of the product availability "Cool! Nos produits sont disponibles chez toi." </span>
-                            <span class="path">FeatureContext::iShouldSeeTheMessageOfTheProductAvailability()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">Then </span>
-                            <span class="text">I click checkout button </span>
-                            <span class="path">FeatureContext::iClickCheckoutButton()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">And </span>
-                            <span class="text">I should be redirected to "https://jerry-preprod.wingo.ch/checkouts?l=fr" </span>
-                            <span class="path">FeatureContext::iShouldBeRedirectedTo()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">When </span>
-                            <span class="text">I check the "TV" checkbox of the "IPTV" </span>
-                            <span class="path">FeatureContext::iTickTheCheckbox()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">And </span>
-                            <span class="text">I press "Suivant" </span>
-                            <span class="path">FeatureContext::pressButton()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">Then </span>
-                            <span class="text">I should be switched to the next step "Tes coordonnées" </span>
-                            <span class="path">FeatureContext::iShouldBeSwitchedToTheNextStep()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">And </span>
-                            <span class="text">I fill in the content form with random credentials </span>
-                            <span class="path">FeatureContext::iFillInTheContentFormWith()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">And </span>
-                            <span class="text">I press "Suivant" </span>
-                            <span class="path">FeatureContext::pressButton()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">Then </span>
-                            <span class="text">I should be switched to the next step "Ta commande" </span>
-                            <span class="path">FeatureContext::iShouldBeSwitchedToTheNextStep()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">And </span>
-                            <span class="text">I check radio button with "Je n’ai pas de numéro OTO" </span>
-                            <span class="path">FeatureContext::iCheckRadioButtonWith()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">Then </span>
-                            <span class="text">I check "Accepter les conditions contractuelles" checkbox </span>
-                            <span class="path">FeatureContext::iTickTheCheckbox()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">When </span>
-                            <span class="text">I press "Passer la commande" </span>
-                            <span class="path">FeatureContext::pressButton()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">Then </span>
-                            <span class="text">I should be redirected to "https://jerry-preprod.wingo.ch/checkouts?l=fr&done=true" </span>
-                            <span class="path">FeatureContext::iShouldBeRedirectedTo()</span>
-                        </div>
-                    </li>
-                    <li class="skipped">
-                        <div class="step">
-                            <span class="keyword">And </span>
-                            <span class="text">I should see "Merci pour ton achat" </span>
+                            <span class="text">I should see "Home" </span>
                             <span class="path">FeatureContext::assertPageContainsText()</span>
                         </div>
                     </li>
+                    <li class="skipped">
+                        <div class="step">
+                            <span class="keyword">When </span>
+                            <span class="text">I click "Fix" link </span>
+                            <span class="path">FeatureContext::iClickLink()</span>
+                        </div>
+                    </li>
+                    <li class="skipped">
+                        <div class="step">
+                            <span class="keyword">And </span>
+                            <span class="text">I should be redirected to "/telephonie-fixe" </span>
+                            <span class="path">FeatureContext::iShouldBeRedirectedTo()</span>
+                        </div>
+                    </li>
+                    <li class="skipped">
+                        <div class="step">
+                            <span class="keyword">Then </span>
+                            <span class="text">I should see eligibility form container </span>
+                            <span class="path">FeatureContext::iShouldSeeEligibilityFormContainer()</span>
+                        </div>
+                    </li>
+                </ol>
+            </div>
             <div class="featureResult failed">Feature has failed
                 <span>Scenarios passed : 0%, 
                 Scenarios failed : 100%</span>
@@ -550,7 +474,7 @@ Session ID: fb84b821-f213-432b-a262-4009cd8aad0e</pre>
             <div class="canvas-holder">
                 <canvas id="chart-steps" width="300" height="300"/>
             </div>
-            1 steps failed of 3
+            1 steps failed of 2
         </div>
     </div>
     <hr>
@@ -569,7 +493,7 @@ Session ID: fb84b821-f213-432b-a262-4009cd8aad0e</pre>
                                                     <div class="col-sm-4 feature" data-id="feature-1">
                                 <div class="card failed">
                                     <div class="header">
-                                        <h2>Feature: Check eligibility</h2>
+                                        <h2>Feature: Homepage Content</h2>
                                     </div>
                                     <div class="info">
                                         <p></p>
@@ -601,7 +525,7 @@ Session ID: fb84b821-f213-432b-a262-4009cd8aad0e</pre>
                     <div class="col-sm-4">
                         <div class="card failed">
                             <div class="header">
-                                <h2>Feature: Check eligibility</h2>
+                                <h2>Feature: Homepage Content</h2>
                             </div>
                             <div class="info">
                                 <p></p>
@@ -631,12 +555,12 @@ Session ID: fb84b821-f213-432b-a262-4009cd8aad0e</pre>
                                            href="#scenario-1-1"
                                            aria-expanded="true"
                                            aria-controls="scenario-1-1">
-                                            Scenario: Check eligibility
+                                            Scenario: Check homepage content
                                         </a>
 
                                         <div class="tags pull-right">
                                                                                             <span class="badge">javascript</span>
-                                                                                            <span class="badge">eligibility</span>
+                                                                                            <span class="badge">home</span>
                                                                                     </div>
                                     </h4>
                                 </div>
@@ -645,72 +569,28 @@ Session ID: fb84b821-f213-432b-a262-4009cd8aad0e</pre>
                                      aria-labelledby="headingOne">
                                     <ul class="list-group">
                                                                                     <li class="list-group-item alert alert-success">
-                                                <b>Given</b> the browser is set to size
-                                                                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-success">
-                                                <b>Then</b> I am on &quot;/&quot;
+                                                <b>When</b> I am on &quot;/&quot;
                                                                                                                                                                                                                                                                                                                                                 </li>
                                                                                                                                                                                                                         <li class="list-group-item alert alert-danger">
-                                                <b>And</b> I fill in the eligibility form with
-                                                                                                                                                            <p style="padding-left:0.5em; overflow-x:scroll; white-space:nowrap; font-family:monospace">| NPA         | Street        | Number |<br />
-| 1205 Genève | rue des Bains | 35     |</p>
-                                                                                                                                                                                                        <br>
-                                                    <p style="padding-left:2em ; color:gray">(Error: Permission denied to access property &quot;navigator&quot;
-Build info: version: &#039;3.0.1&#039;, revision: &#039;1969d75&#039;, time: &#039;2016-10-18 09:48:19 -0700&#039;
-System info: host: &#039;dell&#039;, ip: &#039;127.0.0.1&#039;, os.name: &#039;Linux&#039;, os.arch: &#039;amd64&#039;, os.version: &#039;3.13.0-98-generic&#039;, java.version: &#039;1.8.0_101&#039;
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities [{rotatable=false, raisesAccessibilityExceptions=false, firefoxOptions={args=[], profile=UEsDBBQACAgIAECKVEkAAAAAAAAAAAAAAAAHAAAAdXNlci5qc51WTW/bMAy971cMOW3AKqTretlOXdcBA4Z1aFDsKMgSbauRJU0fcfPvR/mjSRNHbndKbJMS+fj4yOjBUeugfLconGnxiXhWQvdf6oo0TLXMAQHNCgVi8eFtyZSH91/exJ2nYAFtrHEhudTAVKj7Z4JGG8ln/DWE1rg1qUOwxNbS19uz9Nky788U6CrU6Pjx8vK52xiwAybwR0AAHkB8l86HK4yFK0C34OJhuKbBvB4pr51pgHrupA3URU2DbJLLxXL6osAKTxAOfauvlfEwnc1oLUyrlWEC79KsSsDWpv1Tg14hWgmpaXeLQdng02W0MYKpGexhE4xRnoBzxnGjvVH7cB+n72WljUbUGmgKcKvu0edz8eC9RKtgkAsOfETcSgyUcsd8nfdVUq+JsaApPAZwmqlUzFczqExlvYt6+rIWCuHkBp8Z54DljBoz90gHysEFP4nEU6Wkt4ptQdycL1e/DDInlfbTtDG+Erf6j9RYX3++JBIvMvd3P9FjwQoTw+dCMb1eHHOuT4gypeiDRzBSnLKH/ji2RysRbrQlbS0DKOkDHvA3SneKCYkGaxnI0E0j6zC5xIUsAIphYbAB8lTzibfRkhq7xuLZtAXFUwdFl0q6OEg5VVt3rCHRYoGBaIS23N6jyat1JNrUSjfZ8IBHJ8MWmaIA/xEfnOSBGicrqak1SvJtnqoaWmw7MuSTqeazQPuTSXq5ikUju1b53b286sj4Mt2cPCab8VN3DoVJRUHLE+q160NMs+34e9yIpizRDs6YtZ4g+0xLiy0VULKowrScjLBzbwf+TEd7zIcs20Y6I/dRqYLbkl4ZO/uPc7bZo0dEbu5/XpELwnZFOk7vgW1YPyGyonpYirFH8jw6jtvBQzfEspf0NE3H5/PcQ5zFYL71SrDiSIIkOufLUxran0o1C/hIYQM6zAyIvdF4ixSbjadQhq87UXtRpTwwx+uBN3NjtyE9u4mIjc1WDVn+Ii4+I4xBhJwU04p6JEKH6nMxvfr0an02th/SKMQZyAfbE9Iy7Djzy83e5PTdXN9NTpSg2Gl1FrlErekg9nrH9KOu24F+6Ot+TTm5nQ0zi3ZqJRBGXdGk/zMkqQHHJa+Br7/1gvW1//L6cUaYEDJFzGYmweTS/L/LsjJVlV4OW1xW+/d6qcv4GrUR27WQKrFPy6oO6sS023Mdb/wfaaNjI5AG98KOiIu0Szo4wGi3yqTVE4mNC+TMLrPre1X6aPsVYLdl/ANQSwcIy87bUaYDAAC2DAAAUEsBAhQAFAAICAgAQIpUScvO21GmAwAAtgwAAAcAAAAAAAAAAAAAAAAAAAAAAHVzZXIuanNQSwUGAAAAAAEAAQA1AAAA2wMAAAAA}, ignoreZoomSetting=false, appBuildId=20160502172042, version=46.0.1, platform=LINUX, tags=[dell, PHP 5.5.9-1ubuntu4.20], proxy={}, specificationLevel=1, acceptSslCerts=false, browser=firefox, browserVersion=46.0.1, platformVersion=3.13.0-98-generic, name=Behat feature suite, XULappId={ec8030f7-c20a-464f-9b0e-13a3a9e97384}, browserName=Firefox, takesScreenshot=true, takesElementScreenshot=true, platformName=Linux, device=desktop}]
-Session ID: fb84b821-f213-432b-a262-4009cd8aad0e)</p>
+                                                <b>Then</b> I should see &quot;Wingo Internet&quot;
+                                                                                                                                                                                                                                                        <br>
+                                                    <p style="padding-left:2em ; color:gray">(Element not found with xpath, //html
+)</p>
                                                                                                                                                                                             </li>
                                                                                                                                                                                                                         <li class="list-group-item alert alert-info">
-                                                <b>When</b> I click the verification button
+                                                <b>When</b> I click menu icon
                                                                                                                                                                                                                                                                                                                                                 </li>
                                                                                                                                                                                                                         <li class="list-group-item alert alert-info">
-                                                <b>Then</b> I should see a spinner running
+                                                <b>Then</b> I should see &quot;Home&quot;
                                                                                                                                                                                                                                                                                                                                                 </li>
                                                                                                                                                                                                                         <li class="list-group-item alert alert-info">
-                                                <b>And</b> I should see the message of the product availability &quot;Cool! Nos produits sont disponibles chez toi.&quot;
+                                                <b>When</b> I click &quot;Fix&quot; link
                                                                                                                                                                                                                                                                                                                                                 </li>
                                                                                                                                                                                                                         <li class="list-group-item alert alert-info">
-                                                <b>Then</b> I click checkout button
+                                                <b>And</b> I should be redirected to &quot;/telephonie-fixe&quot;
                                                                                                                                                                                                                                                                                                                                                 </li>
                                                                                                                                                                                                                         <li class="list-group-item alert alert-info">
-                                                <b>And</b> I should be redirected to &quot;https://jerry-preprod.wingo.ch/checkouts?l=fr&quot;
-                                                                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-info">
-                                                <b>When</b> I check the &quot;TV&quot; checkbox of the &quot;IPTV&quot;
-                                                                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-info">
-                                                <b>And</b> I press &quot;Suivant&quot;
-                                                                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-info">
-                                                <b>Then</b> I should be switched to the next step &quot;Tes coordonnées&quot;
-                                                                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-info">
-                                                <b>And</b> I fill in the content form with random credentials
-                                                                                                                                                            <p style="padding-left:0.5em; overflow-x:scroll; white-space:nowrap; font-family:monospace">| Title    | Field                          |<br />
-| Monsieur | checkout_service_address_title |</p>
-                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-info">
-                                                <b>And</b> I press &quot;Suivant&quot;
-                                                                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-info">
-                                                <b>Then</b> I should be switched to the next step &quot;Ta commande&quot;
-                                                                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-info">
-                                                <b>And</b> I check radio button with &quot;Je n’ai pas de numéro OTO&quot;
-                                                                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-info">
-                                                <b>Then</b> I check &quot;Accepter les conditions contractuelles&quot; checkbox
-                                                                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-info">
-                                                <b>When</b> I press &quot;Passer la commande&quot;
-                                                                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-info">
-                                                <b>Then</b> I should be redirected to &quot;https://jerry-preprod.wingo.ch/checkouts?l=fr&amp;done=true&quot;
-                                                                                                                                                                                                                                                                                                                                                </li>
-                                                                                                                                                                                                                        <li class="list-group-item alert alert-info">
-                                                <b>And</b> I should see &quot;Merci pour ton achat&quot;
+                                                <b>Then</b> I should see eligibility form container
                                                                                                                                                                                                                                                                                                                                                 </li>
                                                                                                                                                                                                                 </ul>
                                 </div>
@@ -764,7 +644,7 @@ Session ID: fb84b821-f213-432b-a262-4009cd8aad0e)</p>
             label: "Failed"
         },
         {
-            value: 2,
+            value: 1,
             color: "#00a65a",
             highlight: "#5AD3D1",
             label: "Passed"
@@ -837,10 +717,10 @@ Session ID: fb84b821-f213-432b-a262-4009cd8aad0e)</p>
                     1 scenarios ( <strong class="failed">1 fail</strong> )
                 </p>
                 <p class="steps">
-                    19 steps ( <strong class="passed">2 success</strong> <strong class="skipped">16 skipped</strong> <strong class="failed">1 fail</strong> )
+                    7 steps ( <strong class="passed">1 success</strong> <strong class="skipped">5 skipped</strong> <strong class="failed">1 fail</strong> )
                 </p>
                 <p class="time">
-                0m5.86s - 16.03Mb
+                0m1.54s - 16.99Mb
                 </p>
             </div>
             <div class="switchers">
