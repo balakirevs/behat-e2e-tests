@@ -139,7 +139,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     {
         $this->spin(function (FeatureContext $context) use ($text) {
             try {
-                $context->assertPageContainsText($text);
+                $context->assertPageNotContainsText($text);
             } catch (ResponseTextException $e) {
                 return true;
             }
