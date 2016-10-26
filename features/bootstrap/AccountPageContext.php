@@ -12,9 +12,9 @@ class AccountPageContext extends PageObjectContext
     var $user = NULL;
 
     /**
-     * @When /^"([^"]*)" is on the account page$/
+     * @When /^"([^"]*)" exists in a system$/
      */
-    public function userIsOnTheAccountPage($name)
+    public function userExistsInTheSystem($name)
     {
         if (!$this->user = User::load($name)) {
             throw new Exception("Failed to load user for {$name}");
@@ -23,6 +23,7 @@ class AccountPageContext extends PageObjectContext
 
     /**
      * @Then /^user fills in the account form$/
+     * @And /^I fill in the account form$/
      */
     public function userFillsInTheAccountForm()
     {
