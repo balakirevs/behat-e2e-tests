@@ -23,7 +23,7 @@ class AccountPageContext extends PageObjectContext
 
     /**
      * @Then /^user fills in the account form$/
-     * @And /^I fill in the account form$/
+     * @Then /^I fill in the account form$/
      */
     public function userFillsInTheAccountForm()
     {
