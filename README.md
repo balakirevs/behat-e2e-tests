@@ -94,7 +94,7 @@ $ find features -iname '*.feature'|  parallel --gnu -j5 --group bin/behat -p chr
 $ ant run
 ```
 
-MOBILE (ALL PLATFORMS) TESTING
+CROSS BROWSER TESTING
 ===========================
 * www.saucelabs.com
 * www.browserstack.com
