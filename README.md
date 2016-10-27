@@ -61,6 +61,7 @@ $ bin/behat -p firefox
 $ bin/behat -p chrome
 $ bin/behat -p safari
 $ bin/behat -p chrome_mobile
+$ bin/behat --profile=preprod --tags @product        ### run with defenite profile configs ###
 ```
 
 Second test runs using Guzzle (for API), the rest using Firefox

@@ -19,5 +19,5 @@ Feature: Homepage Content
 
     Examples:
       | Colour | Url       |
-      | green  | /internet |
-      | blue   | /mobile   |
+      | green  | /mobile   |
+      | blue   | /internet |

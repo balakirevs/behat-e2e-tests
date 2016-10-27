@@ -33,7 +33,7 @@ default:
             verify: false
             ssl.certificate_authority: false
       selenium2:
-        wd_host: "http://127.0.0.1:4445/wd/hub"
+        wd_host: "http://127.0.0.1:4444/wd/hub"
         #wd_host: "http://10.5.0.42:4444/wd/hub/static/resource/hub/html"
         #wd_host: "http://0.0.0.0:4444/wd/hub"   # selenium 3 address
         capabilities: { 'browser': 'firefox', 'version': 'ANY' }
@@ -47,6 +47,13 @@ default:
         local:
           screenshot_directory: screenshots
           clear_screenshot_directory: true
+
+#====================================================================================================================#
+
+preprod:
+  extensions:
+    Behat\MinkExtension:
+      base_url: "https://wingo-preprod.wingo.ch/fr"
 
 #====================================================================================================================#
 
