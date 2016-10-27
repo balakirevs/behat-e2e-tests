@@ -2,6 +2,7 @@ Feature: Account
 
   Background:
    Given the browser is set to size
+    And A Subdomain is set to "mywingo"
 
   @javascript @account
   Scenario Outline: Sign in to user account
@@ -12,5 +13,5 @@ Feature: Account
     Then I should be redirected to "<eCareUrl>"
 
     Examples:
-      | User  | Button             | eCareUrl                               | AccountUrl                                    |
-      | gabin | Accéder à my Wingo | https://mywingo.wingo.ch/eCare/de/home | https://mywingo.wingo.ch/masquerade?locale=fr |
+      | User  | Button             | eCareUrl       | AccountUrl            |
+      | gabin | Accéder à my Wingo | /eCare/de/home | /masquerade?locale=fr |

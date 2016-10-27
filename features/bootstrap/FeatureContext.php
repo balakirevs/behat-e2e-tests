@@ -53,6 +53,16 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
+     * @Given I am on subdomain :name
+     * @When A Subdomain is set to :name
+     */
+    public function subdomainIsSetToName($name)
+    {
+        $base_url = 'https://'.$name.'.wingo.ch/';
+        $this->setMinkParameter('base_url', $base_url);
+    }
+
+    /**
      * @When I click :arg1 link
      */
     public function iClickLink($link)
