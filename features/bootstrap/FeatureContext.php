@@ -56,10 +56,28 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      * @Given I am on subdomain :name
      * @When A Subdomain is set to :name
      */
-    public function subdomainIsSetToName($name)
+    public function subdomainIsSetToName($subdomain)
     {
-        $base_url = 'https://'.$name.'.wingo.ch/';
-        $this->setMinkParameter('base_url', $base_url);
+       $base_url = $this->setDomain($subdomain, 'wingo', 'ch');
+       $this->setMinkParameter('base_url', $base_url);
+    }
+
+    /**
+     * Example: Given I go to "wingo.ch"
+     * Example: A Domain is set to domain name "wingo" and domain "ch"
+     *
+     * @Given I go to domain :domain
+     * @When A Domain is set to domain name :domainName and domain :domain
+     * @And A Domain is set to a subdomain :subdomain and domain name :domainName and domain :domain
+     */
+    public function setDomain($subdomain = null, $domainName, $domain)
+    {
+        $base_url = 'https://' . $subdomain . '.' . $domainName . '.' . $domain;
+        if (!$subdomain || $subdomain == null) {
+            $url = substr_replace($base_url, '', 8, 1);
+            $this->setMinkParameter('base_url', $url);
+        }
+        return $base_url;
     }
 
     /**
