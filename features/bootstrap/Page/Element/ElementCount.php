@@ -2,7 +2,6 @@
 namespace Page\Element;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Element;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
-use Behat\MinkExtension\Context;
 
 class ElementCount extends Element
 {

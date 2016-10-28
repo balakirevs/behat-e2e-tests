@@ -2,7 +2,6 @@
 
 require_once __DIR__.'/../../../vendor/autoload.php';
 use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 class User {

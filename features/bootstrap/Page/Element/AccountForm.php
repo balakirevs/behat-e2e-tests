@@ -3,7 +3,6 @@
 namespace Page\Element;
 require_once __DIR__.'/../../Model/User.php';
 use SensioLabs\Behat\PageObjectExtension\PageObject\Element;
-use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
 /**
  * Features context.
  */

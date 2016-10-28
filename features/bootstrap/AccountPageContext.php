@@ -1,7 +1,6 @@
 <?php
 
 use SensioLabs\Behat\PageObjectExtension\Context\PageObjectContext;
-use MinkFieldRandomizer\Context\FilterContext;
 require_once __DIR__.'/Model/User.php';
 
 class AccountPageContext extends PageObjectContext
