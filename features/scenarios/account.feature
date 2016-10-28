@@ -2,7 +2,7 @@ Feature: Account
 
   Background:
    Given the browser is set to size
-    Then A Domain is set to domain name "wingo" and domain "ch"
+    Then A Domain is set to domain name "wingo" and domain type "ch"
     And A Subdomain is set to "mywingo"
 
   @javascript @account
