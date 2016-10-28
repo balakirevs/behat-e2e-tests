@@ -5,18 +5,13 @@ namespace MinkFieldRandomizer\Context;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Mink\Exception\ElementNotFoundException;
 use MinkFieldRandomizer\Filter\FilterEngine;
-use Behat\Behat\Context\Context;
-use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Behat\Behat\Context\SnippetAcceptingContext;
-use Behat\MinkExtension\Context\MinkContext;
-use Exception;
 
 trait FilterContext
 {
 
     private $loremipsum;
 
-    private $mail;
+    private $email;
 
     private $phone;
 
@@ -39,15 +34,15 @@ trait FilterContext
         return $this->loremipsum;
     }
 
-    public function setMail($mail)
+    public function setEmail($email)
     {
-        $this->mail = $mail;
+        $this->email = $email;
         return $this;
     }
 
-    public function getMail()
+    public function getEmail()
     {
-        return $this->mail;
+        return $this->email;
     }
 
     public function setPhone($phone)
@@ -131,23 +126,23 @@ trait FilterContext
     }
 
     /**
-     * @Then Fill :field with a random mail
+     * @Then Fill :field with a random email
      * @param $field
      */
-    public function fillFieldWithRandomMail($field)
+    public function fillFieldWithRandomEmail($field)
     {
         $value = $this->filterValue('{RandomEmail}');
-        $this->setMail($value);
+        $this->setEmail($value);
         $this->fillRandomField($field, $value);
     }
 
     /**
-     * @Then Fill :field with an existent mail
+     * @Then Fill :field with an existent email
      * @param $field
      */
-    public function fillFieldWithExistentMail($field)
+    public function fillFieldWithExistentEmail($field)
     {
-        $this->fillRandomField($field, $this->getMail());
+        $this->fillRandomField($field, $this->getEmail());
     }
 
     /**
