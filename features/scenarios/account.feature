@@ -2,8 +2,7 @@ Feature: Account
 
   Background:
    Given the browser is set to size
-    Then A Domain is set to domain name "wingo" and domain type "ch"
-    And A Subdomain is set to "mywingo"
+    And A Domain is set to a subdomain "mywingo" and domain name "wingo" and domain type "ch"
 
   @javascript @account
   Scenario Outline: Sign in to user account

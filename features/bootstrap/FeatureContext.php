@@ -53,31 +53,15 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @Given I am on subdomain :name
-     * @When A Subdomain is set to :name
-     */
-    public function subdomainIsSetToName($subdomain)
-    {
-       $base_url = $this->setDomain($subdomain, 'wingo', 'ch');
-       $this->setMinkParameter('base_url', $base_url);
-    }
-
-    /**
-     * Example: Given I go to "wingo.ch"
      * Example: A Domain is set to domain name "wingo" and domain "ch"
      *
-     * @Given I go to domain :domain
+     * @Given A Domain is set to a subdomain :subdomain and domain name :domainName and domain type :domainType
      * @When A Domain is set to domain name :domainName and domain type :domainType
-     * @And A Domain is set to a subdomain :subdomain and domain name :domainName and domain type :domainType
      */
-    public function setDomain($subdomain = null, $domainName, $domainType)
+    public function navigateToUrl($subdomain = null, $domainName, $domainType)
     {
-        $base_url = 'https://' . $subdomain . '.' . $domainName . '.' . $domainType;
-        if (!$subdomain || $subdomain == null) {
-            $url = substr_replace($base_url, '', 8, 1);
-            $this->setMinkParameter('base_url', $url);
-        }
-        return $base_url;
+        $base_url = $this->setUpUrl($subdomain, $domainName, $domainType);
+        $this->setMinkParameter('base_url', $base_url);
     }
 
     /**
@@ -304,5 +288,45 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
             /** @var $context */
             return !is_null($context->find('css', $cssSelector));
         });
+    }
+
+    public function getProtocol()
+    {
+        $protocol = ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) ? "https://" : "http://");
+        return $protocol;
+    }
+
+    public function setSubDomain($subDomain)
+    {
+        $this->subDomain = $subDomain;
+        return $this;
+    }
+
+    public function setDomainName($domainName)
+    {
+        $this->domainName = $domainName;
+        return $domainName;
+    }
+
+    public function setDomainType($domainType)
+    {
+        $this->domainType = $domainType;
+        return $this;
+    }
+
+    public function setUpUrl($subDomain = null, $domainName, $domainType)
+    {
+        $protocol = $this->getProtocol();
+        $this->setDomainName($domainName);
+        $this->setDomainType($domainType);
+        $base_url = $protocol . $subDomain . '.' . $domainName . '.' . $domainType;
+        if (!$subDomain || $subDomain == null) {
+            $pos = strpos($base_url, '.');
+            if ($pos !== false) {
+                $url = substr_replace($base_url, '', $pos, strlen('.'));
+                return $url;
+            }
+        }
+        return $base_url;
     }
 }
