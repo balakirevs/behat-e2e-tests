@@ -55,12 +55,12 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     /**
      * Example: A Domain is set to domain name "wingo" and domain "ch"
      *
-     * @Given A Domain is set to a subdomain :subdomain and domain name :domainName and domain type :domainType
+     * @Given A Domain is set to a subDomain :subDomain and domain name :domainName and domain type :domainType
      * @When A Domain is set to domain name :domainName and domain type :domainType
      */
-    public function navigateToUrl($subdomain = null, $domainName, $domainType)
+    public function navigateToUrl($subDomain = null, $domainName, $domainType)
     {
-        $base_url = $this->setUpUrl($subdomain, $domainName, $domainType);
+        $base_url = $this->setUpUrl($subDomain, $domainName, $domainType);
         $this->setMinkParameter('base_url', $base_url);
     }
 
