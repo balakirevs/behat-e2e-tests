@@ -73,13 +73,6 @@ firefox:
     html:
       output_path: %paths.base%/report/firefox
   extensions:
-    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
-      name: html
-      renderer: Twig,Behat2
-      file_name: index
-      print_args: true
-      print_outp: true
-      loop_break: true
     Behat\MinkExtension:
       browser_name: firefox
 
@@ -90,7 +83,7 @@ safari:
     html:
       output_path: %paths.base%/report/safari
   extensions:
-    Behat\MinkExtension\Extension:
+    Behat\MinkExtension:
       browser_name: safari
 
 #====================================================================================================================#
@@ -143,7 +136,7 @@ sauce:
   context:
     class:  'FeatureContext'
   extensions:
-    Behat\MinkExtension\Extension:
+    Behat\MinkExtension:
       selenium2:
         browser: iexplore
         wd_host: username:apikey@ondemand.saucelabs.com/wd/hub
@@ -155,7 +148,7 @@ sauce-rc:
   context:
     class:  'FeatureContext'
   extensions:
-    Behat\MinkExtension\Extension:
+    Behat\MinkExtension:
       base_url:  'https://wingo-preprod.wingo.ch/fr'
       javascript_session: selenium2
       selenium:
