@@ -80,7 +80,7 @@ $ phantomjs --webdriver=4445 --ignore-ssl-errors=true
 ```
 
 ```
-$ bin/behat -p phantomjs
+$ bin/behat -p phantomjs --tags @home --format pretty --format progress
 ```
 
 PERFORMANCE/PARALLEL TESTING

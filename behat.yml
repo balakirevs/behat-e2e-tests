@@ -62,13 +62,6 @@ chrome:
     html:
       output_path: %paths.base%/report/chrome
   extensions:
-    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
-      name: html
-      renderer: Twig,Behat2
-      file_name: index
-      print_args: true
-      print_outp: true
-      loop_break: true
     Behat\MinkExtension:
       browser_name: chrome
       #wd_host: "http://127.0.0.1:4444/wd/hub"
@@ -89,7 +82,6 @@ firefox:
       loop_break: true
     Behat\MinkExtension:
       browser_name: firefox
-      #wd_host: "http://127.0.0.1:4444/wd/hub"
 
 #====================================================================================================================#
 
@@ -98,16 +90,8 @@ safari:
     html:
       output_path: %paths.base%/report/safari
   extensions:
-    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
-      name: html
-      renderer: Twig,Behat2
-      file_name: index
-      print_args: true
-      print_outp: true
-      loop_break: true
     Behat\MinkExtension\Extension:
       browser_name: safari
-       #wd_host: "http://127.0.0.1:4444/wd/hub"
 
 #====================================================================================================================#
 
@@ -116,13 +100,6 @@ chrome_mobile:
     html:
       output_path: %paths.base%/report/chrome_mobile
   extensions:
-    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
-      name: html
-      renderer: Twig,Behat2
-      file_name: index
-      print_args: true
-      print_outp: true
-      loop_break: true
     Behat\MinkExtension:
       browser_name: chrome
       selenium2:
@@ -140,7 +117,6 @@ chrome_mobile:
                             # "Apple iPhone 5"
                             # "Apple iPhone 6"
                             "Apple iPhone 6 Plus"
-        #wd_host: "http://127.0.0.1:4444/wd/hub"
 
 #====================================================================================================================#
 
@@ -149,13 +125,6 @@ phantomjs:
     html:
       output_path: %paths.base%/report/phantomjs
   extensions:
-    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
-      name: html
-      renderer: Twig,Behat2
-      file_name: index
-      print_args: true
-      print_outp: true
-      loop_break: true
     Behat\MinkExtension:
       base_url: "https://www.wingo.ch/fr"     #"https://wingo-preprod.wingo.ch/fr"
       browser_name: phantomjs
