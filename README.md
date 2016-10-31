@@ -12,19 +12,19 @@ SETUP
 
 From Project repo root folder run following commands:
 
-```
+```bash
 $ curl http://getcomposer.org/installer | php
 $ php composer.phar install
 $ npm install -g phantomjs (or brew install phantomjs or sudo apt-get install phantomjs)
 $ wget http://selenium-release.storage.googleapis.com/2.53.1/selenium-server-standalone-2.53.1.jar
 ```
-```
+```bash
 $ sudo apt-get install php5-imagick      # neccessary for the screenshots
 $ sudo php5enmod imagick
-$ sudo apt-get install ant                         # to run tests in parallel
+$ sudo apt-get install ant               # to run tests in parallel
 ```
 
-```
+```bash
 $ cd project-name
 $ composer install
 ```
@@ -42,27 +42,27 @@ RUNNING SELENIUM BROWSER TESTS
 
 Before running behat to test the feature files in features directory, ensure the following commands are executed :-
 
-```
+```bash
 $ java -jar selenium-server-standalone-[version].jar
 ```
 
 Command to execute with selenium 3 and geckodriver:
 
-```
+```bash
 $ java -jar -Dwebdriver.gecko.driver=/path/to/geckodriver selenium-server-standalone-3.0.1.jar
 ```
 
 
 To run tests (open another terminal window):
 
-```
+```bash
 $ bin/behat 
-$ bin/behat --tags @home --format pretty --format progress        ### with the console logs output ###
+$ bin/behat --tags @home --format pretty --format progress        # with the console logs output ###
 $ bin/behat -p firefox
 $ bin/behat -p chrome
 $ bin/behat -p safari
 $ bin/behat -p chrome_mobile
-$ bin/behat --profile=preprod --tags @product                               ### run with defenite profile configs ###
+$ bin/behat --profile=preprod --tags @product                     # run with defenite profile configs ###
 ```
 
 Second test runs using Guzzle (for API), the rest using Firefox
@@ -70,34 +70,34 @@ Second test runs using Guzzle (for API), the rest using Firefox
 RUNNING PHANTOMJS TESTS (HEADLESSLY)
 ====================================
 
-```
+```bash
 $ phantomjs --webdriver=4445
 ```
 
 ###### If the tests are run against https base url and running a self-signed certificate, start server with an additional --ignore-ssl-errors=true flag:
 
-```
+```bash
 $ phantomjs --webdriver=4445 --ignore-ssl-errors=true
 ```
 
-```
+```bash
 $ bin/behat -p phantomjs --tags @home --format pretty --format progress
 ```
 
 PERFORMANCE/PARALLEL TESTING
 ============================
 
-```
+```bash
 $ apt-get install parallel
 $ apt-get install xvfb
 $ java -jar selenium-server-standalone-2.53.1.jar --role hub
 $ find features -iname '*.feature'|  parallel --gnu -j5 --group bin/behat -p chrome --tags @home --colors
 ```
 
-```
-$ ant run                                ### run in parallel all targets
-$ ant phantomjs                   ### run in parallel one target
-$ ant chrome firefox           ### run in parallel several targets
+```bash
+$ ant run                         # run in parallel all targets
+$ ant phantomjs                   # run in parallel one target
+$ ant chrome firefox              # run in parallel several targets
 ```
 
 CROSS BROWSER TESTING
