@@ -22,15 +22,9 @@ class HomePageContext extends PageObjectContext
      */
     public function iFillInTheEligibilityFormWith(TableNode $table)
     {
-        $browser = $this->getPage('Browser')->getBrowserName();
         $homePage = $this->getPage('HomePage');
-        if ($browser == 'Firefox') {
-            $homePage->fillInAutocompleteForm($table, 'eligibilityPostCode', '#ui-id-1', 'NPA');
-            $homePage->fillInAutocompleteForm($table, 'eligibilityStreetName', '#ui-id-2', 'Street');
-        } else {
-            $homePage->fillInAutocompleteForm($table, 'eligibilityPostCode', '#ui-id-5', 'NPA');
-            $homePage->fillInAutocompleteForm($table, 'eligibilityStreetName', '#ui-id-6', 'Street');
-        }
+        $homePage->fillInAutocompleteForm($table, 'eligibilityPostCode', '.ui-menu-item', 'NPA');
+        $homePage->fillInAutocompleteForm($table, 'eligibilityStreetName', '.ui-menu-item', 'Street');
         $homePage->fillInAutocompleteForm($table, 'eligibilityStreetNumber', '.ui-menu-item-wrapper', 'Number');
     }
 
