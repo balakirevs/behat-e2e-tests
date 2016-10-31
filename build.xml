@@ -11,35 +11,35 @@
             <antcall target="phantomjs"></antcall>
             <antcall target="preprod"></antcall>
         </parallel>
-        </target>
-        <target name="chrome">
-            <exec dir="${basedir}" executable="php" failonerror="true">
-                <arg line= "bin/behat -f html --out report/parallel/chrome -f progress --out std -p chrome"/>
-            </exec>
-        </target>
-        <target name="chrome_mobile">
-            <exec dir="${basedir}" executable="php" failonerror="true">
-                <arg line= "bin/behat -f html --out report/parallel/chrome_mobile -f progress --out std -p chrome_mobile"/>
-            </exec>
-        </target>
-        <target name="firefox">
-            <exec dir="${basedir}" executable="php" failonerror="true">
-                <arg line= "bin/behat -f html --out report/parallel/firefox -f progress --out std -p firefox"/>
-            </exec>
-        </target>
-        <target name="safari">
-            <exec dir="${basedir}" executable="php" failonerror="true">
-                <arg line= "bin/behat -f html --out report/parallel/safari -f progress --out std -p safari"/>
-            </exec>
-        </target>
-        <target name="phantomjs">
-            <exec dir="${basedir}" executable="php" failonerror="true">
-                <arg line= "bin/behat -f html --out report/parallel/phantomjs -f progress --out std -p phantomjs"/>
-            </exec>
-        </target>
-        <target name="preprod">
-            <exec dir="${basedir}" executable="php" failonerror="true">
-                <arg line= "bin/behat --profile=preprod --tags @product -f html --out report/parallel/firefox -f progress --out std -p firefox"/>
-            </exec>
-        </target>
-    </project>
+    </target>
+    <target name="chrome">
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/chrome -f progress --out std -p chrome"/>
+        </exec>
+    </target>
+    <target name="chrome_mobile">
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/chrome_mobile -f progress --out std -p chrome_mobile"/>
+        </exec>
+    </target>
+    <target name="firefox">
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/firefox -f progress --out std -p firefox"/>
+        </exec>
+    </target>
+    <target name="safari">
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/safari -f progress --out std -p safari"/>
+        </exec>
+    </target>
+    <target name="phantomjs">
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/phantomjs -f progress --out std -p phantomjs"/>
+        </exec>
+    </target>
+    <target name="preprod">
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat --profile=preprod --tags @product -f html --out report/parallel/firefox -f progress --out std -p firefox"/>
+        </exec>
+    </target>
+</project>
