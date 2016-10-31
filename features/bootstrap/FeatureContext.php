@@ -329,4 +329,27 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         }
         return $base_url;
     }
+
+    /**
+     * Attaches file to field with specified id|name|label|value
+     * Example: When I attach "bwayne_profile.png" to "profileImageUpload"
+     * Example: And I attach "bwayne_profile.png" to "profileImageUpload"
+     *
+     * @When /^(?:|I )attach the file "(?P<path>[^"]*)" to "(?P<field>(?:[^"]|\\")*)"$/
+     */
+    public function attachFileToTheField($field, $path)
+    {
+        $field = $this->fixStepArgument($field);
+
+        if ($this->getMinkParameter('files_path')) {
+            $fullPath = rtrim(realpath($this->getMinkParameter('files_path')), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.$path;
+            if (is_file($fullPath)) {
+                $path = $fullPath;
+            }
+        }
+        $js = "$('#$field').css('display', 'block')";
+        $this->getSession()->executeScript($js);
+
+        $this->getSession()->getPage()->attachFileToField($field, $path);
+    }
 }
