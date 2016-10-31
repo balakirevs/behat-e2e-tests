@@ -91,7 +91,9 @@ $ apt-get install parallel
 $ apt-get install xvfb
 $ java -jar selenium-server-standalone-2.53.1.jar --role hub
 $ find features -iname '*.feature'|  parallel --gnu -j5 --group bin/behat -p chrome --tags @home --colors
-$ ant run
+$ ant run                  ### run in parallel all targets
+$ ant phantomjs            ### run in parallel one target
+$ ant chrome firefox       ### run in parallel several targets
 ```
 
 CROSS BROWSER TESTING
