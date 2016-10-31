@@ -1,4 +1,7 @@
 default:
+  gherkin:
+    filters:
+      tags: "~@product"    # exclude scenario by tag
   suites:
     default:
       contexts:
