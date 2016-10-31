@@ -21,6 +21,7 @@ $ wget http://selenium-release.storage.googleapis.com/2.53.1/selenium-server-sta
 ```
 $ sudo apt-get install php5-imagick      # neccessary for the screenshots
 $ sudo php5enmod imagick
+$ sudo apt-get install ant                         # to run tests in parallel
 ```
 
 ```
@@ -30,10 +31,10 @@ $ composer install
 
 BROWSERS
 ==============
-* FIREFOX (46.0.1)
-  > NOTE: for the latest firefox version install the latest selenium 3.x.x version with the geckodriver
-* Chrome (latest)
-* Safari (latest)
+- FIREFOX (46.0.1)
+  - __NOTE:__ for the latest firefox version install the latest selenium 3.x.x version with the geckodriver
+- Chrome (latest)
+- Safari (latest)
 
 
 RUNNING SELENIUM BROWSER TESTS
@@ -61,7 +62,7 @@ $ bin/behat -p firefox
 $ bin/behat -p chrome
 $ bin/behat -p safari
 $ bin/behat -p chrome_mobile
-$ bin/behat --profile=preprod --tags @product        ### run with defenite profile configs ###
+$ bin/behat --profile=preprod --tags @product                               ### run with defenite profile configs ###
 ```
 
 Second test runs using Guzzle (for API), the rest using Firefox
@@ -91,9 +92,12 @@ $ apt-get install parallel
 $ apt-get install xvfb
 $ java -jar selenium-server-standalone-2.53.1.jar --role hub
 $ find features -iname '*.feature'|  parallel --gnu -j5 --group bin/behat -p chrome --tags @home --colors
-$ ant run                  ### run in parallel all targets
-$ ant phantomjs            ### run in parallel one target
-$ ant chrome firefox       ### run in parallel several targets
+```
+
+```
+$ ant run                                ### run in parallel all targets
+$ ant phantomjs                   ### run in parallel one target
+$ ant chrome firefox           ### run in parallel several targets
 ```
 
 CROSS BROWSER TESTING
