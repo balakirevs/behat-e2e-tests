@@ -53,18 +53,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * Example: A Domain is set to domain name "wingo" and domain "ch"
-     *
-     * @Given A Domain is set to a subDomain :subDomain and domain name :domainName and domain type :domainType
-     * @When A Domain is set to domain name :domainName and domain type :domainType
-     */
-    public function navigateToUrl($subDomain = null, $domainName, $domainType)
-    {
-        $base_url = $this->setUpUrl($subDomain, $domainName, $domainType);
-        $this->setMinkParameter('base_url', $base_url);
-    }
-
-    /**
      * @When I click :arg1 link
      */
     public function iClickLink($link)
@@ -288,68 +276,5 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
             /** @var $context */
             return !is_null($context->find('css', $cssSelector));
         });
-    }
-
-    public function getProtocol()
-    {
-        $protocol = ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) ? "https://" : "http://");
-        return $protocol;
-    }
-
-    public function setSubDomain($subDomain)
-    {
-        $this->subDomain = $subDomain;
-        return $this;
-    }
-
-    public function setDomainName($domainName)
-    {
-        $this->domainName = $domainName;
-        return $domainName;
-    }
-
-    public function setDomainType($domainType)
-    {
-        $this->domainType = $domainType;
-        return $this;
-    }
-
-    public function setUpUrl($subDomain = null, $domainName, $domainType)
-    {
-        $protocol = $this->getProtocol();
-        $this->setDomainName($domainName);
-        $this->setDomainType($domainType);
-        $base_url = $protocol . $subDomain . '.' . $domainName . '.' . $domainType;
-        if (!$subDomain || $subDomain == null) {
-            $pos = strpos($base_url, '.');
-            if ($pos !== false) {
-                $url = substr_replace($base_url, '', $pos, strlen('.'));
-                return $url;
-            }
-        }
-        return $base_url;
-    }
-
-    /**
-     * Attaches file to field with specified id|name|label|value
-     * Example: When I attach "bwayne_profile.png" to "profileImageUpload"
-     * Example: And I attach "bwayne_profile.png" to "profileImageUpload"
-     *
-     * @When /^(?:|I )attach the file "(?P<path>[^"]*)" to "(?P<field>(?:[^"]|\\")*)"$/
-     */
-    public function attachFileToTheField($field, $path)
-    {
-        $field = $this->fixStepArgument($field);
-
-        if ($this->getMinkParameter('files_path')) {
-            $fullPath = rtrim(realpath($this->getMinkParameter('files_path')), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.$path;
-            if (is_file($fullPath)) {
-                $path = $fullPath;
-            }
-        }
-        $js = "$('#$field').css('display', 'block')";
-        $this->getSession()->executeScript($js);
-
-        $this->getSession()->getPage()->attachFileToField($field, $path);
     }
 }
