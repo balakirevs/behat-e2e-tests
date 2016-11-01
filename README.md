@@ -15,7 +15,7 @@ From Project repo root folder run following commands:
 ```bash
 $ curl http://getcomposer.org/installer | php
 $ php composer.phar install
-$ npm install -g phantomjs (or brew install phantomjs or sudo apt-get install phantomjs)
+$ npm install -g phantomjs   # (brew install phantomjs or sudo apt-get install phantomjs)
 $ wget http://selenium-release.storage.googleapis.com/2.53.1/selenium-server-standalone-2.53.1.jar
 ```
 ```bash
