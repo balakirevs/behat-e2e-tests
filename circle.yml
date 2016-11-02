@@ -1,8 +1,6 @@
 machine:
-  pre:
-    - sudo apt-get install php5-imap || true
   php:
-    version: 5.5.9
+    version: 7.0.4
 
 test:
   pre:
