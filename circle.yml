@@ -9,7 +9,7 @@ dependencies:
 
 test:
   pre:
-    - phantomjs --version
+    - phantomjs --version > /dev/null &
     - phantomjs --webdriver=4445:
         background: true
   override:
