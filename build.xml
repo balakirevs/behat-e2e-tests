@@ -10,6 +10,7 @@
             <antcall target="safari"></antcall>
             <antcall target="phantomjs"></antcall>
             <antcall target="preprod"></antcall>
+            <antcall target="preprod-phantomjs"></antcall>
         </parallel>
     </target>
     <target name="chrome">
@@ -39,7 +40,12 @@
     </target>
     <target name="preprod">
         <exec dir="${basedir}" executable="php" failonerror="true">
-            <arg line= "bin/behat --profile=preprod --tags @product -f html --out report/parallel/firefox -f progress --out std -p firefox"/>
+            <arg line= "bin/behat -p preprod --tags @product -f html --out report/parallel/firefox -f progress --out std -p firefox"/>
+        </exec>
+    </target>
+    <target name="preprod-phantomjs">
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -p preprod-phantomjs --tags @product -f html --out report/parallel/preprod-phantomjs -f progress --out std -p preprod-phantomjs"/>
         </exec>
     </target>
 </project>
