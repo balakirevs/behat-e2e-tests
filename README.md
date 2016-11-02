@@ -1,4 +1,6 @@
-# E2E automation tests
+# E2E automation tests and integrate with both CircleCI and TravisCI
+
+[![Build Status](https://travis-ci.org/balakirevs/behat-e2e-tests.svg?branch=master)](https://travis-ci.org/balakirevs/behat-e2e-tests) [![Circle CI](https://circleci.com/gh/balakirevs/behat-e2e-tests.svg?style=shield)](https://circleci.com/gh/balakirevs/behat-e2e-tests)
 
 Key components:
 ===============
