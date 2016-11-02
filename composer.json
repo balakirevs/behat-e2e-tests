@@ -18,7 +18,8 @@
     "behat/mink-goutte-driver": "@stable",
     "emuse/behat-html-formatter": "0.1.*",
     "sensiolabs/behat-page-object-extension": "*",
-    "bex/behat-screenshot": "1.2.*"
+    "bex/behat-screenshot": "1.2.*",
+    "beberlei/assert": "2.6.*"
   },
   "config": {
     "bin-dir": "bin/"
