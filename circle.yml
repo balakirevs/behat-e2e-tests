@@ -1,8 +1,8 @@
 machine:
-  pre:
-  - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
   php:
     version: 7.0.4
+   phantomjs:
+    version: 2.1.1
 
 test:
   pre:
