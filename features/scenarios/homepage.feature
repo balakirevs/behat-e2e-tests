@@ -13,7 +13,7 @@ Feature: Homepage Content
   @javascript @product
   Scenario Outline: Check homepage products content
     When I am on "/"
-    And I should see "Ton opérateur sans embrouille"
+    And I should see "NO BULLSHIT"
     Then I click button of a "<Colour>" product
     And I should be redirected to "<Url>"
 
