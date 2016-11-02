@@ -5,7 +5,7 @@ dependencies:
   cache_directories:
     - /home/ubuntu/.phantomjs/2.1.1/x86_64-linux/bin
   pre:
-    - bash ./bin/install-phantomjs-2.1.1.sh
+    - sh install-phantomjs-2.1.1.sh
 
 test:
   pre:
