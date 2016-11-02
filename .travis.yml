@@ -1,0 +1,11 @@
+language: php
+php:
+  - '7.0'
+
+before_script:
+  - composer install
+  - "phantomjs --webdriver=4445 --ignore-ssl-errors=true > /dev/null &"
+
+script:
+  - bin/behat -p phantomjs -f pretty -f progress
+  - bin/behat -p preprod-phantomjs --tags @product -f pretty -f progress
