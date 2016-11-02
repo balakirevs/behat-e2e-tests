@@ -23,7 +23,7 @@ default:
       print_outp: true
       loop_break: true
     Behat\MinkExtension:
-      base_url: "https://www.wingo.ch/fr"         #"https://wingo-preprod.wingo.ch/fr"
+      base_url: "https://www.wingo.ch/fr"
       default_session: selenium2
       javascript_session: selenium2
       browser_name: firefox
@@ -126,6 +126,25 @@ phantomjs:
   extensions:
     Behat\MinkExtension:
       base_url: "https://www.wingo.ch/fr"     #"https://wingo-preprod.wingo.ch/fr"
+      browser_name: phantomjs
+      default_session: selenium2
+      javascript_session: selenium2
+      selenium2:
+        browser: phantomjs
+        capabilities:
+          browser: phantomjs
+          version: ""
+        wd_host: "http://127.0.0.1:4445/wd/hub"
+
+#====================================================================================================================#
+
+preprod-phantomjs:
+  formatters:
+    html:
+      output_path: %paths.base%/report/phantomjs
+  extensions:
+    Behat\MinkExtension:
+      base_url: "https://wingo-preprod.wingo.ch/fr"
       browser_name: phantomjs
       default_session: selenium2
       javascript_session: selenium2
