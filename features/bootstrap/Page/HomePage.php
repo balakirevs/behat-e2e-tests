@@ -19,7 +19,7 @@ class HomePage extends Page
         foreach ($hash as $row) {
             $this->fillField($element, $row[$formInput]);
             $this->findById($element)->click();
-            $this->jqueryWait(20000);
+            $this->enableElementId($autocompleteElement);
             $results = $this->findAll('css', $autocompleteElement);
             Assertion::notNull($results);
             foreach ($results as $result) {
@@ -39,5 +39,12 @@ class HomePage extends Page
     private function jsWait($duration = 1000)
     {
         $this->getSession()->wait($duration, '(0 === jQuery.active)');
+    }
+
+    private function enableElementId($element)
+    {
+        $js = "$('$element').prop('disabled', false);";
+        $this->getSession()->executeScript($js);
+        $this->jqueryWait(20000);
     }
 }
