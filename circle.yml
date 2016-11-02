@@ -4,7 +4,7 @@ machine:
 
 test:
   pre:
-    - phantomjs --webdriver=4444:
+    - phantomjs --webdriver=4445:
         background: true
   override:
     - bin/behat -p phantomjs -f pretty -f progress
