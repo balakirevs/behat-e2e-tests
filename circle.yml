@@ -9,8 +9,7 @@ dependencies:
 
 test:
   pre:
-    - phantomjs --version > /dev/null &
-    - phantomjs --webdriver=4445:
+    - phantomjs --webdriver=4445 --ignore-ssl-errors=true:
         background: true
   override:
     - bin/behat -p phantomjs -f pretty -f progress
