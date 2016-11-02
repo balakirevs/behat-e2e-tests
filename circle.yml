@@ -1,6 +1,8 @@
 machine:
   pre:
-    - sudo apt-get install circleci-php-5.5.9
+    - sudo apt-get install php5-imap || true
+    - ln -s /usr/lib/php5/20121212/imap.so ~/.phpenv/versions/$(phpenv global)/lib/php/extensions/no-debug-non-zts-20131226/imap.so
+    - ln -s /usr/share/php5/imap/imap.ini ~/.phpenv/versions/$(phpenv global)/etc/conf.d/imap.ini
   php:
     version: 5.5.9
 
