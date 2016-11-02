@@ -1,0 +1,10 @@
+machine:
+  php:
+    version: 7.0.4
+
+test:
+  pre:
+    - phantomjs --webdriver=4444:
+        background: true
+  override:
+    - bin/behat -p phantomjs -f pretty -f progress

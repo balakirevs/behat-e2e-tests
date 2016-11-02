@@ -152,3 +152,38 @@ SCREENSHOTS
 ============
 
 Screenshots on the failing tests can be found in screenshot directory.
+
+Integrating with CI
+=============
+
+Both CircleCI and Travis include PhantomJS, so there's no need to install or update. 
+
+We just need to start the PhantomJS webdriver in the background. Then just run the Behat tests
+
+### CircleCI
+```
+machine:
+  php:
+    version: 7.0.4
+
+test:
+  pre:
+    - phantomjs --webdriver=4444:
+        background: true
+  override:
+    - bin/behat -f junit -o $CIRCLE_TEST_REPORTS -p phantomjs -f pretty -f progress -o std
+```
+
+### TravisCI
+```
+language: php
+php:
+  - '7.0'
+
+before_script:
+  - composer install
+  - "phantomjs --webdriver=4444 > /dev/null &"
+
+script:
+  - bin/behat -p phantomjs -f pretty -f progress
+```
