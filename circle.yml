@@ -13,4 +13,4 @@ test:
         background: true
   override:
     - bin/behat -p phantomjs -f pretty -f progress
-    - bin/behat -p phantomjs-preprod --tags @product -f pretty -f progress
+    - bin/behat -p preprod-phantomjs --tags @product -f pretty -f progress
