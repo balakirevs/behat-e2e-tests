@@ -135,7 +135,7 @@ And Run
 
          $ bin/behat -p sauce-rc
 
-You will see test running on SauceLabs https://saucelabs.com/jobs
+You will see test running on SauceLabs https://saucelabs.com/jobs--
 
 
 REPORTING
@@ -151,7 +151,7 @@ Raports are not generated when executing tests with options like "--format prett
 SCREENSHOTS
 ============
 
-Screenshots on the failing tests can be found in screenshot directory.
+Screenshots on the for local failing tests can be found in screenshot directory, for the CI screenshots are uploaded to [Upload Pie](http://uploadpie.com/)
 
 Integrating with CI
 =============
