@@ -24,7 +24,9 @@ class HomePageContext extends PageObjectContext
     {
         $homePage = $this->getPage('HomePage');
         $homePage->fillInAutocompleteForm($table, 'eligibilityPostCode', '.ui-menu-item', 'NPA');
+        $homePage->enableElementId('eligibilityStreetName');
         $homePage->fillInAutocompleteForm($table, 'eligibilityStreetName', '.ui-menu-item', 'Street');
+        $homePage->enableElementId('eligibilityStreetNumber');
         $homePage->fillInAutocompleteForm($table, 'eligibilityStreetNumber', '.ui-menu-item-wrapper', 'Number');
     }
 
