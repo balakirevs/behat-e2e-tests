@@ -26,13 +26,13 @@ test:
     - java -jar selenium-server-standalone-2.53.1.jar:
          background: true
   override:
-    - bin/behat -p chrome -f pretty -f progress
+    - bin/behat -p chrome -f pretty -f progress:
         parallel: true
-    - ant chrome_mobile firefox
+    - ant chrome_mobile firefox:
         parallel: true
-    - bin/behat -p phantomjs -f pretty -f progress
+    - bin/behat -p phantomjs -f pretty -f progress:
         parallel: true
-    - bin/behat -p preprod-phantomjs --tags @product -f pretty -f progress
+    - bin/behat -p preprod-phantomjs --tags @product -f pretty -f progress:
         parallel: true
 
 general:
