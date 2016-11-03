@@ -1,8 +1,8 @@
 <project name="behat" basedir=".">
 
     <target name="run">
-        <delete dir="${basedir}/report/parallel" includeemptydirs="true" failonerror="false" />
-        <mkdir dir="${basedir}/report/parallel" includeemptydirs="true" failonerror="false" />
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
         <parallel>
             <antcall target="chrome"></antcall>
             <antcall target="chrome_mobile"></antcall>
@@ -14,36 +14,50 @@
         </parallel>
     </target>
     <target name="chrome">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
         <exec dir="${basedir}" executable="php" failonerror="true">
             <arg line= "bin/behat -f html --out report/parallel/chrome -f progress --out std -p chrome"/>
         </exec>
     </target>
     <target name="chrome_mobile">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
         <exec dir="${basedir}" executable="php" failonerror="true">
             <arg line= "bin/behat -f html --out report/parallel/chrome_mobile -f progress --out std -p chrome_mobile"/>
         </exec>
     </target>
     <target name="firefox">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
         <exec dir="${basedir}" executable="php" failonerror="true">
             <arg line= "bin/behat -f html --out report/parallel/firefox -f progress --out std -p firefox"/>
         </exec>
     </target>
     <target name="safari">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
         <exec dir="${basedir}" executable="php" failonerror="true">
             <arg line= "bin/behat -f html --out report/parallel/safari -f progress --out std -p safari"/>
         </exec>
     </target>
     <target name="phantomjs">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
         <exec dir="${basedir}" executable="php" failonerror="true">
             <arg line= "bin/behat -f html --out report/parallel/phantomjs -f progress --out std -p phantomjs"/>
         </exec>
     </target>
     <target name="preprod">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
         <exec dir="${basedir}" executable="php" failonerror="true">
             <arg line= "bin/behat -p preprod --tags @product -f html --out report/parallel/firefox -f progress --out std -p firefox"/>
         </exec>
     </target>
     <target name="preprod-phantomjs">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
         <exec dir="${basedir}" executable="php" failonerror="true">
             <arg line= "bin/behat -p preprod-phantomjs --tags @product -f html --out report/parallel/preprod-phantomjs -f progress --out std -p preprod-phantomjs"/>
         </exec>
