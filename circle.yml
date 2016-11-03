@@ -26,6 +26,7 @@ test:
     - java -jar selenium-server-standalone-2.53.1.jar:
          background: true
   override:
+    - bin/behat -p chrome
     - ant chrome chrome_mobile firefox
     - bin/behat -p phantomjs -f pretty -f progress
     - bin/behat -p preprod-phantomjs --tags @product -f pretty -f progress

@@ -1,8 +1,8 @@
 <project name="behat" basedir=".">
 
     <target name="run">
-        <delete dir="${basedir}/report/parallel" />
-        <mkdir dir="${basedir}/report/parallel"/>
+        <delete dir="${basedir}/report/parallel" includeemptydirs="true" failonerror="false" />
+        <mkdir dir="${basedir}/report/parallel" includeemptydirs="true" failonerror="false" />
         <parallel>
             <antcall target="chrome"></antcall>
             <antcall target="chrome_mobile"></antcall>
