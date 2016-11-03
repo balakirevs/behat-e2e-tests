@@ -28,7 +28,7 @@ test:
   override:
     - bin/behat -p chrome -f pretty -f progress:
         parallel: true
-    - ant chrome_nexus_5 chrome_galaxy_s4 chrome_galaxy_note_3 chrome_galaxy_note_2 chrome_iphone_4 chrome_iphone_5 chrome_ipad chrome_iphone_6 chrome_iphone_6_plus firefox:
+    - ant chrome_iphone_5 chrome_iphone_6_plus firefox:
         parallel: true
     - bin/behat -p phantomjs -f pretty -f progress:
         parallel: true
