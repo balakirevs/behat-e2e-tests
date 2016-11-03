@@ -1,4 +1,6 @@
 machine:
+  java:
+    version: oraclejdk8
   php:
     version: 7.0.4
 dependencies:
@@ -6,11 +8,22 @@ dependencies:
     - /home/ubuntu/.phantomjs/2.1.1/x86_64-linux/bin
   pre:
     - sh install-phantomjs-2.1.1.sh
+    - sudo apt-get install ant xvfb parallel
+    - sudo apt-get update && sudo apt-get install --only-upgrade google-chrome-stable
+    - wget http://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip | gzip -dc > chromedriver
+    - chmod +x chromedriver
+    - wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
+    - sudo dpkg -i firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
+  post:
+    - wget https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
 
 test:
   pre:
     - phantomjs --webdriver=4445 --ignore-ssl-errors=true:
         background: true
+    - java -jar selenium-server-standalone-2.53.1.jar:
+         background: true
   override:
     - bin/behat -p phantomjs -f pretty -f progress
     - bin/behat -p preprod-phantomjs --tags @product -f pretty -f progress
+    - ant chrome chrome_mobile firefox

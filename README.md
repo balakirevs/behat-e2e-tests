@@ -1,4 +1,4 @@
-# E2E automation tests and integrate with both CircleCI and TravisCI
+# E2E automation tests integrated with both CircleCI and TravisCI
 
 [![Build Status](https://travis-ci.org/balakirevs/behat-e2e-tests.svg?branch=master)](https://travis-ci.org/balakirevs/behat-e2e-tests) [![Circle CI](https://circleci.com/gh/balakirevs/behat-e2e-tests.svg?style=shield)](https://circleci.com/gh/balakirevs/behat-e2e-tests)
 
@@ -27,6 +27,7 @@ $ sudo apt-get install ant               # to run tests in parallel
 ```
 
 ```bash
+$ clone repo
 $ cd project-name
 $ composer install
 ```
@@ -167,13 +168,19 @@ We just need to start the PhantomJS webdriver in the background. Then just run t
 machine:
   php:
     version: 7.0.4
+dependencies:
+  cache_directories:
+    - /home/ubuntu/.phantomjs/2.1.1/x86_64-linux/bin
+  pre:
+    - sh install-phantomjs-2.1.1.sh
 
 test:
   pre:
-    - phantomjs --webdriver=4444:
+    - phantomjs --webdriver=4445 --ignore-ssl-errors=true:
         background: true
   override:
-    - bin/behat -f junit -o $CIRCLE_TEST_REPORTS -p phantomjs -f pretty -f progress -o std
+    - bin/behat -p phantomjs -f pretty -f progress
+    - bin/behat -p preprod-phantomjs --tags @product -f pretty -f progress
 ```
 
 ### TravisCI
@@ -184,8 +191,9 @@ php:
 
 before_script:
   - composer install
-  - "phantomjs --webdriver=4444 > /dev/null &"
+  - "phantomjs --webdriver=4445 --ignore-ssl-errors=true > /dev/null &"
 
 script:
   - bin/behat -p phantomjs -f pretty -f progress
+  - bin/behat -p preprod-phantomjs --tags @product -f pretty -f progress
 ```
