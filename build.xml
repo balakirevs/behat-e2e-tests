@@ -5,7 +5,15 @@
         <mkdir dir="${basedir}/report/parallel" />
         <parallel>
             <antcall target="chrome"></antcall>
-            <antcall target="chrome_mobile"></antcall>
+            <antcall target="chrome_nexus_5"></antcall>
+            <antcall target="chrome_galaxy_s4"></antcall>
+            <antcall target="chrome_galaxy_note_3"></antcall>
+            <antcall target="chrome_galaxy_note_2"></antcall>
+            <antcall target="chrome_iphone_4"></antcall>
+            <antcall target="chrome_iphone_5"></antcall>
+            <antcall target="chrome_iphone_6"></antcall>
+            <antcall target="chrome_iphone_6_plus"></antcall>
+            <antcall target="chrome_ipad"></antcall>
             <antcall target="firefox"></antcall>
             <antcall target="safari"></antcall>
             <antcall target="phantomjs"></antcall>
@@ -20,11 +28,67 @@
             <arg line= "bin/behat -f html --out report/parallel/chrome -f progress --out std -p chrome"/>
         </exec>
     </target>
-    <target name="chrome_mobile">
+    <target name="chrome_nexus_5">
         <delete dir="${basedir}/report/parallel" />
         <mkdir dir="${basedir}/report/parallel" />
         <exec dir="${basedir}" executable="php" failonerror="true">
-            <arg line= "bin/behat -f html --out report/parallel/chrome_mobile -f progress --out std -p chrome_mobile"/>
+            <arg line= "bin/behat -f html --out report/parallel/chrome_nexus_5 -f progress --out std -p chrome_nexus_5"/>
+        </exec>
+    </target>
+    <target name="chrome_galaxy_s4">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/chrome_galaxy_s4 -f progress --out std -p chrome_galaxy_s4"/>
+        </exec>
+    </target>
+    <target name="chrome_galaxy_note_3">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/chrome_galaxy_note_3 -f progress --out std -p chrome_galaxy_note_3"/>
+        </exec>
+    </target>
+    <target name="chrome_iphone_4">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/chrome_iphone_4 -f progress --out std -p chrome_iphone_4"/>
+        </exec>
+    </target>
+    <target name="chrome_iphone_5">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/chrome_iphone_5 -f progress --out std -p chrome_iphone_5"/>
+        </exec>
+    </target>
+    <target name="chrome_iphone_6">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/chrome_iphone_6 -f progress --out std -p chrome_iphone_6"/>
+        </exec>
+    </target>
+    <target name="chrome_iphone_6_plus">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/chrome_iphone_6_plus -f progress --out std -p chrome_iphone_6_plus"/>
+        </exec>
+    </target>
+    <target name="chrome_ipad">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/chrome_ipad -f progress --out std -p chrome_ipad"/>
+        </exec>
+    </target>
+    <target name="chrome_galaxy_note_2">
+        <delete dir="${basedir}/report/parallel" />
+        <mkdir dir="${basedir}/report/parallel" />
+        <exec dir="${basedir}" executable="php" failonerror="true">
+            <arg line= "bin/behat -f html --out report/parallel/chrome_galaxy_note_2 -f progress --out std -p chrome_galaxy_note_2"/>
         </exec>
     </target>
     <target name="firefox">

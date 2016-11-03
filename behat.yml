@@ -37,7 +37,7 @@ default:
             verify: false
             ssl.certificate_authority: false
       selenium2:
-        wd_host: "http://127.0.0.1:4444/wd/hub"
+        wd_host: "http://127.0.0.1:4445/wd/hub"
         #wd_host: "http://10.5.0.42:4444/wd/hub/static/resource/hub/html"
         #wd_host: "http://0.0.0.0:4444/wd/hub"   # selenium 3 address
         capabilities: { 'browser': 'firefox', 'version': 'ANY' }
@@ -94,10 +94,10 @@ safari:
 
 #====================================================================================================================#
 
-chrome_mobile:
+chrome_nexus_5:
   formatters:
     html:
-      output_path: %paths.base%/report/chrome_mobile
+      output_path: %paths.base%/report/chrome_nexus_5
   extensions:
     Behat\MinkExtension:
       browser_name: chrome
@@ -106,16 +106,134 @@ chrome_mobile:
           extra_capabilities:
             chromeOptions:
               mobileEmulation:
-                deviceName: # "Google Nexus 5"
-                            # "Samsung Galaxy S4"
-                            # "Samsung Galaxy Note 3"
-                            # "Samsung Galaxy Note II"
-                            # "Apple iPhone 4"
-                            # "Apple iPhone 5"
-                            # "Apple iPad 3 / 4"
-                            # "Apple iPhone 5"
-                            # "Apple iPhone 6"
-                            "Apple iPhone 6 Plus"
+                deviceName: "Google Nexus 5"
+
+#====================================================================================================================#
+
+chrome_galaxy_s4:
+  formatters:
+    html:
+      output_path: %paths.base%/report/chrome_galaxy_s4
+  extensions:
+    Behat\MinkExtension:
+      browser_name: chrome
+      selenium2:
+        capabilities:
+          extra_capabilities:
+            chromeOptions:
+              mobileEmulation:
+                deviceName: "Samsung Galaxy S4"
+
+#====================================================================================================================#
+
+chrome_galaxy_note_3:
+  formatters:
+    html:
+      output_path: %paths.base%/report/chrome_galaxy_note_3
+  extensions:
+    Behat\MinkExtension:
+      browser_name: chrome
+      selenium2:
+        capabilities:
+          extra_capabilities:
+            chromeOptions:
+              mobileEmulation:
+                deviceName: "Samsung Galaxy Note 3"
+
+#====================================================================================================================#
+
+chrome_galaxy_note_2:
+  formatters:
+    html:
+      output_path: %paths.base%/report/chrome_note_2
+  extensions:
+    Behat\MinkExtension:
+      browser_name: chrome
+      selenium2:
+        capabilities:
+          extra_capabilities:
+            chromeOptions:
+              mobileEmulation:
+                deviceName: "Samsung Galaxy Note II"
+
+#====================================================================================================================#
+
+chrome_iphone_4:
+  formatters:
+    html:
+      output_path: %paths.base%/report/chrome_iphone_4
+  extensions:
+    Behat\MinkExtension:
+      browser_name: chrome
+      selenium2:
+        capabilities:
+          extra_capabilities:
+            chromeOptions:
+              mobileEmulation:
+                deviceName: "Apple iPhone 4"
+
+#====================================================================================================================#
+
+chrome_iphone_5:
+  formatters:
+    html:
+      output_path: %paths.base%/report/chrome_iphone_5
+  extensions:
+    Behat\MinkExtension:
+      browser_name: chrome
+      selenium2:
+        capabilities:
+          extra_capabilities:
+            chromeOptions:
+              mobileEmulation:
+                deviceName: "Apple iPhone 5"
+#====================================================================================================================#
+
+chrome_ipad:
+  formatters:
+    html:
+      output_path: %paths.base%/report/chrome_ipad
+  extensions:
+    Behat\MinkExtension:
+      browser_name: chrome
+      selenium2:
+        capabilities:
+          extra_capabilities:
+            chromeOptions:
+              mobileEmulation:
+                deviceName: "Apple iPad"
+
+#====================================================================================================================#
+
+chrome_iphone_6:
+  formatters:
+    html:
+      output_path: %paths.base%/report/chrome_iphone_6
+  extensions:
+    Behat\MinkExtension:
+      browser_name: chrome
+      selenium2:
+        capabilities:
+          extra_capabilities:
+            chromeOptions:
+              mobileEmulation:
+                deviceName: "Apple iPhone 6"
+
+#====================================================================================================================#
+
+chrome_iphone_6_plus:
+  formatters:
+    html:
+      output_path: %paths.base%/report/chrome_iphone_6_plus
+  extensions:
+    Behat\MinkExtension:
+      browser_name: chrome
+      selenium2:
+        capabilities:
+          extra_capabilities:
+            chromeOptions:
+              mobileEmulation:
+                deviceName: "Apple iPhone 6 Plus"
 
 #====================================================================================================================#
 
