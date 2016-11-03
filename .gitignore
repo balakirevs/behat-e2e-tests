@@ -8,4 +8,7 @@ vendor
 .idea/
 .DS_Store
 build/
-report/
+report/parallel/**/assets/*
+report/parallel/**/index.html
+report/**/assets/*
+report/**/index.html
