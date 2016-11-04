@@ -23,7 +23,7 @@ default:
       print_outp: true
       loop_break: true
     Behat\MinkExtension:
-      base_url: "https://www.wingo.ch/fr"
+      base_url: "https://wingo-preprod.wingo.ch"
       default_session: selenium2
       javascript_session: selenium2
       browser_name: firefox
@@ -37,9 +37,7 @@ default:
             verify: false
             ssl.certificate_authority: false
       selenium2:
-        wd_host: "http://127.0.0.1:4445/wd/hub"
-        #wd_host: "http://10.5.0.42:4444/wd/hub/static/resource/hub/html"
-        #wd_host: "http://0.0.0.0:4444/wd/hub"   # selenium 3 address
+        wd_host: "http://127.0.0.1:4444/wd/hub"
         capabilities: { 'browser': 'firefox', 'version': 'ANY' }
     SensioLabs\Behat\PageObjectExtension:
       namespaces:
@@ -60,7 +58,7 @@ default:
 preprod:
   extensions:
     Behat\MinkExtension:
-      base_url: "https://wingo-preprod.wingo.ch/fr"
+      base_url: "https://wingo-preprod.wingo.ch"
 
 #====================================================================================================================#
 
@@ -243,7 +241,7 @@ phantomjs:
       output_path: %paths.base%/report/phantomjs
   extensions:
     Behat\MinkExtension:
-      base_url: "https://www.wingo.ch/fr"     #"https://wingo-preprod.wingo.ch/fr"
+      base_url: "https://wingo-preprod.wingo.ch"
       browser_name: phantomjs
       default_session: selenium2
       javascript_session: selenium2
@@ -262,7 +260,7 @@ preprod-phantomjs:
       output_path: %paths.base%/report/phantomjs
   extensions:
     Behat\MinkExtension:
-      base_url: "https://wingo-preprod.wingo.ch/fr"
+      base_url: "https://wingo-preprod.wingo.ch"
       browser_name: phantomjs
       default_session: selenium2
       javascript_session: selenium2
@@ -292,7 +290,7 @@ sauce-rc:
     class:  'FeatureContext'
   extensions:
     Behat\MinkExtension:
-      base_url:  'https://wingo-preprod.wingo.ch/fr'
+      base_url:  'https://wingo-preprod.wingo.ch'
       javascript_session: selenium2
       selenium:
         host: ondemand.saucelabs.com

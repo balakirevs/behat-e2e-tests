@@ -35,11 +35,6 @@ class HomePage extends Page
         $this->getSession()->wait($duration, '(0 === jQuery.active && 0 === jQuery(\':animated\').length)');
     }
 
-    private function jsWait($duration = 1000)
-    {
-        $this->getSession()->wait($duration, '(0 === jQuery.active)');
-    }
-
     public function enableElementId($element)
     {
         $js = "$('#$element').prop('disabled', false);";
