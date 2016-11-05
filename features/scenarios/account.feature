@@ -7,11 +7,11 @@ Feature: Account
   @javascript @account
   Scenario Outline: Sign in to user account
     And "<User>" exists in a system
-    When I am on "<AccountUrl>"
+    When I am on "<AccountUrl><locale>"
     Then I fill in the account form
     And I press "<Button>"
     Then I should be redirected to "<eCareUrl>"
 
     Examples:
-      | User  | Button             | eCareUrl       | AccountUrl            |
-      | gabin | Accéder à my Wingo | /eCare/de/home | /masquerade?locale=fr |
+      | User  | Button             | eCareUrl       | AccountUrl          | locale |
+      | gabin | Accéder à my Wingo | /eCare/de/home | /masquerade?locale= | fr     |
