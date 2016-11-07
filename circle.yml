@@ -16,6 +16,7 @@ dependencies:
     - sudo chmod 755 /usr/local/bin/chromedriver
     - wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
     - sudo dpkg -i firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
+    - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
   post:
     - wget https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
 
@@ -33,8 +34,6 @@ test:
     - ant chrome_iphone_5 chrome_iphone_6_plus firefox:
         parallel: true
     - bin/behat -p phantomjs -f pretty -f progress:
-        parallel: true
-    - bin/behat -p preprod-phantomjs --tags @product -f pretty -f progress:
         parallel: true
 
 general:
