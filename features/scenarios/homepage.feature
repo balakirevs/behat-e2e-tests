@@ -1,3 +1,4 @@
+@homepage
 Feature: Homepage Content
 
   @javascript @home
@@ -7,7 +8,7 @@ Feature: Homepage Content
     When I click menu icon
     Then I should see "Home"
     When I click "Fix" link
-    And I should be redirected to "/fr/telephonie-fixe"
+    And I should be redirected to "/fr/internet/telephonie-fixe"
     Then I should see eligibility form container
 
   @javascript @product
@@ -15,9 +16,9 @@ Feature: Homepage Content
     Given I am on "/<locale>"
     And I should see "NO BULLSHIT"
     Then I click button of a "<Colour>" product
-    And I should be redirected to "<Url>"
+    And I should be redirected to "/<locale><Url>"
 
     Examples:
       | Colour | Url       | locale |
-      | green  | /mobile   |  fr    |
-      | blue   | /internet |  fr    |
+      | green  | /mobile   |  /fr   |
+      | blue   | /internet |  /fr   |

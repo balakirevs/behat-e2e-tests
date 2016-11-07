@@ -1,3 +1,4 @@
+@eligibilityForm
 Feature: Check eligibility
 
   Background:
@@ -29,9 +30,9 @@ Feature: Check eligibility
     Then I check "<AcceptConditions>" checkbox
     When I press "<ButtonOrder>"
     Then I should be redirected to "https://jerry-preprod.wingo.ch/checkouts?l=<locale>&done=true"
-    And I should see "<MessageThank>"
+    And I should see "<Acknowledgment>"
 
     Examples:
-      | Product | Text                      | Colour | Url       | locale | Message                                            | ButtonNext | ContactStep     | Title    | OrderStep        | AcceptConditions                       | ButtonOrder         | MessageThank             |
+      | Product | Text                      | Colour | Url       | locale | Message                                            | ButtonNext | ContactStep     | Title    | OrderStep        | AcceptConditions                       | ButtonOrder         | Acknowledgment           |
       | IPTV    | Je n’ai pas de numéro OTO | blue   | /internet | fr     | Cool! Nos produits sont disponibles chez toi.      | Suivant    | Tes coordonnées | Monsieur | Ta commande      | Accepter les conditions contractuelles | Passer la commande  | Merci pour ton achat     |
       | IPTV    | Ich habe keine OTO-Nummer | blue   | /internet | de     | Very nice! Unsere Produkte sind bei dir verfügbar. | Weiter     | Deine Angaben   | Herr     | Deine Bestellung | Vertragsbedingungen akzeptieren        | Jetzt kaufen        | Danke für deinen Einkauf |

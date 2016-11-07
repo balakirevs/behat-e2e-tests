@@ -1,3 +1,4 @@
+@contactForm
 Feature: Send Contact Details
 
   Background:

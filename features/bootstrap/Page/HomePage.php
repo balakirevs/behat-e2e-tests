@@ -15,6 +15,7 @@ class HomePage extends Page
      */
     public function fillInAutocompleteForm(TableNode $table, $element, $autocompleteElement, $formInput)
     {
+        $this->resetFiberEligibility('#fiberEligOk');
         $hash = $table->getHash();
         foreach ($hash as $row) {
             $this->fillField($element, $row[$formInput]);
@@ -40,5 +41,14 @@ class HomePage extends Page
         $js = "$('#$element').prop('disabled', false);";
         $this->getSession()->executeScript($js);
         $this->jqueryWait(10000);
+    }
+
+    public function resetFiberEligibility($element)
+    {
+        $form = $this->find('css', $element)->isVisible();
+        $js = "clearAndShowForm();";
+        if ($form) {
+            $this->getSession()->executeScript($js);
+        }
     }
 }

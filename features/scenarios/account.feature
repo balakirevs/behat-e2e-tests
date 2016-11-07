@@ -1,3 +1,4 @@
+@eCare
 Feature: Account
 
   Background:
@@ -13,5 +14,5 @@ Feature: Account
     Then I should be redirected to "<eCareUrl>"
 
     Examples:
-      | User  | Button             | eCareUrl       | AccountUrl          | locale |
-      | gabin | Accéder à my Wingo | /eCare/de/home | /masquerade?locale= | fr     |
+      | User  | Button                     | eCareUrl       | AccountUrl          | locale |
+      | gabin | my Wingo Mobile & Internet | /eCare/de/home | /masquerade?locale= | fr     |
