@@ -7,6 +7,7 @@ Feature: Send Contact Details
   @javascript @contact
   Scenario Outline: Fill in contact form
     Given I am on "/<locale>/contact"
+    And I select "Internet" from "requesttype"
     Then I fill in random contact details
     When I attached the file "test_file.pdf" to "attachment"
     And I press "<Button>"
