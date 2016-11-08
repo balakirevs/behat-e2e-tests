@@ -8,6 +8,7 @@ os:
 
 addons:
   firefox: '46.0.1'
+  chrome: '54.0'
 
 cache:
   directories:
@@ -26,7 +27,6 @@ before_install:
   - phantomjs --version
   - sudo apt-get install network-manager-openconnect network-manager-openconnect-gnome
   - wget https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
-  - sudo apt-get update && sudo apt-get install --only-upgrade google-chrome-stable
   - sudo apt-get install unzip
   - wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip
   - echo "y" | sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
