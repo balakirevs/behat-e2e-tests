@@ -22,7 +22,7 @@ dependencies:
 
 test:
   pre:
-    - echo 'aeM[ohshib8W' | sudo openconnect vpn1.wingo.ch/wingo --user=aleksandr.balakiriev --passwd-on-stdin:
+    - echo $VPN_PASSWORD | sudo openconnect $VPN_HOST --user=$VPN_USERNAME --passwd-on-stdin:
         background: true
     - phantomjs --webdriver=4445 --ignore-ssl-errors=true:
         background: true
