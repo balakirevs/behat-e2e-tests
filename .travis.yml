@@ -1,12 +1,48 @@
 language: php
+
 php:
   - '7.0'
 
-before_script:
+os:
+- linux
+
+addons:
+  firefox: '46.0.1'
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - google-chrome
+    packages:
+      - google-chrome-stable
+      - lib32stdc++6
+      - lib32z1
+
+cache:
+  directories:
+    - travis_phantomjs
+    - $HOME/.composer/cache
+
+before_install:
+  - sudo apt-get update -qq
+  - export PHANTOMJS_VERSION=2.1.1
+  - phantomjs --version
+  - export PATH=$PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin:$PATH
+  - phantomjs --version
+  - if [ $(phantomjs --version) != $PHANTOMJS_VERSION ]; then rm -rf $PWD/travis_phantomjs; mkdir -p $PWD/travis_phantomjs; fi
+  - if [ $(phantomjs --version) != $PHANTOMJS_VERSION ]; then wget https://github.com/Medium/phantomjs/releases/download/v$PHANTOMJS_VERSION/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -O $PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2; fi
+  - if [ $(phantomjs --version) != $PHANTOMJS_VERSION ]; then tar -xvf $PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C $PWD/travis_phantomjs; fi
+  - phantomjs --version
   - sudo apt-get install network-manager-openconnect network-manager-openconnect-gnome
+  - wget https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
+
+before_script:
+  - phpenv config-rm xdebug.ini
   - composer install
-  - "echo $VPN_PASSWORD | sudo openconnect $VPN_HOST --user=$VPN_USERNAME --passwd-on-stdin > /dev/null &"
-  - "phantomjs --webdriver=4445 --ignore-ssl-errors=true > /dev/null &"
+  - echo $VPN_PASSWORD | sudo openconnect $VPN_HOST --user=$VPN_USERNAME --passwd-on-stdin > /dev/null &
+  - phantomjs --webdriver=4445 --ignore-ssl-errors=true > /dev/null &
+  - java -jar selenium-server-standalone-2.53.1.jar > /dev/null &
 
 script:
   - bin/behat -p phantomjs -f pretty -f progress
+  - bin/behat -p chrome -f pretty -f progress
+  - bin/behat -p firefox -f pretty -f progress
