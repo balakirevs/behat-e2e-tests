@@ -8,7 +8,8 @@ dependencies:
     - /home/ubuntu/.phantomjs/2.1.1/x86_64-linux/bin
   pre:
     - sh install-phantomjs-2.1.1.sh
-    - sudo apt-get install ant xvfb parallel network-manager-openconnect network-manager-openconnect-gnome
+    - sudo apt-get update
+    - sudo apt-get install network-manager-openconnect network-manager-openconnect-gnome
     - sudo apt-get update && sudo apt-get install --only-upgrade google-chrome-stable
     - sudo apt-get install unzip
     - wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip
