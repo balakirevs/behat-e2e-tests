@@ -21,4 +21,32 @@ class CheckoutPageContext extends PageObjectContext
         $checkoutPage->fillInCheckoutEmailAddress();
         $checkoutPage->fillInCheckoutPhoneNumber();
     }
+
+    /**
+     * @Given /^I fill in the mobile content form with random credentials$/
+     */
+    public function iFillInCheckoutMobileContentFormWith(TableNode $table)
+    {
+        $checkoutPage = $this->getPage('CheckoutPage');
+        $checkoutPage->fillInCheckoutTitleDetails($table);
+        $checkoutPage->fillInCheckoutMobilePersonalDetails();
+    }
+
+
+    /**
+     * @Then /^I enter date in the calendar$/
+     */
+    public function iEnterDateInTheCalendar()
+    {
+        $checkoutPage = $this->getPage('CheckoutPage');
+        $checkoutPage->fillInDateInTheCalendar();
+    }
+
+    /**
+     * @Then /^I fill in my birthday form$/
+     */
+    public function iFillInMyBirthdayForm()
+    {
+        print 'TO DO';
+    }
 }

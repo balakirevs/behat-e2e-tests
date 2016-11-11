@@ -44,6 +44,15 @@ class CheckoutPage extends Page
     }
 
     /**
+     *  Fill in checkout mobile personal details: firstName, lastName
+     */
+    public function fillInCheckoutMobilePersonalDetails()
+    {
+        $this->fillFieldWithRandomName('billing[firstname]');
+        $this->fillFieldWithRandomSurname('billing[lastname]');
+    }
+
+    /**
      *  Fill in checkout email: email, confirmation email
      */
     public function fillInCheckoutEmailAddress()
@@ -58,5 +67,15 @@ class CheckoutPage extends Page
     public function fillInCheckoutPhoneNumber()
     {
         $this->fillFieldWithRandomPhone('lead_mobile_phone');
+    }
+
+    /**
+     * Fill in first enabled element day on the DatePicker
+     */
+    public function fillInDateInTheCalendar()
+    {
+        $this->find('css', '#calendarWrapper')->click();
+        $values =  $this->findAll('css', 'a.ui-state-default');
+        $values[0]->click();
     }
 }

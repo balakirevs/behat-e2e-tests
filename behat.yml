@@ -7,7 +7,10 @@ default:
       contexts:
         - HomePageContext
         - ContactPageContext
-        - FeatureContext
+        - FeatureContext:
+            parameters:
+              href_prod: https://shop.wingo.ch/fr/checkout/cart/add/product/303?relatedProductId=302
+              href_preprod: https://bbg-preprod.wingo.ch/fr/checkout/cart/add/product/303?relatedProductId=302
         - CheckoutPageContext
         - AccountPageContext
         - NavigationPageContext

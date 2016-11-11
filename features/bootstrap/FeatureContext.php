@@ -5,6 +5,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Mink\Exception\ResponseTextException;
 use Behat\MinkExtension\Context\MinkContext;
 use MinkFieldRandomizer\Context\FilterContext;
+use Behat\Gherkin\Node\TableNode;
 
 /**
  * Defines application features from the specific context.
@@ -20,9 +21,21 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      * You can also pass arbitrary arguments to the
      * context constructor through behat.yml.
      */
-    public function __construct()
-    {
+    private $params = array();
 
+    public function __construct($parameters)
+    {
+        $this->params = $parameters;
+    }
+
+    public function getParameter($name)
+    {
+        if (count($this->params) === 0) {
+            throw new \Exception('Parameters not loaded!');
+        } else {
+            $parameters = $this->params;
+            return (isset($parameters[$name])) ? $parameters[$name] : null;
+        }
     }
 
     public function __call($method, $parameters)
@@ -47,6 +60,11 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
             return call_user_func_array(array($assert, $method), $parameters);
         }
 
+        $selectorsHandler = $session->getSelectorsHandler();
+        if (method_exists($selectorsHandler, $method)) {
+            return call_user_func_array(array($selectorsHandler, $method), $parameters);
+        }
+
         throw new \RuntimeException(sprintf(
             'The "%s()" method does not exist.', $method
         ));
@@ -55,9 +73,34 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     /**
      * @When I click :arg1 link
      */
-    public function iClickLink($link)
+    public function iClickLink($text)
     {
-        $this->clickLink($link);
+        $prod_link = $this->params['href_prod'];
+        $link = $this->getLinkByTextValue($text);
+        $href = $link->getAttribute('href');
+        if ($href == $prod_link){
+            $this->replacePartOfHrefAttribute('shop', 'bbg-preprod');
+            $link->click();
+        }else {
+            $this->clickLink($text);
+        }
+    }
+
+    public function getLinkByTextValue($text)
+    {
+        return $this->find('named', array('link', $this->xpathLiteral($text)));
+    }
+
+    public function getLinkAttributeByTextValue($text)
+    {
+        $link = $this->find('named', array('link', $this->xpathLiteral($text)));
+        return $link->getAttribute('href');
+    }
+
+    public function replacePartOfHrefAttribute($href, $newHref)
+    {
+        $js = "$(document).ready(function(){ $('a').each(function(){ this.href = this.href.replace('$href', '$newHref'); });});";
+        $this->executeScript($js);
     }
 
     /**
@@ -227,17 +270,28 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
+     * @Then /^I must be switched to the next step "([^"]*)"$/
+     */
+    public function iAmSwitchedToTheNextStep($stepName)
+    {
+        $this->wait(3000);
+        $this->assertElementContains('.maintabNav > li.active > a > span', $stepName);
+    }
+
+    /**
      * @Given /^I check radio button with "([^"]*)"$/
      */
-    public function iCheckRadioButtonWith($text)
+    public function iCheckOTOnumberRadioButtonWith($text)
     {
-        $radioButtons = $this->findAll('css', '.activation-option-title');
+        $this->checkRadioButtonByCssSelector($text, '.activation-option-title');
+    }
 
-        foreach ($radioButtons as $radioButton) {
-            if ($radioButton->getText() == $text) {
-                $radioButton->click();
-            }
-        }
+    /**
+     * @Given /^I check radio button for mobile with "([^"]*)"$/
+     */
+    public function iCheckMyActualNumberCheckBox($text)
+    {
+        $this->checkRadioButtonByCssSelector($text, '#keep_number');
     }
 
     /**
@@ -276,5 +330,69 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
             /** @var $context */
             return !is_null($context->find('css', $cssSelector));
         });
+    }
+
+    /*
+     * @params $text
+     * @params $cssSelector
+     */
+    public function checkRadioButtonByCssSelector($text, $cssSelector)
+    {
+        $radioButtons = $this->findAll('css', $cssSelector);
+
+        foreach ($radioButtons as $radioButton) {
+            if ($radioButton->getText() == $text) {
+                $radioButton->click();
+            }
+        }
+    }
+
+    /**
+     * @param TableNode $table
+     * @Then /^I select my mobile operator from the list$/
+     */
+    public function iSelectMyMobileOperatorFromTheList(TableNode $table)
+    {
+        $hash = $table->getHash();
+
+        foreach ($hash as $row) {
+            $field = $this->findField($row['Field']);
+
+            $id = $field->getAttribute('id');
+            $options = $field->findAll('named', array('option', $row['Operator']));
+            foreach ($options as $option) {
+                $value = $option->getValue();
+            }
+
+            $js = "jQuery('#$id').val('$value');
+                           jQuery('#$id').trigger('chosen:updated');
+                           jQuery('#$id').trigger('change');";
+
+            $this->getSession()->executeScript($js);
+        }
+    }
+
+    /**
+     * @Given /^I check radio button of the contract "([^"]*)"$/
+     */
+    public function iCheckRadioButtonOfTheContract($type)
+    {
+        $this->checkRadioButtonByCssSelector($type, '#portability_current_subscription_left');
+    }
+
+    /**
+     * @Then /^I fill a random phone number$/
+     */
+    public function iFillARandomPhoneNumber()
+    {
+        $this->fillFieldWithRandomPhone('custom_step1_portability_phone_number');
+    }
+
+    /**
+     * @Given /^I check radio button of the term duration "([^"]*)"$/
+     */
+    public function iCheckRadioButtonOfTheTermDuration($term)
+    {
+        $this->checkRadioButtonByCssSelector($term, '#portability_date_left');
     }
 }
