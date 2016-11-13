@@ -33,8 +33,20 @@ Feature: Wingo products
       And I fill in the mobile content form with random credentials
         | Title     | Field                   |
         | "<Title>" | custom_step2_user_title |
-      Then I fill in my birthday form
+      Then I fill in my birthday form "<Date>"
+      And I fill in the billing content form with random credentials
+      When I fill in the eligibility billing form with
+        | NPA  | City   | Street        | Number |
+        | 1205 | Genève | rue des Bains | 35     |
+      And I select "<Nationality>" from the list
+      Then I select identity card "<IdCard>" from the list
+      And I fill in identity card number "<Number>" according to the "<Nationality>" and type of "<IdCard>"
+      And I fill in password fields "<Password>"
+      Then I press "Continuer"
+      And I must be switched to the next step "<OrderStep>"
+      Then I accept Wingo conditions
+      And I press "<ButtonOrder>"
 
     Examples:
-    | Colour | Url       | locale | Text                                 | Operator     | Type          | Term                               | DataStep    | Title  |
-    | green  | /mobile   |  /fr   | Je souhaite garder mon numéro actuel | Salt (Orange)| un abonnement | Au terme de la durée contractuelle | Tes données | Madame |
+    | Colour | Url     | locale | Text                                 | Operator     | Type          | Term                               | DataStep    | Title  | Date       | Nationality | Password  | IdCard    | Number    | OrderStep             | ButtonOrder        |
+    | green  | /mobile |  /fr   | Je souhaite garder mon numéro actuel | Salt (Orange)| un abonnement | Au terme de la durée contractuelle | Tes données | Madame | 12-05-1997 | Suisse      | Wingo2016 | Passeport | 123456789 | Résumé de ta commande | Passer la commande |

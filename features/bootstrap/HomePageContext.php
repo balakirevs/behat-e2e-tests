@@ -23,6 +23,7 @@ class HomePageContext extends PageObjectContext
     public function iFillInTheEligibilityFormWith(TableNode $table)
     {
         $homePage = $this->getPage('HomePage');
+        $homePage->resetFiberEligibility('#fiberEligOk');
         $homePage->fillInAutocompleteForm($table, 'eligibilityPostCode', '#ui-id', 'NPA');
         $homePage->enableElementId('eligibilityStreetName');
         $homePage->fillInAutocompleteForm($table, 'eligibilityStreetName', '#ui-id', 'Street');
