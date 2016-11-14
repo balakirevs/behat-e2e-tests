@@ -78,7 +78,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function iClickLink1($text, $locale = null)
     {
         $prod_link = $this->params['href_prod'] . $locale . $this->params['product_url'];
-        print $prod_link;
         $link = $this->getLinkByTextValue($text);
         $href = $link->getAttribute('href');
         if ($href == $prod_link){
