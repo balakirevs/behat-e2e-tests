@@ -16,20 +16,16 @@ class CheckoutPage extends Page
     public function fillInCheckoutTitleDetails(TableNode $table)
     {
         $hash = $table->getHash();
-
         foreach ($hash as $row) {
             $field = $this->findField($row['Field']);
-
             $id = $field->getAttribute('id');
             $options = $field->findAll('named', array('option', $row['Title']));
             foreach ($options as $option) {
                 $value = $option->getValue();
             }
-
             $js = "jQuery('#$id').val('$value');
-                           jQuery('#$id').trigger('chosen:updated');
-                           jQuery('#$id').trigger('change');";
-
+                   jQuery('#$id').trigger('chosen:updated');
+                   jQuery('#$id').trigger('change');";
             $this->getSession()->executeScript($js);
         }
     }
@@ -171,6 +167,14 @@ class CheckoutPage extends Page
 
     public function acceptWingoCheckoutConditions()
     {
-        $this->find('css', "#info_term > a")->click();
+        $this->find('css', "#info_term")->click();
+    }
+
+    /*
+     * Press button Continue
+     */
+    public function clickButtonContinue()
+    {
+        $this->find('css', '#co-billing-form > div.button_bar_checkout > button.button.next')->click();
     }
 }

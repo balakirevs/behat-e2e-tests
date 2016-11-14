@@ -1,6 +1,9 @@
 @product
 Feature: Wingo products
 
+  Background:
+    Given the browser is set to size
+
   @javascript @products
   Scenario Outline: Check homepage products content
     Given I am on "/<locale>"
@@ -42,7 +45,7 @@ Feature: Wingo products
       Then I select identity card "<IdCard>" from the list
       And I fill in identity card number "<Number>" according to the "<Nationality>" and type of "<IdCard>"
       And I fill in password fields "<Password>"
-      Then I press "Continuer"
+      Then I press button Continue
       And I must be switched to the next step "<OrderStep>"
       Then I accept Wingo conditions
       And I press "<ButtonOrder>"

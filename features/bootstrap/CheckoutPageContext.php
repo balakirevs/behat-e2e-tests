@@ -158,4 +158,13 @@ class CheckoutPageContext extends PageObjectContext
         $checkoutPage = $this->getPage('CheckoutPage');
         $checkoutPage->acceptWingoCheckoutConditions();
     }
+
+    /**
+     * @Then /^I press button Continue$/
+     */
+    public function iPressButtonContinue()
+    {
+        $checkoutPage = $this->getPage('CheckoutPage');
+        $checkoutPage->clickButtonContinue();
+    }
 }
