@@ -11,7 +11,11 @@ default:
             parameters:
               href_prod: https://shop.wingo.ch/fr/checkout/cart/add/product/303?relatedProductId=302
               href_preprod: https://bbg-preprod.wingo.ch/fr/checkout/cart/add/product/303?relatedProductId=302
-        - CheckoutPageContext
+        - CheckoutPageContext:
+            parameters:
+              switzerland: ["Suisse", "Schweiz", "Svizzera"]
+              passport: ["Passeport", "Passaporto", "Reisepass"]
+              cardId: ["Carte d'identité", "Carta d'identità", "Identitätskarte"]
         - AccountPageContext
         - NavigationPageContext
   formatters:

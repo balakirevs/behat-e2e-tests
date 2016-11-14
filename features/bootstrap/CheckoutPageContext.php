@@ -6,8 +6,11 @@ use Behat\Gherkin\Node\TableNode;
 class CheckoutPageContext extends PageObjectContext
 {
 
-    public function __construct()
+    private $params = array();
+
+    public function __construct($parameters)
     {
+        $this->params = $parameters;
     }
 
     /**
@@ -137,13 +140,9 @@ class CheckoutPageContext extends PageObjectContext
     {
         $checkoutPage = $this->getPage('CheckoutPage');
 
-        $switzerland = array('Suisse', 'Schweiz', 'Svizzera');
-        $passport = array('Passeport', 'Passaporto', 'Reisepass');
-        $cardId = array('Carte d\'identité', 'Carta d\'identità', 'Identitätskarte');
-
-        if (in_array($nationality, $switzerland) && (in_array($cardType, $passport))) {
+        if (in_array($nationality, $this->params['switzerland']) && (in_array($cardType, $this->params['passport']))) {
             $checkoutPage->fillInPassportNumber($number);
-        } else if (in_array($nationality, $switzerland) && (in_array($cardType, $cardId))) {
+        } else if (in_array($nationality, $this->params['switzerland']) && (in_array($cardType, $this->params['cardId']))) {
             $checkoutPage->fillInIdCardNumber($number);
         } else {
             $checkoutPage->fillInPieceLegitimation($number);
