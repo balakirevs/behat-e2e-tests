@@ -6,6 +6,7 @@ use Behat\Mink\Exception\ResponseTextException;
 use Behat\MinkExtension\Context\MinkContext;
 use MinkFieldRandomizer\Context\FilterContext;
 use Behat\Gherkin\Node\TableNode;
+use Assert\Assertion;
 
 /**
  * Defines application features from the specific context.
@@ -71,11 +72,13 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
+     * @When /^I click "([^"]*)" link "([^"]*)"$/
      * @When I click :arg1 link
      */
-    public function iClickLink($text)
+    public function iClickLink1($text, $locale = null)
     {
-        $prod_link = $this->params['href_prod'];
+        $prod_link = $this->params['href_prod'] . $locale . $this->params['product_url'];
+        print $prod_link;
         $link = $this->getLinkByTextValue($text);
         $href = $link->getAttribute('href');
         if ($href == $prod_link){
@@ -354,30 +357,18 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function iSelectMyMobileOperatorFromTheList(TableNode $table)
     {
         $hash = $table->getHash();
-
         foreach ($hash as $row) {
             $field = $this->findField($row['Field']);
-
             $id = $field->getAttribute('id');
             $options = $field->findAll('named', array('option', $row['Operator']));
             foreach ($options as $option) {
                 $value = $option->getValue();
             }
-
             $js = "jQuery('#$id').val('$value');
-                           jQuery('#$id').trigger('chosen:updated');
-                           jQuery('#$id').trigger('change');";
-
+                   jQuery('#$id').trigger('chosen:updated');
+                   jQuery('#$id').trigger('change');";
             $this->getSession()->executeScript($js);
         }
-    }
-
-    /**
-     * @Given /^I check radio button of the contract "([^"]*)"$/
-     */
-    public function iCheckRadioButtonOfTheContract($type)
-    {
-        $this->checkRadioButtonByCssSelector($type, '#portability_current_subscription_left');
     }
 
     /**
@@ -389,10 +380,93 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @Given /^I check radio button of the term duration "([^"]*)"$/
+     * @Given /^I check radio button of portability date end of contract "([^"]*)"$/
      */
-    public function iCheckRadioButtonOfTheTermDuration($term)
+    public function iCheckRadioButtonOfPortabilityDateEndDuration($term)
     {
         $this->checkRadioButtonByCssSelector($term, '#portability_date_left');
+    }
+
+    /**
+     * @Then /^I check radio button of portability date of choice "([^"]*)"$/
+     */
+    public function iCheckRadioButtonOfPortabilityDateOfChoice($term)
+    {
+        $this->checkRadioButtonByCssSelector($term, '#portability_date_right');
+        $this->wait(10000, '(0 === jQuery.active)');
+        $this->find('css', '#close-alert-btn-porta')->click();
+    }
+
+    /*
+     * Check if element is enabled
+     */
+    public function isElementEnabled($id, $class) {
+        $this->wait(10000, '(0 === jQuery.active)');
+        return $this->find('css', $id)->hasClass($class);
+    }
+
+    /*
+     * Check if contract type field is enabled i.e not greyed
+     */
+    public function isContractTypeFieldEnabled()
+    {
+        return $this->isElementEnabled('#portability_current_subscription_left', 'lightGrey');
+    }
+
+    /*
+     * Check if portability term field is enabled i.e not greyed
+     */
+    public function isPortabilityTermFieldEnabled()
+    {
+        return $this->isElementEnabled('#portability_date_left', 'lightGrey');
+    }
+
+    /*
+     * Check if prepaid subscription is enabled i.e not grayed
+     */
+    public function isPrepaidSubscriptionEnabled()
+    {
+        return $this->isElementEnabled('#portability_current_subscription_right', 'lightGrey');
+    }
+
+    /**
+     * @Given /^I check the contract "([^"]*)" and portability "([^"]*)" according to "([^"]*)"$/
+     */
+    public function iCheckTheContractTypeAndPortabilityAccordingTo($type, $term, $operator)
+    {
+        if (in_array($type, $this->params['abonement']) && (!in_array($operator, $this->params['unavailable_aboniment_operator']))) {
+            $this->checkRadioButtonByCssSelector($type, '#portability_current_subscription_left');
+            Assertion::false($this->isContractTypeFieldEnabled());
+            Assertion::false($this->isPortabilityTermFieldEnabled());
+            if (!in_array($term, $this->params['other_term']) && (in_array($term, $this->params['end_term']))) {
+                $this->iCheckRadioButtonOfPortabilityDateEndDuration($term);
+            } else{
+                $this->iCheckRadioButtonOfPortabilityDateOfChoice($term);
+            }
+        } else if (in_array($type, $this->params['prepaid']) && (!in_array($operator, $this->params['unavailable_aboniment_operator']))) {
+            $this->checkRadioButtonByCssSelector($type, '#portability_current_subscription_right');
+            Assertion::false($this->isContractTypeFieldEnabled());
+            Assertion::true($this->isPortabilityTermFieldEnabled());
+            if (in_array($term, $this->params['other_term']) && (!in_array($term, $this->params['end_term']))) {
+                $this->iCheckRadioButtonOfPortabilityDateOfChoice($term);
+            }
+        } else if (!in_array($type, $this->params['abonement']) && (in_array($operator, $this->params['unavailable_aboniment_operator']))) {
+            $this->checkRadioButtonByCssSelector($type, '#portability_current_subscription_right');
+            Assertion::true($this->isContractTypeFieldEnabled());
+            Assertion::true($this->isPortabilityTermFieldEnabled());
+            if (in_array($term, $this->params['other_term']) && (!in_array($term, $this->params['end_term']))) {
+                $this->iCheckRadioButtonOfPortabilityDateOfChoice($term);
+            }
+        } else if (in_array($type, $this->params['abonement']) && (in_array($operator, $this->params['unavailable_prepaid_operator']))) {
+            $this->checkRadioButtonByCssSelector($type, '#portability_current_subscription_left');
+            Assertion::false($this->isContractTypeFieldEnabled());
+            Assertion::false($this->isPortabilityTermFieldEnabled());
+            Assertion::true($this->isPrepaidSubscriptionEnabled());
+            if (!in_array($term, $this->params['other_term']) && (in_array($term, $this->params['end_term']))) {
+                $this->iCheckRadioButtonOfPortabilityDateEndDuration($term);
+            } else {
+                $this->iCheckRadioButtonOfPortabilityDateOfChoice($term);
+            }
+        }
     }
 }

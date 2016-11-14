@@ -21,17 +21,16 @@ Feature: Wingo products
       Given I am on "/<locale>"
       Then I click button of a "<Colour>" product
       And I should be redirected to "/<locale><Url>"
-      When I click "Commander" link
+      When I click "<Product>" link "<locale>"
       Then I should be redirected to "https://bbg-preprod.wingo.ch<locale>/checkout/onepage"
       And I check radio button for mobile with "<Text>"
       Then I select my mobile operator from the list
         | Operator     | Field                                     |
         | "<Operator>" | custom_step1_portability_current_provider |
-      And I check radio button of the contract "<Type>"
+      And I check the contract "<Type>" and portability "<Term>" according to "<Operator>"
       Then I fill a random phone number
-      And I check radio button of the term duration "<Term>"
       Then I enter date in the calendar
-      And I press "Continuer"
+      And I press "<Button>"
       Then I must be switched to the next step "<DataStep>"
       And I fill in the mobile content form with random credentials
         | Title     | Field                   |
@@ -51,5 +50,7 @@ Feature: Wingo products
       And I press "<ButtonOrder>"
 
     Examples:
-    | Colour | Url     | locale | Text                                 | Operator     | Type          | Term                               | DataStep    | Title  | Date       | Nationality | Password  | IdCard    | Number    | OrderStep             | ButtonOrder        |
-    | green  | /mobile |  /fr   | Je souhaite garder mon numéro actuel | Salt (Orange)| un abonnement | Au terme de la durée contractuelle | Tes données | Madame | 12-05-1997 | Suisse      | Wingo2016 | Passeport | 123456789 | Résumé de ta commande | Passer la commande |
+    | Colour | Url     | locale | Text                                 | Operator           | Type              | Term                               | DataStep             | Title    | Date       | Nationality | Password  | IdCard                   | Number    | OrderStep             | ButtonOrder        | Product    | Button    |
+    | green  | /mobile |  /fr   | Je souhaite garder mon numéro actuel | Salt (Orange)      | un abonnement     | Au terme de la durée contractuelle | Tes données          | Madame   | 12-05-1997 | Suisse      | Wingo2016 | Passeport                | 123456789 | Résumé de ta commande | Passer la commande | Commander  | Continuer |
+    | green  | /mobile |  /fr   | Je souhaite garder mon numéro actuel | Lebara             | une carte prepaid | À une autre date                   | Tes données          | Monsieur | 12-11-1995 | France      | Wingo2016 | Permis de frontalier G   | 987654321 | Résumé de ta commande | Passer la commande | Commander  | Continuer |
+    | green  | /mobile |  /de   | Ich möchte meine Rufnummer behalten  | Das Abo (Die Post) | ein Abonnement    | Auf ein anderes Datum              | Rechnungsinformation | Frau     | 07-07-1980 | Deutschland | Wingo2016 | Aufenthaltsbewilligung B | 234534551 | Bestellungsübersicht  | Jetzt kaufen       | Bestellen  | Weiter    |
