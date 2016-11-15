@@ -49,9 +49,11 @@ class CheckoutPageContext extends PageObjectContext
      * @Then /^I fill in my birthday form$/
      * @Then /^I fill in my birthday form "([^"]*)"$/
      */
-    public function iFillInMyBirthdayForm($birthday)
+    public function iFillInBirthdayForm($birthday)
     {
+        #if ($birthday == date("d-m-Y"))
         $checkoutPage = $this->getPage('CheckoutPage');
+        $this->getAge($birthday);
         $checkoutPage->fillInFormField('custom_step2_dob_day', $this->getDay($birthday));
         $checkoutPage->fillInFormField('custom_step2_dob_month', $this->getMonth($birthday));
         $checkoutPage->fillInFormField('custom_step2_dob_year', $this->getYear($birthday));
@@ -78,6 +80,16 @@ class CheckoutPageContext extends PageObjectContext
     {
         $year = $this->formatDate($data);
         return substr($year, 6, 10);
+    }
+
+    public function getAge($birthday)
+    {
+        date_default_timezone_set("Europe/Zurich");
+        $birthday = explode("-", $birthday);
+        $age = (date("md", date("U", mktime(0, 0, 0, $birthday[0], $birthday[1], $birthday[2]))) > date("md")
+            ? ((date("Y") - $birthday[2]) - 1)
+            : (date("Y") - $birthday[2]));
+        return $age;
     }
 
     /**

@@ -293,7 +293,12 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iCheckMyActualNumberCheckBox($text)
     {
-        $this->checkRadioButtonByCssSelector($text, '#keep_number');
+        if (in_array($text, $this->params['actual_number'])) {
+            $this->checkRadioButtonByCssSelector($text, '#keep_number');
+        } else {
+            Assertion::true(in_array($text, $this->params['new_number']));
+            $this->checkRadioButtonByCssSelector($text, '#ask_number');
+        }
     }
 
     /**
@@ -508,5 +513,13 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
             Assertion::false($this->isOperatorExists($operator));
             print $operator . ' is not found';
         }
+    }
+
+    /**
+     * @When /^I check checkbox of a minor user$/
+     */
+    public function iCheckCheckboxOfAMinorUser()
+    {
+        $this->checkOption('under_age');
     }
 }
