@@ -14,9 +14,9 @@ default:
               product_url: /checkout/cart/add/product/303?relatedProductId=302
               abonement: ["un abonnement", "ein Abonnement", "un abbonamento"]
               prepaid: ["une carte prepaid", "ein Prepaid", "una scheda prepagata"]
-              unavailable_aboniment_operator: ["Aldi Suisse", "Lebara", "Lycamobile", "Mucho", "Ok.- mobile", "Ortel Mobile"]
-              unavailable_prepaid_operator: ["Das Abo (Die Post)", "Primacall", "Quickline Mobile", "Tele4U", "UPC Cablecom"]
-              available_operators: ["Abamobile", "Coop Mobile", "FREEFON", "FlexMobile", "M-Budget", "MTV Mobile", "Medinex Sunrise", "Salt (Orange)", "Sunrise", "Sunrise24.ch", "Swisscom", "Talk Talk", "Transatel", "Triotel", "Yallo"]
+              aboniment_operators: ["Das Abo (Die Post)", "Primacall", "Quickline Mobile", "Tele4U", "UPC Cablecom"]
+              prepaid_operators: ["Aldi Suisse", "Lebara", "Lycamobile", "Mucho", "Ok.- mobile", "Ortel Mobile"]
+              general_operators: ["Abamobile", "Coop Mobile", "FREEFON", "FlexMobile", "M-Budget", "MTV Mobile", "Medinex Sunrise", "Salt (Orange)", "Sunrise", "Sunrise24.ch", "Swisscom", "Talk Talk", "Transatel", "Triotel", "Yallo"]
               end_term: ["Au terme de la durée contractuelle", "Auf Ende der Vertrags-laufzeit", "Per la fine della durata del contratto"]
               other_term: ["À une autre date", "Auf ein anderes Datum", "Per un'altra data"]
         - CheckoutPageContext:
@@ -52,7 +52,7 @@ default:
             verify: false
             ssl.certificate_authority: false
       selenium2:
-        wd_host: "http://127.0.0.1:4445/wd/hub"
+        wd_host: "http://127.0.0.1:4444/wd/hub"
         capabilities: { 'browser': 'firefox', 'version': 'ANY' }
     SensioLabs\Behat\PageObjectExtension:
       namespaces:
