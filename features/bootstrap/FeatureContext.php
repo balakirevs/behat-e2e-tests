@@ -444,6 +444,13 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $this->checkRadioButtonByCssSelector($type, '#portability_current_subscription_right');
     }
 
+    public function isOperatorExists($operator)
+    {
+        return in_array($operator, $this->params['general_operators']) &&
+               in_array($operator, $this->params['aboniment_operators']) &&
+               in_array($operator, $this->params['prepaid_operators']);
+    }
+
     /**
      * @Given /^I check the contract "([^"]*)" and portability "([^"]*)" according to "([^"]*)"$/
      */
@@ -475,7 +482,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
             if (in_array($type, $this->params['abonement']) && (!in_array($type, $this->params['prepaid']))) {
                 $this->clickAbonimentSubscription($type);
-                Assertion::false($this->isPrepaidSubscriptionDisabled());
+                Assertion::true($this->isPrepaidSubscriptionDisabled());
                 Assertion::false($this->isPortabilityTermFieldDisabled());
 
                 if (!in_array($term, $this->params['other_term']) && (in_array($term, $this->params['end_term']))) {
@@ -498,7 +505,8 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
                 }
             }
         } else {
-            print "Error TO DO";
+            Assertion::false($this->isOperatorExists($operator));
+            print $operator . ' is not found';
         }
     }
 }
