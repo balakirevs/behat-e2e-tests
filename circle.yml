@@ -27,7 +27,7 @@ test:
   pre:
     - echo $VPN_PASSWORD | sudo openconnect $VPN_HOST --user=$VPN_USERNAME --passwd-on-stdin:
         background: true
-    sh circleci-tunnel.sh start:
+    - sh circleci-tunnel.sh start:
         background: true
     - phantomjs --webdriver=4445 --ignore-ssl-errors=true:
         background: true
