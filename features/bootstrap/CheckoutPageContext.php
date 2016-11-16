@@ -35,6 +35,16 @@ class CheckoutPageContext extends PageObjectContext
         $checkoutPage->fillInCheckoutMobilePersonalDetails();
     }
 
+    /**
+     * @Given /^I fill in minor user form with random credentials$/
+     */
+    public function iFillInMinorUserFormWith(TableNode $table)
+    {
+        $checkoutPage = $this->getPage('CheckoutPage');
+        $checkoutPage->fillInCheckoutTitleDetails($table);
+        $checkoutPage->fillInMinorUserDetails();
+    }
+
 
     /**
      * @Then /^I enter date in the calendar$/
@@ -51,12 +61,18 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iFillInBirthdayForm($birthday)
     {
-        #if ($birthday == date("d-m-Y"))
         $checkoutPage = $this->getPage('CheckoutPage');
-        $this->getAge($birthday);
-        $checkoutPage->fillInFormField('custom_step2_dob_day', $this->getDay($birthday));
-        $checkoutPage->fillInFormField('custom_step2_dob_month', $this->getMonth($birthday));
-        $checkoutPage->fillInFormField('custom_step2_dob_year', $this->getYear($birthday));
+        if ($this->getAge($birthday) >= 18) {
+            $checkoutPage->fillInFormField('custom_step2_dob_day', $this->getDay($birthday));
+            $checkoutPage->fillInFormField('custom_step2_dob_month', $this->getMonth($birthday));
+            $checkoutPage->fillInFormField('custom_step2_dob_year', $this->getYear($birthday));
+        } else if ($this->getAge($birthday) < 18 && $this->getAge($birthday) >= 12) {
+            $checkoutPage->fillInFormField('custom_step2_dob_underage_day', $this->getDay($birthday));
+            $checkoutPage->fillInFormField('custom_step2_dob_underage_month', $this->getMonth($birthday));
+            $checkoutPage->fillInFormField('custom_step2_dob_underage_year', $this->getYear($birthday));
+        } else {
+            throw new \Exception ('Age requirements are not correct');
+        }
     }
 
     private function formatDate($date)
@@ -84,12 +100,19 @@ class CheckoutPageContext extends PageObjectContext
 
     public function getAge($birthday)
     {
-        date_default_timezone_set("Europe/Zurich");
+        $this->setLocalTimeZone();
         $birthday = explode("-", $birthday);
         $age = (date("md", date("U", mktime(0, 0, 0, $birthday[0], $birthday[1], $birthday[2]))) > date("md")
             ? ((date("Y") - $birthday[2]) - 1)
             : (date("Y") - $birthday[2]));
         return $age;
+    }
+
+    public function setLocalTimeZone() {
+        $timeZone = date_default_timezone_get();
+        if ($timeZone != ini_get('date.timezone')) {
+            return date_default_timezone_set($timeZone);
+        }
     }
 
     /**

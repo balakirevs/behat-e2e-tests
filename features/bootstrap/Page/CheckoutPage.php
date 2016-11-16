@@ -49,6 +49,15 @@ class CheckoutPage extends Page
     }
 
     /**
+     *  Fill in checkout mobile personal details: firstName, lastName
+     */
+    public function fillInMinorUserDetails()
+    {
+        $this->fillFieldWithRandomName('custom_step2[firstname_underage]');
+        $this->fillFieldWithRandomSurname('custom_step2[lastname_underage]');
+    }
+
+    /**
      *  Fill in checkout email: email, confirmation email
      */
     public function fillInCheckoutEmailAddress()

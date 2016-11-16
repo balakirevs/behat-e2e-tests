@@ -77,16 +77,18 @@ Feature: Wingo products
     Then I select identity card "<IdCard>" from the list
     And I fill in identity card number "<Number>" according to the "<Nationality>" and type of "<IdCard>"
     Then I fill in password fields "<Password>"
-    #When I check checkbox of a minor user
-    #And I fill in the mobile content form with random credentials
+    When I check checkbox of a minor user
+    And I fill in minor user form with random credentials
       | Title     | Field                            |
       | "<Title>" | custom_step2_user_title_underage |
-    #Then I fill in my birthday form "<Date_2>"
+    Then I fill in my birthday form "<Date_2>"
+
     Then I press button Continue
     And I must be switched to the next step "<OrderStep>"
     Then I accept Wingo conditions
     And I press "<ButtonOrder>"
 
     Examples:
-      | Colour | Url     | locale | Text                          | DataStep    | Title    | Date       | Date_2     |Nationality | Password  | IdCard    | Number    | OrderStep             | ButtonOrder        | Product    | Button    |
-      | green  | /mobile |  /fr   | Je souhaite un nouveau numéro | Tes données | Madame   | 12-05-1997 | 02-02-2004 |Suisse      | Wingo2016 | Passeport | 123456789 | Résumé de ta commande | Passer la commande | Commander  | Continuer |
+      | Colour | Url     | locale | Text                          | DataStep                          | Title    | Date       | Date_2     | Nationality | Password  | IdCard                  | Number    | OrderStep             | ButtonOrder        | Product   | Button    |
+      | green  | /mobile |  /fr   | Je souhaite un nouveau numéro | Tes données                       | Madame   | 12-05-1997 | 02-02-2004 | Suisse      | Wingo2016 | Passeport               | 123456789 | Résumé de ta commande | Passer la commande | Commander | Continuer |
+      | green  | /mobile |  /it   | Desidero un nuovo numero      |  Informazioni per la fatturazione | Signor   | 22-11-1992 | 23-01-2003 | Italia      | Wingo2016 | Permesso di domicilio C | 444555777 | Riepilogo dell’ordine | Effettua ordine    | Ordina    | Continua  |

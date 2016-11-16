@@ -21,7 +21,7 @@ default:
               other_term: ["À une autre date", "Auf ein anderes Datum", "Per un'altra data"]
               new_number: ["Je souhaite un nouveau numéro", "Ich möchte eine neue Rufnummer", "Desidero un nuovo numero"]
               actual_number: ["Je souhaite garder mon numéro actuel", "Ich möchte meine Rufnummer behalten", "Desidero mantenere il mio numero attuale"]
-              minor_user: ["L'utilisateur du téléphone est une personne mineure", "", ""]
+              minor_user: ["L'utilisateur du téléphone est une personne mineure", "Minderjähriger Benutzer", "L'utente del telefono è minorenne"]
         - CheckoutPageContext:
             parameters:
               switzerland: ["Suisse", "Schweiz", "Svizzera"]
@@ -55,7 +55,7 @@ default:
             verify: false
             ssl.certificate_authority: false
       selenium2:
-        wd_host: "http://127.0.0.1:4445/wd/hub"
+        wd_host: "http://127.0.0.1:4444/wd/hub"
         capabilities: { 'browser': 'firefox', 'version': 'ANY' }
     SensioLabs\Behat\PageObjectExtension:
       namespaces:

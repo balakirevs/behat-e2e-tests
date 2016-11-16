@@ -276,7 +276,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iAmSwitchedToTheNextStep($stepName)
     {
-        $this->wait(3000);
+        $this->wait(5000);
         $this->assertElementContains('.maintabNav > li.active > a > span', $stepName);
     }
 
@@ -511,7 +511,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
             }
         } else {
             Assertion::false($this->isOperatorExists($operator));
-            print $operator . ' is not found';
+            throw new \Exception ($operator . ' is not found');
         }
     }
 
@@ -520,6 +520,9 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iCheckCheckboxOfAMinorUser()
     {
-        $this->checkOption('under_age');
+        $text = $this->findById('under_age')->getText();
+        if (in_array($text, $this->params['minor_user'])) {
+            $this->checkRadioButtonByCssSelector($text, '#under_age');
+        }
     }
 }
