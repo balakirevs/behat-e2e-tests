@@ -522,7 +522,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     {
         $text = $this->findById('under_age')->getText();
         if (in_array($text, $this->params['minor_user'])) {
-            $this->checkRadioButtonByCssSelector($text, '#under_age');
+            $this->checkRadioButtonByCssSelector($text, '#under_age > label');
         }
     }
 }
