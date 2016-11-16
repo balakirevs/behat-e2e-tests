@@ -3,6 +3,8 @@ machine:
     version: oraclejdk8
   php:
     version: 7.0.4
+  services:
+    - docker
 dependencies:
   cache_directories:
     - /home/ubuntu/.phantomjs/2.1.1/x86_64-linux/bin
@@ -25,14 +27,16 @@ test:
   pre:
     - echo $VPN_PASSWORD | sudo openconnect $VPN_HOST --user=$VPN_USERNAME --passwd-on-stdin:
         background: true
+    sh circleci-tunnel.sh start:
+        background: true
     - phantomjs --webdriver=4445 --ignore-ssl-errors=true:
         background: true
     - java -jar selenium-server-standalone-2.53.1.jar:
          background: true
   override:
-    - bin/behat -p chrome -f pretty -f progress
+    - bin/behat -p chrome -f html --out report/parallel/phantomjs -f progress --out std
     - ant chrome_iphone_5 chrome_iphone_6_plus firefox
-    - bin/behat -p phantomjs -f pretty -f progress:
+    - bin/behat -f html --out report/parallel/phantomjs -f progress --out std -p phantomjs:
         parallel: true
 
 general:

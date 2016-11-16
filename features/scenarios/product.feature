@@ -82,7 +82,6 @@ Feature: Wingo products
       | Title     | Field                            |
       | "<Title>" | custom_step2_user_title_underage |
     Then I fill in my birthday form "<Date_2>"
-
     Then I press button Continue
     And I must be switched to the next step "<OrderStep>"
     Then I accept Wingo conditions
