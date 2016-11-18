@@ -39,8 +39,8 @@ Feature: Wingo products
       Then I press button Continue
       And I must be switched to the next step "<OrderStep>"
       Then I am varifying previously filled in data
-        | Operator   | ContractType | Term   | Date   | Title   | Email   | NPA  | City   | Street        | Number | BirthDay | Nationality   | IdCard   |
-        | <Operator> | <Type>       | <Term> | <Date> | <Title> | <Email> | 1205 | Genève | rue des Bains | 35     | <Date>   | <Nationality> | <IdCard> |
+        | Operator   | ContractType | Term   | Title   | Email   | NPA  | City   | Street        | Number | BirthDay | Nationality   | IdCard   |
+        | <Operator> | <Type>       | <Term> | <Title> | <Email> | 1205 | Genève | rue des Bains | 35     | <Date>   | <Nationality> | <IdCard> |
       Then I accept Wingo conditions
       And I press "<ButtonOrder>"
       Then I should be redirected to "https://bbg-preprod.wingo.ch<locale>/checkout/onepage/success"
@@ -49,9 +49,9 @@ Feature: Wingo products
 
     Examples:
     | Colour | Url     | locale | Text                                 | Operator           | Type              | Term                               | DataStep             | Title    | Date       | Nationality | Password  | IdCard                   | OrderStep             | ButtonOrder        | Product    | Button    | Price | PromoPrice | Email         | Order        |
-    | green  | /mobile |  /fr   | Je souhaite garder mon numéro actuel | Sunrise            | un abonnement     | Au terme de la durée contractuelle | Tes données          | Madame   | 12-05-1996 | Suisse      | Wingo2016 | Passeport                | Résumé de ta commande | Passer la commande | Commander  | Continuer |  55   |   40       | test@test.com | Commande n°  |
-    | green  | /mobile |  /fr   | Je souhaite garder mon numéro actuel | Lebara             | une carte prepaid | À une autre date                   | Tes données          | Monsieur | 12-11-1995 | France      | Wingo2016 | Permis de frontalier G   | Résumé de ta commande | Passer la commande | Commander  | Continuer |  55   |   40       | test@test.com | Commande n°  |
-    | green  | /mobile |  /de   | Ich möchte meine Rufnummer behalten  | Das Abo (Die Post) | ein Abonnement    | Auf ein anderes Datum              | Rechnungsinformation | Frau     | 07-07-1980 | Deutschland | Wingo2016 | Aufenthaltsbewilligung B | Bestellungsübersicht  | Jetzt kaufen       | Bestellen  | Weiter    |  55   |   40       | test@test.com | Bestellung # |
+    | green  | /mobile |  /fr   | Je souhaite garder mon numéro actuel | Sunrise            | un abonnement     | Au terme de la durée contractuelle | Tes données          | Madame   | 12.05.1996 | Suisse      | Wingo2016 | Passeport                | Résumé de ta commande | Passer la commande | Commander  | Continuer |  55   |   40       | test@test.com | Commande n°  |
+    | green  | /mobile |  /fr   | Je souhaite garder mon numéro actuel | Lebara             | une carte prepaid | À une autre date                   | Tes données          | Monsieur | 12.11.1995 | France      | Wingo2016 | Permis de frontalier G   | Résumé de ta commande | Passer la commande | Commander  | Continuer |  55   |   40       | test@test.com | Commande n°  |
+    | green  | /mobile |  /de   | Ich möchte meine Rufnummer behalten  | Das Abo (Die Post) | ein Abonnement    | Auf ein anderes Datum              | Rechnungsinformation | Frau     | 07.07.1980 | Deutschland | Wingo2016 | Aufenthaltsbewilligung B | Bestellungsübersicht  | Jetzt kaufen       | Bestellen  | Weiter    |  55   |   40       | test@test.com | Bestellung # |
 
   @javascript @newNumber
   Scenario Outline:
@@ -87,5 +87,5 @@ Feature: Wingo products
 
     Examples:
       | Colour | Url     | locale | Text                          | DataStep                         | Title  | Date       | Date_2     | Nationality | Password  | IdCard                  | OrderStep             | ButtonOrder        | Product   | Button    |
-      | green  | /mobile |  /fr   | Je souhaite un nouveau numéro | Tes données                      | Madame | 12-05-1997 | 02-02-2004 | Suisse      | Wingo2016 | Passeport               | Résumé de ta commande | Passer la commande | Commander | Continuer |
-      | green  | /mobile |  /it   | Desidero un nuovo numero      | Informazioni per la fatturazione | Signor | 22-11-1992 | 23-01-2003 | Italia      | Wingo2016 | Permesso di domicilio C | Riepilogo dell’ordine | Effettua ordine    | Ordina    | Continua  |
+      | green  | /mobile |  /fr   | Je souhaite un nouveau numéro | Tes données                      | Madame | 12.05.1997 | 02.02.2004 | Suisse      | Wingo2016 | Passeport               | Résumé de ta commande | Passer la commande | Commander | Continuer |
+      | green  | /mobile |  /it   | Desidero un nuovo numero      | Informazioni per la fatturazione | Signor | 22.11.1992 | 23.01.2003 | Italia      | Wingo2016 | Permesso di domicilio C | Riepilogo dell’ordine | Effettua ordine    | Ordina    | Continua  |

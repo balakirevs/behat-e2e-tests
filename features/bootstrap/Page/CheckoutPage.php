@@ -198,15 +198,99 @@ class CheckoutPage extends Page
     }
 
     /*
-     * Verify previously filled in data
+     * Verify previously filled in operator name
      */
-    public function checKCheckoutData(TableNode $table)
+    public function checkCheckoutOperatorName(TableNode $table)
     {
         $this->getSession()->wait(3000);
         $hash = $table->getHash();
         foreach ($hash as $row) {
             $operator = $this->find('css', '#portability_detail_selection_review > div > ul > li:nth-child(1) > span')->getText();
             Assertion::eq($operator, $row['Operator']);
+        }
+    }
+
+    /*
+     * Verify previously filled in contract type
+     */
+    public function checkCheckoutContractType(TableNode $table)
+    {
+        $hash = $table->getHash();
+        foreach ($hash as $row) {
+            $contractType = $this->find('css', '#portability_detail_selection_review > div > ul > li:nth-child(2) > span')->getText();
+            Assertion::eq($contractType, $row['ContractType']);
+        }
+    }
+
+    /*
+     * Verify previously filled in term
+     */
+    public function checkCheckoutTerm(TableNode $table)
+    {
+        $hash = $table->getHash();
+        foreach ($hash as $row) {
+            $term = $this->find('css', '#portability_detail_selection_review > div > ul > li:nth-child(4) > span')->getText();
+            Assertion::eq($term, $row['Term']);
+        }
+    }
+
+    /*
+     * Verify previously filled in title
+     */
+    public function checkCheckoutTitle(TableNode $table)
+    {
+        $hash = $table->getHash();
+        foreach ($hash as $row) {
+            $title = $this->find('css', '#checkout-end-billing-name-surname > div > ul > li:nth-child(1) > span')->getText();
+            Assertion::eq($title, $row['Title']);
+        }
+    }
+
+    /*
+     * Verify previously filled in email
+     */
+    public function checkCheckoutEmail(TableNode $table)
+    {
+        $hash = $table->getHash();
+        foreach ($hash as $row) {
+            $email = $this->find('css', '#checkout-end-billing-name-surname > div > ul > li:nth-child(1) > span')->getText();
+            Assertion::eq($email, $row['Email']);
+        }
+    }
+
+    /*
+     * Verify previously filled in birthday
+     */
+    public function checkCheckoutBirthDay(TableNode $table)
+    {
+        $hash = $table->getHash();
+        foreach ($hash as $row) {
+            $birthday = $this->find('css', '#checkout-end-billing-nationailty > div > ul > li:nth-child(1) > span')->getText();
+            Assertion::eq($birthday, $row['BirthDay']);
+        }
+    }
+
+    /*
+     * Verify previously filled in nationality
+     */
+    public function checkCheckoutNationality(TableNode $table)
+    {
+        $hash = $table->getHash();
+        foreach ($hash as $row) {
+            $nationality = $this->find('css', '#checkout-end-billing-nationailty > div > ul > li:nth-child(2) > span')->getText();
+            Assertion::eq($nationality, $row['Nationality']);
+        }
+    }
+
+    /*
+     * Verify previously filled in IdCard
+     */
+    public function checkCheckoutIdCard(TableNode $table)
+    {
+        $hash = $table->getHash();
+        foreach ($hash as $row) {
+            $idCard = $this->find('css', '#checkout-end-billing-nationailty > div > ul > li:nth-child(3) > span')->getText();
+            Assertion::eq($idCard, $row['IdCard']);
         }
     }
 }

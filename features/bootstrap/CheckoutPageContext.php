@@ -12,6 +12,7 @@ class CheckoutPageContext extends PageObjectContext
     public function __construct($parameters)
     {
         $this->params = $parameters;
+        date_default_timezone_set('Europe/Zurich');
     }
 
     /**
@@ -78,7 +79,7 @@ class CheckoutPageContext extends PageObjectContext
 
     private function formatDate($date)
     {
-        return str_replace("-", " ", $date);
+        return str_replace(".", " ", $date);
     }
 
     public function getDay($data)
@@ -101,8 +102,7 @@ class CheckoutPageContext extends PageObjectContext
 
     public function getAge($birthday)
     {
-        $this->setLocalTimeZone();
-        $birthday = explode("-", $birthday);
+        $birthday = explode(".", $birthday);
         $age = (date("md", date("U", mktime(0, 0, 0, $birthday[0], $birthday[1], $birthday[2]))) > date("md")
             ? ((date("Y") - $birthday[2]) - 1)
             : (date("Y") - $birthday[2]));
@@ -224,6 +224,12 @@ class CheckoutPageContext extends PageObjectContext
     public function iAmVarifyingPreviouslyFilledInData(TableNode $table)
     {
         $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->checKCheckoutData($table);
+        $checkoutPage->checkCheckoutOperatorName($table);
+        $checkoutPage->checkCheckoutContractType($table);
+        $checkoutPage->checkCheckoutTerm($table);
+        $checkoutPage->checkCheckoutTitle($table);
+        $checkoutPage->checkCheckoutBirthDay($table);
+        $checkoutPage->checkCheckoutNationality($table);
+        $checkoutPage->checkCheckoutIdCard($table);
     }
 }
