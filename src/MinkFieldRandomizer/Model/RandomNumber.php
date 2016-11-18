@@ -26,7 +26,7 @@ class RandomNumber implements FilterInterface
             throw new Exception("Only 0 or 2 parameters accepted.");
         }
         if (empty($params)) {
-            $params = [0, 9];
+            $params = [0, 999999999];
         }
 
         $randomNumber = '';

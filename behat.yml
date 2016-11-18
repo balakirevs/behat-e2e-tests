@@ -22,6 +22,7 @@ default:
               new_number: ["Je souhaite un nouveau numéro", "Ich möchte eine neue Rufnummer", "Desidero un nuovo numero"]
               actual_number: ["Je souhaite garder mon numéro actuel", "Ich möchte meine Rufnummer behalten", "Desidero mantenere il mio numero attuale"]
               minor_user: ["L'utilisateur du téléphone est une personne mineure", "Minderjähriger Benutzer", "L'utente del telefono è minorenne"]
+              promotion: ["Promo valable jusqu'au 31 décembre 2016", "Promo gültig bis zum 31. Dezember 2016", "Promo valida fino al 31 dicembre 2016"]
         - CheckoutPageContext:
             parameters:
               switzerland: ["Suisse", "Schweiz", "Svizzera"]

@@ -2,6 +2,7 @@
 
 use SensioLabs\Behat\PageObjectExtension\Context\PageObjectContext;
 use Behat\Gherkin\Node\TableNode;
+use Assert\Assertion;
 
 class CheckoutPageContext extends PageObjectContext
 {
@@ -116,12 +117,18 @@ class CheckoutPageContext extends PageObjectContext
     }
 
     /**
-     * @Given /^I fill in the billing content form with random credentials$/
+     * @Given /^I fill in the billing content form with random credentials "([^"]*)"$/
+     * @When /^I fill in the billing content form with random credentials$/
      */
-    public function iFillInTheBillingContentFormWithRandomCredentials()
+    public function iFillInTheBillingContentFormWithRandomCredentials($email = null)
     {
         $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->fillInBillingEmailAddress();
+        if ($email == null) {
+            $checkoutPage->fillInBillingEmailAddress();
+        } else {
+            $checkoutPage->fillField('billing_email', $email);
+            $checkoutPage->fillField('billing_email_confirm', $email);
+        }
         $checkoutPage->fillInBillingPhoneNumber();
     }
 
@@ -169,18 +176,18 @@ class CheckoutPageContext extends PageObjectContext
     }
 
     /**
-     * @Given /^I fill in identity card number "([^"]*)" according to the "([^"]*)" and type of "([^"]*)"$/
+     * @Given /^I fill in random identity card number according to the "([^"]*)" and type of "([^"]*)"$/
      */
-    public function iFillInIdentityCardNumberAccordingToTheAndTypeOf($number, $nationality, $cardType)
+    public function iFillInIdentityCardNumberAccordingToTheAndTypeOf($nationality, $cardType)
     {
         $checkoutPage = $this->getPage('CheckoutPage');
 
         if (in_array($nationality, $this->params['switzerland']) && (in_array($cardType, $this->params['passport']))) {
-            $checkoutPage->fillInPassportNumber($number);
+            $checkoutPage->fillInPassportNumber();
         } else if (in_array($nationality, $this->params['switzerland']) && (in_array($cardType, $this->params['cardId']))) {
-            $checkoutPage->fillInIdCardNumber($number);
+            $checkoutPage->fillInIdCardNumber();
         } else {
-            $checkoutPage->fillInPieceLegitimation($number);
+            $checkoutPage->fillInPieceLegitimation();
         }
     }
 
@@ -200,5 +207,23 @@ class CheckoutPageContext extends PageObjectContext
     {
         $checkoutPage = $this->getPage('CheckoutPage');
         $checkoutPage->clickButtonContinue();
+    }
+
+    /**
+     * @Given /^the "([^"]*)" is present on the acknowledgment page$/
+     */
+    public function theEmailIsPresentOnTheAcknowledgmentPage($email)
+    {
+        $checkoutPage = $this->getPage('CheckoutPage');
+        $checkoutPage->checkConfirmationEmail($email);
+    }
+
+    /**
+     * @Then /^I am varifying previously filled in data$/
+     */
+    public function iAmVarifyingPreviouslyFilledInData(TableNode $table)
+    {
+        $checkoutPage = $this->getPage('CheckoutPage');
+        $checkoutPage->checKCheckoutData($table);
     }
 }

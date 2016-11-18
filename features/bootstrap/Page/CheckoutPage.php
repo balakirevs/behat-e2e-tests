@@ -4,6 +4,7 @@ namespace Page;
 use Behat\Gherkin\Node\TableNode;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
 use MinkFieldRandomizer\Context\FilterContext;
+use Assert\Assertion;
 
 class CheckoutPage extends Page
 {
@@ -137,25 +138,25 @@ class CheckoutPage extends Page
     /*
      * Fill in Suisse passport number
      */
-    public function fillInPassportNumber($number)
+    public function fillInPassportNumber()
     {
-        $this->fillField('custom_step2_document_type_passport_value', $number);
+        $this->fillFieldWithRandomNumber('custom_step2_document_type_passport_value');
     }
 
     /*
      * Fill in Suisse id card number
      */
-    public function fillInIdCardNumber($number)
+    public function fillInIdCardNumber()
     {
-        $this->fillField('custom_step2_document_type_IdCard_value1', $number);
+        $this->fillFieldWithRandomNumber('custom_step2_document_type_IdCard_value1');
     }
 
     /*
      * Fill in Foreigner's piece of legitimation
      */
-    public function fillInPieceLegitimation($number)
+    public function fillInPieceLegitimation()
     {
-        $this->fillField('custom_step2_document_type_permit_value1', $number);
+        $this->fillFieldWithRandomNumber('custom_step2_document_type_permit_value1');
     }
 
     /*
@@ -185,5 +186,27 @@ class CheckoutPage extends Page
     public function clickButtonContinue()
     {
         $this->find('css', '#co-billing-form > div.button_bar_checkout > button.button.next')->click();
+    }
+
+    /*
+     * Check confirmation email on the Acknowledgment Page
+     */
+    public function checkConfirmationEmail($email)
+    {
+        $text = $this->find('css', '#my_success > div.content.page-too-small > div > p:nth-child(5)')->getText();
+        Assertion::true(strpos($text, $email) !== false);
+    }
+
+    /*
+     * Verify previously filled in data
+     */
+    public function checKCheckoutData(TableNode $table)
+    {
+        $this->getSession()->wait(3000);
+        $hash = $table->getHash();
+        foreach ($hash as $row) {
+            $operator = $this->find('css', '#portability_detail_selection_review > div > ul > li:nth-child(1) > span')->getText();
+            Assertion::eq($operator, $row['Operator']);
+        }
     }
 }

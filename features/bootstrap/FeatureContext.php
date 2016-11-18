@@ -75,7 +75,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      * @When /^I click "([^"]*)" link "([^"]*)"$/
      * @When I click :arg1 link
      */
-    public function iClickLink1($text, $locale = null)
+    public function iClickLink($text, $locale = null)
     {
         $prod_link = $this->params['href_prod'] . $locale . $this->params['product_url'];
         $link = $this->getLinkByTextValue($text);
@@ -524,5 +524,42 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         if (in_array($text, $this->params['minor_user'])) {
             $this->checkRadioButtonByCssSelector($text, '#under_age > label');
         }
+    }
+
+    /**
+     * @Given /^the cost of the product is "([^"]*)"$/
+     */
+    public function theCostOfTheProductIs($price)
+    {
+        $cost = $this->find('css', '#yourbasket > div > div.cell_block.block_products.none > div:nth-child(2) > div.product_component > div.component_price > span')->getText();
+        Assertion::eq($price, str_replace(".-", "", $cost));
+    }
+
+    /**
+     * @Then /^I should see sim card promotion price "([^"]*)"$/
+     */
+    public function iShouldSeeSimCardPromotionPrice($price)
+    {
+        $promo = $this->find('css', '.product_free')->getText();
+        Assertion::eq($price, preg_replace('/[.-]/', '', $promo));
+    }
+
+    /**
+     * @Given /^I should see promotion validity term$/
+     */
+    public function iShouldSeePromotionValidityTerm()
+    {
+        $this->getSession()->wait(3000);
+        $promoText = $this->find('css', '#promo_block_inner')->getText();
+        Assertion::eq($promoText, (in_array($promoText, $this->params['promotion'])));
+    }
+
+    /**
+     * @Given /^I should see "([^"]*)" on the acknowledgment page$/
+     */
+    public function iShouldSeeOnTheAcknowledgmentPage($string)
+    {
+        $orderNumber = $this->find('css', '#my_success > div.header > h1')->getText();
+        Assertion::true(strpos($orderNumber, $string) !== false);
     }
 }

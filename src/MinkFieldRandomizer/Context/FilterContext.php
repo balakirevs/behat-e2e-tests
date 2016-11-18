@@ -151,7 +151,7 @@ trait FilterContext
      */
     public function fillFieldWithRandomPhone($field)
     {
-        $value = $this->filterValue('07{RandomPhone(8)}');
+        $value = $this->filterValue('79{RandomPhone(7)}');
         $this->setPhone($value);
         $this->fillRandomField($field, $value);
     }
