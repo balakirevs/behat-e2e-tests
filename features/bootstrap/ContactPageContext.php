@@ -6,8 +6,14 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 class ContactPageContext extends PageObjectContext
 {
 
-    public function __construct()
+    public function __construct(){}
+
+    public function __call($method, $parameters)
     {
+        $page = $this->getPage('ContactPage');
+        if (method_exists($page, $method)) {
+            return call_user_func_array(array($page, $method), $parameters);
+        }
     }
 
     private $featureContext;
@@ -27,7 +33,7 @@ class ContactPageContext extends PageObjectContext
      */
     public function iFillInRandomContactDetails()
     {
-        $this->getPage('ContactPage')->fillInContactForm();
+        $this->fillInContactForm();
     }
 
     /**

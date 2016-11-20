@@ -81,7 +81,7 @@ class CheckoutPage extends Page
      */
     public function fillInCheckoutPhoneNumber()
     {
-        $this->fillFieldWithRandomPhone('lead_mobile_phone');
+        $this->fillCheckoutFieldWithRandomPhone('lead_mobile_phone');
     }
 
     /**
@@ -89,7 +89,7 @@ class CheckoutPage extends Page
      */
     public function fillInBillingPhoneNumber()
     {
-        $this->fillFieldWithRandomPhone('contact_phone_number');
+        $this->fillBillingFieldWithRandomPhone('contact_phone_number');
     }
 
     /**
@@ -253,7 +253,7 @@ class CheckoutPage extends Page
     {
         $hash = $table->getHash();
         foreach ($hash as $row) {
-            $email = $this->find('css', '#checkout-end-billing-name-surname > div > ul > li:nth-child(1) > span')->getText();
+            $email = $this->find('css', '#checkout-end-billing-address > div > ul > li:nth-child(1) > span')->getText();
             Assertion::eq($email, $row['Email']);
         }
     }

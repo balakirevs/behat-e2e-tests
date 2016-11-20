@@ -149,7 +149,18 @@ trait FilterContext
      * @Then Fill :field with a random phone
      * @param $field
      */
-    public function fillFieldWithRandomPhone($field)
+    public function fillCheckoutFieldWithRandomPhone($field)
+    {
+        $value = $this->filterValue('079{RandomPhone(7)}');
+        $this->setPhone($value);
+        $this->fillRandomField($field, $value);
+    }
+
+    /**
+     * @Then Fill billing :field with a random phone
+     * @param $field
+     */
+    public function fillBillingFieldWithRandomPhone($field)
     {
         $value = $this->filterValue('79{RandomPhone(7)}');
         $this->setPhone($value);

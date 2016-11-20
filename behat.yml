@@ -56,7 +56,7 @@ default:
             verify: false
             ssl.certificate_authority: false
       selenium2:
-        wd_host: "http://127.0.0.1:4444/wd/hub"
+        wd_host: "http://127.0.0.1:4445/wd/hub"
         capabilities: { 'browser': 'firefox', 'version': 'ANY' }
     SensioLabs\Behat\PageObjectExtension:
       namespaces:

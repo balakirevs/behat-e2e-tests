@@ -15,16 +15,23 @@ class CheckoutPageContext extends PageObjectContext
         date_default_timezone_set('Europe/Zurich');
     }
 
+    public function __call($method, $parameters)
+    {
+        $page = $this->getPage('CheckoutPage');
+        if (method_exists($page, $method)) {
+            return call_user_func_array(array($page, $method), $parameters);
+        }
+    }
+
     /**
      * @Given /^I fill in the content form with random credentials$/
      */
     public function iFillInCheckoutContentFormWith(TableNode $table)
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->fillInCheckoutTitleDetails($table);
-        $checkoutPage->fillInCheckoutPersonalDetails();
-        $checkoutPage->fillInCheckoutEmailAddress();
-        $checkoutPage->fillInCheckoutPhoneNumber();
+        $this->fillInCheckoutTitleDetails($table);
+        $this->fillInCheckoutPersonalDetails();
+        $this->fillInCheckoutEmailAddress();
+        $this->fillInCheckoutPhoneNumber();
     }
 
     /**
@@ -32,9 +39,8 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iFillInCheckoutMobileContentFormWith(TableNode $table)
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->fillInCheckoutTitleDetails($table);
-        $checkoutPage->fillInCheckoutMobilePersonalDetails();
+        $this->fillInCheckoutTitleDetails($table);
+        $this->fillInCheckoutMobilePersonalDetails();
     }
 
     /**
@@ -42,9 +48,8 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iFillInMinorUserFormWith(TableNode $table)
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->fillInCheckoutTitleDetails($table);
-        $checkoutPage->fillInMinorUserDetails();
+        $this->fillInCheckoutTitleDetails($table);
+        $this->fillInMinorUserDetails();
     }
 
 
@@ -53,8 +58,7 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iEnterDateInTheCalendar()
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->fillInDateInTheCalendar();
+        $this->fillInDateInTheCalendar();
     }
 
     /**
@@ -63,15 +67,14 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iFillInBirthdayForm($birthday)
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
         if ($this->getAge($birthday) >= 18) {
-            $checkoutPage->fillInFormField('custom_step2_dob_day', $this->getDay($birthday));
-            $checkoutPage->fillInFormField('custom_step2_dob_month', $this->getMonth($birthday));
-            $checkoutPage->fillInFormField('custom_step2_dob_year', $this->getYear($birthday));
+            $this->fillInFormField('custom_step2_dob_day', $this->getDay($birthday));
+            $this->fillInFormField('custom_step2_dob_month', $this->getMonth($birthday));
+            $this->fillInFormField('custom_step2_dob_year', $this->getYear($birthday));
         } else if ($this->getAge($birthday) < 18 && $this->getAge($birthday) >= 12) {
-            $checkoutPage->fillInFormField('custom_step2_dob_underage_day', $this->getDay($birthday));
-            $checkoutPage->fillInFormField('custom_step2_dob_underage_month', $this->getMonth($birthday));
-            $checkoutPage->fillInFormField('custom_step2_dob_underage_year', $this->getYear($birthday));
+            $this->fillInFormField('custom_step2_dob_underage_day', $this->getDay($birthday));
+            $this->fillInFormField('custom_step2_dob_underage_month', $this->getMonth($birthday));
+            $this->fillInFormField('custom_step2_dob_underage_year', $this->getYear($birthday));
         } else {
             throw new \Exception ('Age requirements are not correct');
         }
@@ -122,29 +125,13 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iFillInTheBillingContentFormWithRandomCredentials($email = null)
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
         if ($email == null) {
-            $checkoutPage->fillInBillingEmailAddress();
+            $this->fillInBillingEmailAddress();
         } else {
-            $checkoutPage->fillField('billing_email', $email);
-            $checkoutPage->fillField('billing_email_confirm', $email);
+            $this->fillField('billing_email', $email);
+            $this->fillField('billing_email_confirm', $email);
         }
-        $checkoutPage->fillInBillingPhoneNumber();
-    }
-
-    /**
-     * @Then I fill in the eligibility billing form with
-     */
-    public function iFillInTheEligibilityBillingForm(TableNode $table)
-    {
-        $homePage = $this->getPage('HomePage');
-        $homePage->fillInAutocompleteForm($table, 'billing_postcode', '#ui-id', 'NPA');
-        $homePage->enableElementId('billing_city');
-        $homePage->fillInAutocompleteForm($table, 'billing_city', '#ui-id', 'City');
-        $homePage->enableElementId('billing_street1');
-        $homePage->fillInAutocompleteForm($table, 'billing_street1', '#ui-id', 'Street');
-        $homePage->enableElementId('billing_street2');
-        $homePage->fillInAutocompleteForm($table, 'billing_street2', '#ui-id', 'Number');
+        $this->fillInBillingPhoneNumber();
     }
 
     /**
@@ -152,8 +139,7 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iSelectNationalityFromTheList($nationality)
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->selectNationality($nationality);
+        $this->selectNationality($nationality);
     }
 
     /**
@@ -161,9 +147,8 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iFillInPasswordFields($password)
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->fillInPassword($password);
-        $checkoutPage->fillInPasswordConfirmation($password);
+        $this->fillInPassword($password);
+        $this->fillInPasswordConfirmation($password);
     }
 
     /**
@@ -171,8 +156,7 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iSelectIdentityCardFromTheList($cardType)
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->selectIdentityCard($cardType);
+        $this->selectIdentityCard($cardType);
     }
 
     /**
@@ -180,14 +164,12 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iFillInIdentityCardNumberAccordingToTheAndTypeOf($nationality, $cardType)
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-
         if (in_array($nationality, $this->params['switzerland']) && (in_array($cardType, $this->params['passport']))) {
-            $checkoutPage->fillInPassportNumber();
+            $this->fillInPassportNumber();
         } else if (in_array($nationality, $this->params['switzerland']) && (in_array($cardType, $this->params['cardId']))) {
-            $checkoutPage->fillInIdCardNumber();
+            $this->fillInIdCardNumber();
         } else {
-            $checkoutPage->fillInPieceLegitimation();
+            $this->fillInPieceLegitimation();
         }
     }
 
@@ -196,8 +178,7 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iAcceptWingoConditions()
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->acceptWingoCheckoutConditions();
+        $this->acceptWingoCheckoutConditions();
     }
 
     /**
@@ -205,8 +186,7 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iPressButtonContinue()
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->clickButtonContinue();
+        $this->clickButtonContinue();
     }
 
     /**
@@ -214,8 +194,7 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function theEmailIsPresentOnTheAcknowledgmentPage($email)
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->checkConfirmationEmail($email);
+        $this->checkConfirmationEmail($email);
     }
 
     /**
@@ -223,13 +202,12 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iAmVarifyingPreviouslyFilledInData(TableNode $table)
     {
-        $checkoutPage = $this->getPage('CheckoutPage');
-        $checkoutPage->checkCheckoutOperatorName($table);
-        $checkoutPage->checkCheckoutContractType($table);
-        $checkoutPage->checkCheckoutTerm($table);
-        $checkoutPage->checkCheckoutTitle($table);
-        $checkoutPage->checkCheckoutBirthDay($table);
-        $checkoutPage->checkCheckoutNationality($table);
-        $checkoutPage->checkCheckoutIdCard($table);
+        $this->checkCheckoutOperatorName($table);
+        $this->checkCheckoutContractType($table);
+        $this->checkCheckoutTerm($table);
+        $this->checkCheckoutTitle($table);
+        $this->checkCheckoutBirthDay($table);
+        $this->checkCheckoutNationality($table);
+        $this->checkCheckoutIdCard($table);
     }
 }

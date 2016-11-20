@@ -5,8 +5,14 @@ use SensioLabs\Behat\PageObjectExtension\Context\PageObjectContext;
 
 class NavigationPageContext extends PageObjectContext
 {
-    public function __construct()
+    public function __construct(){}
+
+    public function __call($method, $parameters)
     {
+        $page = $this->getPage('NavigationPage');
+        if (method_exists($page, $method)) {
+            return call_user_func_array(array($page, $method), $parameters);
+        }
     }
 
     private $featureContext;
@@ -29,7 +35,7 @@ class NavigationPageContext extends PageObjectContext
      */
     public function navigateToUrl($subDomain = null, $domainName, $domainType)
     {
-        $base_url = $this->getPage('NavigationPage')->setUpUrl($subDomain, $domainName, $domainType);
+        $base_url = $this->setUpUrl($subDomain, $domainName, $domainType);
         $this->featureContext->setMinkParameter('base_url', $base_url);
     }
 }

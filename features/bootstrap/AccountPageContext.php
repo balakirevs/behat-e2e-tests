@@ -5,6 +5,15 @@ require_once __DIR__.'/Model/User.php';
 
 class AccountPageContext extends PageObjectContext
 {
+    public function __construct(){}
+
+    public function __call($method, $parameters)
+    {
+        $page = $this->getPage('AccountPage');
+        if (method_exists($page, $method)) {
+            return call_user_func_array(array($page, $method), $parameters);
+        }
+    }
     /**
      *
      */
@@ -29,6 +38,6 @@ class AccountPageContext extends PageObjectContext
         if (!$this->user) {
             throw new Exception("User not loaded");
         }
-        $this->getPage('AccountPage')->enterUserDetailsOnAccountForm($this->user);
+        $this->enterUserDetailsOnAccountForm($this->user);
     }
 }
