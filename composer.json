@@ -1,5 +1,5 @@
 {
-  "name": "e2e automation test project",
+  "name": "balakirevs/behat-e2e-tests",
   "description": "behat 3, cucumber",
   "license": "MIT",
   "autoload": {
