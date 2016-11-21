@@ -380,7 +380,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iFillARandomPhoneNumber()
     {
-        $this->fillFieldWithRandomPhone('custom_step1_portability_phone_number');
+        $this->fillBillingFieldWithRandomPhone('custom_step1_portability_phone_number');
     }
 
     /**

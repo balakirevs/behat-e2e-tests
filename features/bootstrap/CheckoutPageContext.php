@@ -202,10 +202,6 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iAmVarifyingPreviouslyFilledInData(TableNode $table)
     {
-        $this->checkCheckoutOperatorName($table);
-        $this->checkCheckoutContractType($table);
-        $this->checkCheckoutTerm($table);
-        $this->checkCheckoutTitle($table);
         $this->checkCheckoutBirthDay($table);
         $this->checkCheckoutNationality($table);
         $this->checkCheckoutIdCard($table);

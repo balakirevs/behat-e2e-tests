@@ -16,7 +16,7 @@ class ContactPage extends Page
         $this->fillFieldWithRandomLoremIpsum('comment');
         $this->fillFieldWithRandomName('firstname');
         $this->fillFieldWithRandomSurname('name');
-        $this->fillFieldWithRandomPhone('telephone');
+        $this->fillBillingFieldWithRandomPhone('telephone');
         $this->fillFieldWithRandomEmail('email');
         $this->fillFieldWithRandomNumber('customernumber');
     }
