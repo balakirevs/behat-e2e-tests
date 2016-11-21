@@ -5,8 +5,6 @@
 composer.lock
 bin
 vendor
-.idea/
-.DS_Store
 build/
 report/parallel/**/assets/*
 report/parallel/**/index.html
