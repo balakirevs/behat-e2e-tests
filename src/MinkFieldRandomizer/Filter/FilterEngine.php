@@ -3,6 +3,7 @@
 namespace MinkFieldRandomizer\Filter;
 
 use Exception;
+use MinkFieldRandomizer\Registry\Registry;
 
 class FilterEngine
 {

@@ -1,6 +1,7 @@
 {
-  "name": "E2E automation test project",
+  "name": "e2e automation test project",
   "description": "behat 3, cucumber",
+  "license": "MIT",
   "autoload": {
     "psr-0": {
       "MinkFieldRandomizer\\Filter\\": "src",
