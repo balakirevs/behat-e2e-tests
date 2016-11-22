@@ -123,7 +123,7 @@
         <delete dir="${basedir}/report/parallel" />
         <mkdir dir="${basedir}/report/parallel" />
         <exec dir="${basedir}" executable="php" failonerror="true">
-            <arg line= "bin/behat -p preprod-phantomjs --tags @product -f html --out report/parallel/preprod-phantomjs -f progress --out std -p preprod-phantomjs"/>
+            <arg line= "bin/behat -p preprod-phantomjs --tags @account -f junit -o report/parallel/preprod-phantomjs -f progress -o std -p preprod-phantomjs"/>
         </exec>
     </target>
 </project>

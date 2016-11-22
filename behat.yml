@@ -276,8 +276,7 @@ phantomjs:
 
 preprod-phantomjs:
   formatters:
-    html:
-      output_path: %paths.base%/report/phantomjs
+    junit: [report/parallel]
   extensions:
     Behat\MinkExtension:
       base_url: "https://wingo-preprod.wingo.ch"
