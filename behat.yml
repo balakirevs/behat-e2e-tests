@@ -2,7 +2,7 @@ default:
   gherkin:
     cache: ~
     filters:
-      tags: "~@product"    # exclude scenario by tag
+      tags: "~@products"    # exclude scenario by tag
   suites:
     default:
       contexts:
@@ -33,15 +33,17 @@ default:
         - NavigationPageContext
   formatters:
     html:
-      output_path: %paths.base%/report/firefox
+      output_path: %paths.base%/report
   extensions:
-    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+    elkan\BehatFormatter\BehatFormatterExtension:
+      projectName: e2e Tests
       name: html
-      renderer: Twig,Behat2
+      renderer: Twig
       file_name: index
       print_args: true
       print_outp: true
       loop_break: true
+      show_tags: true
     Behat\MinkExtension:
       base_url: "https://wingo-preprod.wingo.ch"
       default_session: selenium2
@@ -57,7 +59,7 @@ default:
             verify: false
             ssl.certificate_authority: false
       selenium2:
-        wd_host: "http://127.0.0.1:4445/wd/hub"
+        wd_host: "http://127.0.0.1:4444/wd/hub"
         capabilities: { 'browser': 'firefox', 'version': 'ANY' }
     SensioLabs\Behat\PageObjectExtension:
       namespaces:

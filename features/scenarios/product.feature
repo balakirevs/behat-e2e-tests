@@ -17,16 +17,16 @@ Feature: Wingo products
       And I should see promotion validity term
       When I check radio button for mobile with "<Text>"
       Then I select my mobile operator from the list
-        | Operator     | Field                                     |
-        | "<Operator>" | custom_step1_portability_current_provider |
+        | Operator   | Field                                     |
+        | <Operator> | custom_step1_portability_current_provider |
       And I check the contract "<Type>" and portability "<Term>" according to "<Operator>"
       Then I fill a random phone number
       When I enter date in the calendar
       And I press "<Button>"
       Then I must be switched to the next step "<DataStep>"
       And I fill in the mobile content form with random credentials
-        | Title     | Field                   |
-        | "<Title>" | custom_step2_user_title |
+        | Title   | Field                   |
+        | <Title> | custom_step2_user_title |
       Then I fill in my birthday form "<Date>"
       And I fill in the billing content form with random credentials "<Email>"
       When I fill in the eligibility billing form with
@@ -64,8 +64,8 @@ Feature: Wingo products
     When I press "<Button>"
     Then I must be switched to the next step "<DataStep>"
     And I fill in the mobile content form with random credentials
-      | Title     | Field                   |
-      | "<Title>" | custom_step2_user_title |
+      | Title   | Field                   |
+      | <Title> | custom_step2_user_title |
     Then I fill in my birthday form "<Date>"
     And I fill in the billing content form with random credentials
     When I fill in the eligibility billing form with
@@ -77,8 +77,8 @@ Feature: Wingo products
     Then I fill in password fields "<Password>"
     When I check checkbox of a minor user
     And I fill in minor user form with random credentials
-      | Title     | Field                            |
-      | "<Title>" | custom_step2_user_title_underage |
+      | Title   | Field                            |
+      | <Title> | custom_step2_user_title_underage |
     Then I fill in my birthday form "<Date_2>"
     Then I press button Continue
     And I must be switched to the next step "<OrderStep>"

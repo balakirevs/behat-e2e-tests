@@ -64,6 +64,8 @@ $ bin/behat -p chrome
 $ bin/behat -p safari
 $ bin/behat -p chrome_mobile
 $ bin/behat --profile=preprod --tags @product                     # run with defenite profile configs ###
+$ bin/behat -p phantomjs --tags @home,@eligibilityForm,@contact,@product -f junit -o report -f progress -o std -p phantomjs   # multiple tags + junit
+$ bin/behat -p phantomjs --tags @home,@eligibilityForm,@account   # run with custom reports
 ```
 
 Second test runs using Guzzle (for API), the rest using Firefox

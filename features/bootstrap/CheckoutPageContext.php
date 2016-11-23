@@ -82,7 +82,7 @@ class CheckoutPageContext extends PageObjectContext
 
     private function formatDate($date)
     {
-        return str_replace(".", " ", $date);
+        return str_replace(".", "", $date);
     }
 
     public function getDay($data)
@@ -94,7 +94,7 @@ class CheckoutPageContext extends PageObjectContext
     public function getMonth($data)
     {
         $month = $this->formatDate($data);
-        return substr($month, 2, 3);
+        return substr($month, 2, 2);
     }
 
     public function getYear($data)

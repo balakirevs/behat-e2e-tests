@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites name="default">
-  <testsuite name="Account" tests="1" skipped="0" failures="0" errors="0">
-    <testcase name="Sign in to user account #1" status="passed"></testcase>
+  <testsuite name="Send Contact Details" tests="1" skipped="0" failures="0" errors="0">
+    <testcase name="Fill in contact form #1" status="passed"></testcase>
+  </testsuite>
+  <testsuite name="Check eligibility" tests="2" skipped="0" failures="0" errors="0">
+    <testcase name="Check eligibility #1" status="passed"></testcase>
+    <testcase name="Check eligibility #2" status="passed"></testcase>
+  </testsuite>
+  <testsuite name="Homepage Content" tests="1" skipped="0" failures="0" errors="0">
+    <testcase name="Check homepage content" status="passed"></testcase>
+  </testsuite>
+  <testsuite name="Wingo products" tests="5" skipped="0" failures="0" errors="0">
+    <testcase name=" #1" status="passed"></testcase>
+    <testcase name=" #2" status="passed"></testcase>
+    <testcase name=" #3" status="passed"></testcase>
+    <testcase name=" #1" status="passed"></testcase>
+    <testcase name=" #2" status="passed"></testcase>
   </testsuite>
 </testsuites>

@@ -22,15 +22,15 @@ Feature: Check eligibility
     And I press "<ButtonNext>"
     Then I should be switched to the next step "<ContactStep>"
     And I fill in the content form with random credentials
-      | Title     | Field                          |
-      | "<Title>" | checkout_service_address_title |
+      | Title   | Field                          |
+      | <Title> | checkout_service_address_title |
     And I press "<ButtonNext>"
     Then I should be switched to the next step "<OrderStep>"
     And I check radio button with "<Text>"
     Then I check "<AcceptConditions>" checkbox
     When I press "<ButtonOrder>"
     Then I should be redirected to "https://jerry-preprod.wingo.ch/checkouts?l=<locale>&done=true"
-    And I should see "<Acknowledgment>"
+    Then I should see "<Acknowledgment>"
 
     Examples:
       | Product | Text                      | Colour | Url       | locale | Message                                            | ButtonNext | ContactStep     | Title    | OrderStep        | AcceptConditions                       | ButtonOrder         | Acknowledgment           |
