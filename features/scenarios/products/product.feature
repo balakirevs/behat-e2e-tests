@@ -6,10 +6,10 @@ Feature: Wingo products
 
   @javascript @mobileProduct
     Scenario Outline:
-      Given I am on "/<locale>"
+      Given I am on "<locale>"
       And I should see "NO BULLSHIT"
       Then I click button of a "<Colour>" product
-      And I should be redirected to "/<locale><Url>"
+      And I should be redirected to "<locale><Url>"
       When I click "<Product>" link "<locale>"
       Then I should be redirected to "https://bbg-preprod.wingo.ch<locale>/checkout/onepage"
       And the cost of the product is "<Price>"
@@ -55,9 +55,9 @@ Feature: Wingo products
 
   @javascript @newNumber
   Scenario Outline:
-    Given I am on "/<locale>"
+    Given I am on "<locale>"
     Then I click button of a "<Colour>" product
-    And I should be redirected to "/<locale><Url>"
+    And I should be redirected to "<locale><Url>"
     When I click "<Product>" link "<locale>"
     Then I should be redirected to "https://bbg-preprod.wingo.ch<locale>/checkout/onepage"
     And I check radio button for mobile with "<Text>"

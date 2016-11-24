@@ -1,42 +1,60 @@
+contexts: &CONTEXTS
+  contexts:
+    - HomePageContext
+    - ContactPageContext
+    - FeatureContext:
+        parameters:
+          href_prod: https://shop.wingo.ch
+          href_preprod: https://bbg-preprod.wingo.ch
+          product_url: /checkout/cart/add/product/303?relatedProductId=302
+          abonement: ["un abonnement", "ein Abonnement", "un abbonamento"]
+          prepaid: ["une carte prepaid", "ein Prepaid", "una scheda prepagata"]
+          aboniment_operators: ["Das Abo (Die Post)", "Primacall", "Quickline Mobile", "Tele4U", "UPC Cablecom"]
+          prepaid_operators: ["Aldi Suisse", "Lebara", "Lycamobile", "Mucho", "Ok.- mobile", "Ortel Mobile"]
+          general_operators: ["Abamobile", "Coop Mobile", "FREEFON", "FlexMobile", "M-Budget", "MTV Mobile", "Medinex Sunrise", "Salt (Orange)", "Sunrise", "Sunrise24.ch", "Swisscom", "Talk Talk", "Transatel", "Triotel", "Yallo"]
+          end_term: ["Au terme de la durée contractuelle", "Auf Ende der Vertrags-laufzeit", "Per la fine della durata del contratto"]
+          other_term: ["À une autre date", "Auf ein anderes Datum", "Per un'altra data"]
+          new_number: ["Je souhaite un nouveau numéro", "Ich möchte eine neue Rufnummer", "Desidero un nuovo numero"]
+          actual_number: ["Je souhaite garder mon numéro actuel", "Ich möchte meine Rufnummer behalten", "Desidero mantenere il mio numero attuale"]
+          minor_user: ["L'utilisateur du téléphone est une personne mineure", "Minderjähriger Benutzer", "L'utente del telefono è minorenne"]
+          promotion: ["Promo valable jusqu'au 31 décembre 2016", "Promo gültig bis zum 31. Dezember 2016", "Promo valida fino al 31 dicembre 2016"]
+    - CheckoutPageContext:
+        parameters:
+          switzerland: ["Suisse", "Schweiz", "Svizzera"]
+          passport: ["Passeport", "Passaporto", "Reisepass"]
+          cardId: ["Carte d'identité", "Carta d'identità", "Identitätskarte"]
+    - AccountPageContext
+    - NavigationPageContext
+
+#====================================================================================================================#
+
 default:
   gherkin:
     cache: ~
     filters:
       tags: "~@products"    # exclude scenario by tag
   suites:
-    default:
-      contexts:
-        - HomePageContext
-        - ContactPageContext
-        - FeatureContext:
-            parameters:
-              href_prod: https://shop.wingo.ch
-              href_preprod: https://bbg-preprod.wingo.ch
-              product_url: /checkout/cart/add/product/303?relatedProductId=302
-              abonement: ["un abonnement", "ein Abonnement", "un abbonamento"]
-              prepaid: ["une carte prepaid", "ein Prepaid", "una scheda prepagata"]
-              aboniment_operators: ["Das Abo (Die Post)", "Primacall", "Quickline Mobile", "Tele4U", "UPC Cablecom"]
-              prepaid_operators: ["Aldi Suisse", "Lebara", "Lycamobile", "Mucho", "Ok.- mobile", "Ortel Mobile"]
-              general_operators: ["Abamobile", "Coop Mobile", "FREEFON", "FlexMobile", "M-Budget", "MTV Mobile", "Medinex Sunrise", "Salt (Orange)", "Sunrise", "Sunrise24.ch", "Swisscom", "Talk Talk", "Transatel", "Triotel", "Yallo"]
-              end_term: ["Au terme de la durée contractuelle", "Auf Ende der Vertrags-laufzeit", "Per la fine della durata del contratto"]
-              other_term: ["À une autre date", "Auf ein anderes Datum", "Per un'altra data"]
-              new_number: ["Je souhaite un nouveau numéro", "Ich möchte eine neue Rufnummer", "Desidero un nuovo numero"]
-              actual_number: ["Je souhaite garder mon numéro actuel", "Ich möchte meine Rufnummer behalten", "Desidero mantenere il mio numero attuale"]
-              minor_user: ["L'utilisateur du téléphone est une personne mineure", "Minderjähriger Benutzer", "L'utente del telefono è minorenne"]
-              promotion: ["Promo valable jusqu'au 31 décembre 2016", "Promo gültig bis zum 31. Dezember 2016", "Promo valida fino al 31 dicembre 2016"]
-        - CheckoutPageContext:
-            parameters:
-              switzerland: ["Suisse", "Schweiz", "Svizzera"]
-              passport: ["Passeport", "Passaporto", "Reisepass"]
-              cardId: ["Carte d'identité", "Carta d'identità", "Identitätskarte"]
-        - AccountPageContext
-        - NavigationPageContext
+    home:
+      <<: *CONTEXTS
+      paths: [ %paths.base%/features/scenarios/home ]
+    ecare:
+      <<: *CONTEXTS
+      paths: [ %paths.base%/features/scenarios/ecare ]
+    contact:
+      <<: *CONTEXTS
+      paths: [ %paths.base%/features/scenarios/contact ]
+    eligibility:
+      <<: *CONTEXTS
+      paths: [ %paths.base%/features/scenarios/eligibility ]
+    products:
+      <<: *CONTEXTS
+      paths: [ %paths.base%/features/scenarios/products ]
   formatters:
     html:
       output_path: %paths.base%/report
   extensions:
     elkan\BehatFormatter\BehatFormatterExtension:
-      projectName: e2e Tests
+      projectName: Wingo E2E Automation Tests
       name: html
       renderer: Twig
       file_name: index
@@ -74,13 +92,6 @@ default:
         local:
           screenshot_directory: screenshots
           clear_screenshot_directory: true
-
-#====================================================================================================================#
-
-preprod:
-  extensions:
-    Behat\MinkExtension:
-      base_url: "https://wingo-preprod.wingo.ch"
 
 #====================================================================================================================#
 
@@ -276,7 +287,7 @@ phantomjs:
 
 #====================================================================================================================#
 
-preprod-phantomjs:
+jenkins-phantomjs:
   formatters:
     junit: [report/parallel]
   extensions:
@@ -291,37 +302,3 @@ preprod-phantomjs:
           browser: phantomjs
           version: ""
         wd_host: "http://127.0.0.1:4445/wd/hub"
-
-#====================================================================================================================#
-
-sauce:
-  context:
-    class:  'FeatureContext'
-  extensions:
-    Behat\MinkExtension:
-      selenium2:
-        browser: iexplore
-        wd_host: username:apikey@ondemand.saucelabs.com/wd/hub
-        capabilities: { "platform": "VISTA", "browser": "iexplore", "version": "9"}
-
-#====================================================================================================================#
-
-sauce-rc:
-  context:
-    class:  'FeatureContext'
-  extensions:
-    Behat\MinkExtension:
-      base_url:  'https://wingo-preprod.wingo.ch'
-      javascript_session: selenium2
-      selenium:
-        host: ondemand.saucelabs.com
-        port: 80
-        browser: >
-          {
-            "username":         "username",
-            "access-key":       "apikey",
-            "browser":          "firefox",
-            "browser-version":  "7",
-            "os":               "Windows 2003",
-            "name":             "E2E Automation Tests"
-          }

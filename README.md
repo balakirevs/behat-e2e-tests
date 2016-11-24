@@ -43,6 +43,15 @@ RUNNING SELENIUM BROWSER TESTS
 
 Before running behat to test the feature files in features directory, ensure the following commands are executed :-
 
+SELENIUM GRID
+==============================
+
+```bash
+$ java -jar selenium-server-standalone-[version].jar -role hub
+$ java -jar selenium-server-standalone-[version].jar -role node -hub http://localhost:4444/grid/register/     # new console tab
+# go to http://localhost:4444/grid/console#
+```
+
 ```bash
 $ java -jar selenium-server-standalone-[version].jar
 ```
@@ -66,6 +75,7 @@ $ bin/behat -p chrome_mobile
 $ bin/behat --profile=preprod --tags @product                     # run with defenite profile configs ###
 $ bin/behat -p phantomjs --tags @home,@eligibilityForm,@contact,@product -f junit -o report -f progress -o std -p phantomjs   # multiple tags + junit
 $ bin/behat -p phantomjs --tags @home,@eligibilityForm,@account   # run with custom reports
+$ bin/behat -s contact -p chrome     # -s = suite, -p = profile
 ```
 
 Second test runs using Guzzle (for API), the rest using Firefox
