@@ -17,7 +17,7 @@ Feature: Send Contact Details
     | fr     | Soumettre | contact |
     | de     | Senden    | kontakt |
 
-  @javascript @contact_content
+  @javascript @contactContent
   Scenario:  Check contact page content
     Given I am on "/fr/contact"
     Then I should see "Kontact"
