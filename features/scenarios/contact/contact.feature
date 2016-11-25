@@ -6,12 +6,20 @@ Feature: Send Contact Details
 
   @javascript @contact
   Scenario Outline: Fill in contact form
-    Given I am on "/<locale>/contact"
+    Given I am on "/<locale>/<Url>"
     And I select "Internet" from "requesttype"
     Then I fill in random contact details
     When I attached the file "test_file.pdf" to "attachment"
     And I press "<Button>"
-    Then I should be redirected to "/<locale>/contact/success"
+    Then I should be redirected to "/<locale>/<Url>/success"
   Examples:
-    | locale | Button    |
-    | fr     | Soumettre |
+    | locale | Button    | Url     |
+    | fr     | Soumettre | contact |
+    | de     | Senden    | kontakt |
+
+  @javascript @contact_content
+  Scenario:  Check contact page content
+    Given I am on "/fr/contact"
+    Then I should see "Kontact"
+    When I click "Vers les FAQ" link
+    And I should be redirected to "/fr/help"

@@ -6,6 +6,7 @@ contexts: &CONTEXTS
         parameters:
           href_prod: https://shop.wingo.ch
           href_preprod: https://bbg-preprod.wingo.ch
+          preprod_url: https://wingo-preprod.wingo.ch
           product_url: /checkout/cart/add/product/303?relatedProductId=302
           abonement: ["un abonnement", "ein Abonnement", "un abbonamento"]
           prepaid: ["une carte prepaid", "ein Prepaid", "una scheda prepagata"]
@@ -92,6 +93,9 @@ default:
         local:
           screenshot_directory: screenshots
           clear_screenshot_directory: true
+    jarnaiz\JUnitFormatter\JUnitFormatterExtension:
+      filename: default.xml
+      outputDir: %paths.base%/report
 
 #====================================================================================================================#
 

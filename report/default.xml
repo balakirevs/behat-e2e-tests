@@ -1,20 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="default">
-  <testsuite name="Send Contact Details" tests="1" skipped="0" failures="0" errors="0">
-    <testcase name="Fill in contact form #1" status="passed"></testcase>
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="home" tests="0"/>
+  <testsuite name="Homepage Content" tests="1" failures="0" skipped="0" errors="0" time="10.243">
+    <testcase name="Check homepage content" time="10.239" status="passed"/>
   </testsuite>
-  <testsuite name="Check eligibility" tests="2" skipped="0" failures="0" errors="0">
-    <testcase name="Check eligibility #1" status="passed"></testcase>
-    <testcase name="Check eligibility #2" status="passed"></testcase>
+  <testsuite name="ecare" tests="0"/>
+  <testsuite name="contact" tests="0"/>
+  <testsuite name="Send Contact Details" tests="2" failures="0" skipped="0" errors="0" time="33.706">
+    <testcase name="Fill in contact form Line #17" time="17.269" status="passed"/>
+    <testcase name="Fill in contact form Line #18" time="16.429" status="passed"/>
   </testsuite>
-  <testsuite name="Homepage Content" tests="1" skipped="0" failures="0" errors="0">
-    <testcase name="Check homepage content" status="passed"></testcase>
-  </testsuite>
-  <testsuite name="Wingo products" tests="5" skipped="0" failures="0" errors="0">
-    <testcase name=" #1" status="passed"></testcase>
-    <testcase name=" #2" status="passed"></testcase>
-    <testcase name=" #3" status="passed"></testcase>
-    <testcase name=" #1" status="passed"></testcase>
-    <testcase name=" #2" status="passed"></testcase>
-  </testsuite>
+  <testsuite name="eligibility" tests="0"/>
+  <testsuite name="products" tests="0"/>
 </testsuites>
