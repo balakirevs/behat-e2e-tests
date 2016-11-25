@@ -90,12 +90,16 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
     public function getLinkByTextValue($text)
     {
-        return $this->find('named', array('link', $this->xpathLiteral($text)));
+        $link = $this->find('named', array('link', $this->xpathLiteral($text)));
+        if (!$link) {
+            throw new \Exception("Link . '$link' . by text '$text' . not found");
+        }
+        return $link;
     }
 
     public function getLinkAttributeByTextValue($text)
     {
-        $link = $this->find('named', array('link', $this->xpathLiteral($text)));
+        $link = $this->getLinkByTextValue($text);
         return $link->getAttribute('href');
     }
 
