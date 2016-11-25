@@ -15,6 +15,11 @@ class HomePageContext extends PageObjectContext
         }
     }
 
+    protected $elements = array(
+        'Autocomplete element' => '#ui-id',
+        'Autocomplete wrapper' => array('css' => '.ui-menu-item-wrapper')
+    );
+
     /**
      * @Given /^the browser is set to size$/
      */
@@ -28,12 +33,12 @@ class HomePageContext extends PageObjectContext
      */
     public function iFillInTheEligibilityFormWith(TableNode $table)
     {
-        $this->resetFiberEligibility('#fiberEligOk');
-        $this->fillInAutocompleteForm($table, 'eligibilityPostCode', '#ui-id', 'NPA');
+        $this->resetFiberEligibility();
+        $this->fillInAutocompleteForm($table, 'eligibilityPostCode', 'Autocomplete element', 'NPA');
         $this->enableElementId('eligibilityStreetName');
-        $this->fillInAutocompleteForm($table, 'eligibilityStreetName', '#ui-id', 'Street');
+        $this->fillInAutocompleteForm($table, 'eligibilityStreetName', 'Autocomplete element', 'Street');
         $this->enableElementId('eligibilityStreetNumber');
-        $this->fillInAutocompleteForm($table, 'eligibilityStreetNumber', '.ui-menu-item-wrapper', 'Number');
+        $this->fillInAutocompleteForm($table, 'eligibilityStreetNumber', 'Autocomplete wrapper', 'Number');
     }
 
     /**
@@ -41,7 +46,7 @@ class HomePageContext extends PageObjectContext
      */
     public function iClickMenuIcon()
     {
-        $this->find("css", ".burger-icon")->click();
+        $this->clickMenu();
     }
 
     /**
@@ -49,12 +54,12 @@ class HomePageContext extends PageObjectContext
      */
     public function iFillInTheEligibilityBillingForm(TableNode $table)
     {
-        $this->fillInAutocompleteForm($table, 'billing_postcode', '#ui-id', 'NPA');
+        $this->fillInAutocompleteForm($table, 'billing_postcode', 'Autocomplete element', 'NPA');
         $this->enableElementId('billing_city');
-        $this->fillInAutocompleteForm($table, 'billing_city', '#ui-id', 'City');
+        $this->fillInAutocompleteForm($table, 'billing_city', 'Autocomplete element', 'City');
         $this->enableElementId('billing_street1');
-        $this->fillInAutocompleteForm($table, 'billing_street1', '#ui-id', 'Street');
+        $this->fillInAutocompleteForm($table, 'billing_street1', 'Autocomplete element', 'Street');
         $this->enableElementId('billing_street2');
-        $this->fillInAutocompleteForm($table, 'billing_street2', '#ui-id', 'Number');
+        $this->fillInAutocompleteForm($table, 'billing_street2', 'Autocomplete element', 'Number');
     }
 }

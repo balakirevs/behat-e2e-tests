@@ -7,6 +7,11 @@ use Assert\Assertion;
 
 class HomePage extends Page
 {
+    protected $elements = array(
+        'Menu' => '.burger-icon',
+        'Reset' => array('css' => '#fiberEligOk')
+    );
+
     /**
      * @param TableNode $table
      * @param string $element
@@ -42,12 +47,16 @@ class HomePage extends Page
         $this->jqueryWait(10000);
     }
 
-    public function resetFiberEligibility($element)
+    public function resetFiberEligibility()
     {
-        $form = $this->find('css', $element)->isVisible();
+        $form = $this->getElement('Reset')->isVisible();
         $js = "clearAndShowForm();";
         if ($form) {
             $this->getSession()->executeScript($js);
         }
+    }
+
+    public function clickMenu(){
+        $this->getElement('Menu')->click();
     }
 }
