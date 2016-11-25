@@ -10,6 +10,21 @@ class CheckoutPage extends Page
 {
     use FilterContext;
 
+    protected $elements = array(
+        'Accept conditions' => '#info_term',
+        'Datepicker' => '#calendarWrapper',
+        'Continue Button' => array('css' => '#co-billing-form > div.button_bar_checkout > button.button.next'),
+        'Confirmation email' => array('css' => '#my_success > div.content.page-too-small > div > p:nth-child(5)'),
+        'Operator name' => array('css' => '#portability_detail_selection_review > div > ul > li:nth-child(1) > span'),
+        'Contract type' => array('css' => '#portability_detail_selection_review > div > ul > li:nth-child(2) > span'),
+        'Term info' => array('css' => '#portability_detail_selection_review > div > ul > li:nth-child(4) > span'),
+        'Title name' => array('css' => '#checkout-end-billing-name-surname > div > ul > li:nth-child(1) > span'),
+        'Checkout email' => array('css' => '#checkout-end-billing-address > div > ul > li:nth-child(1) > span'),
+        'Birth day' => array('css' => '#checkout-end-billing-nationailty > div > ul > li:nth-child(1) > span'),
+        'Origin' => array('css' => '#checkout-end-billing-nationailty > div > ul > li:nth-child(2) > span'),
+        'Passport' => array('css' => '#checkout-end-billing-nationailty > div > ul > li:nth-child(3) > span')
+    );
+
     /**
      * @param TableNode $table
      * Fill in checkout title details
@@ -88,7 +103,7 @@ class CheckoutPage extends Page
      */
     public function fillInDateInTheCalendar()
     {
-        $this->find('css', '#calendarWrapper')->click();
+        $this->getElement('Datepicker')->click();
         $values = $this->findAll('css', 'a.ui-state-default');
         $values[0]->click();
     }
@@ -159,7 +174,7 @@ class CheckoutPage extends Page
 
     public function acceptWingoCheckoutConditions()
     {
-        $this->find('css', "#info_term")->click();
+        $this->getElement('Accept conditions')->click();
     }
 
     /*
@@ -167,7 +182,7 @@ class CheckoutPage extends Page
      */
     public function clickButtonContinue()
     {
-        $this->find('css', '#co-billing-form > div.button_bar_checkout > button.button.next')->click();
+        $this->getElement('Continue Button')->click();
     }
 
     /*
@@ -175,7 +190,7 @@ class CheckoutPage extends Page
      */
     public function checkConfirmationEmail($email)
     {
-        $text = $this->find('css', '#my_success > div.content.page-too-small > div > p:nth-child(5)')->getText();
+        $text = $this->getElement('Confirmation email')->getText();
         Assertion::true(strpos($text, $email) !== false);
     }
 
@@ -187,7 +202,7 @@ class CheckoutPage extends Page
         $this->getSession()->wait(3000);
         $hash = $table->getHash();
         foreach ($hash as $row) {
-            $operator = $this->find('css', '#portability_detail_selection_review > div > ul > li:nth-child(1) > span')->getText();
+            $operator = $this->getElement('Operator name')->getText();
             Assertion::eq($operator, $row['Operator']);
         }
     }
@@ -199,7 +214,7 @@ class CheckoutPage extends Page
     {
         $hash = $table->getHash();
         foreach ($hash as $row) {
-            $contractType = $this->find('css', '#portability_detail_selection_review > div > ul > li:nth-child(2) > span')->getText();
+            $contractType = $this->getElement('Contract type')->getText();
             Assertion::eq($contractType, $row['ContractType']);
         }
     }
@@ -211,7 +226,7 @@ class CheckoutPage extends Page
     {
         $hash = $table->getHash();
         foreach ($hash as $row) {
-            $term = $this->find('css', '#portability_detail_selection_review > div > ul > li:nth-child(4) > span')->getText();
+            $term = $this->getElement('Term info')->getText();
             Assertion::eq($term, $row['Term']);
         }
     }
@@ -223,7 +238,7 @@ class CheckoutPage extends Page
     {
         $hash = $table->getHash();
         foreach ($hash as $row) {
-            $title = $this->find('css', '#checkout-end-billing-name-surname > div > ul > li:nth-child(1) > span')->getText();
+            $title = $this->getElement('Title name')->getText();
             Assertion::eq($title, $row['Title']);
         }
     }
@@ -235,7 +250,7 @@ class CheckoutPage extends Page
     {
         $hash = $table->getHash();
         foreach ($hash as $row) {
-            $email = $this->find('css', '#checkout-end-billing-address > div > ul > li:nth-child(1) > span')->getText();
+            $email = $this->getElement('Checkout email')->getText();
             Assertion::eq($email, $row['Email']);
         }
     }
@@ -247,7 +262,7 @@ class CheckoutPage extends Page
     {
         $hash = $table->getHash();
         foreach ($hash as $row) {
-            $birthday = $this->find('css', '#checkout-end-billing-nationailty > div > ul > li:nth-child(1) > span')->getText();
+            $birthday = $this->getElement('Birth day')->getText();
             Assertion::eq($birthday, $row['BirthDay']);
         }
     }
@@ -259,7 +274,7 @@ class CheckoutPage extends Page
     {
         $hash = $table->getHash();
         foreach ($hash as $row) {
-            $nationality = $this->find('css', '#checkout-end-billing-nationailty > div > ul > li:nth-child(2) > span')->getText();
+            $nationality = $this->getElement('Origin')->getText();
             Assertion::eq($nationality, $row['Nationality']);
         }
     }
@@ -271,7 +286,7 @@ class CheckoutPage extends Page
     {
         $hash = $table->getHash();
         foreach ($hash as $row) {
-            $idCard = $this->find('css', '#checkout-end-billing-nationailty > div > ul > li:nth-child(3) > span')->getText();
+            $idCard = $this->getElement('Passport')->getText();
             Assertion::eq($idCard, $row['IdCard']);
         }
     }
