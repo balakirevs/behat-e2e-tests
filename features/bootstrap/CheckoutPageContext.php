@@ -2,7 +2,6 @@
 
 use SensioLabs\Behat\PageObjectExtension\Context\PageObjectContext;
 use Behat\Gherkin\Node\TableNode;
-use Assert\Assertion;
 
 class CheckoutPageContext extends PageObjectContext
 {
