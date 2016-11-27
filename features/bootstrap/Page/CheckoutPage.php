@@ -22,7 +22,8 @@ class CheckoutPage extends Page
         'Checkout email' => array('css' => '#checkout-end-billing-address > div > ul > li:nth-child(1) > span'),
         'Birth day' => array('css' => '#checkout-end-billing-nationailty > div > ul > li:nth-child(1) > span'),
         'Origin' => array('css' => '#checkout-end-billing-nationailty > div > ul > li:nth-child(2) > span'),
-        'Passport' => array('css' => '#checkout-end-billing-nationailty > div > ul > li:nth-child(3) > span')
+        'Passport' => array('css' => '#checkout-end-billing-nationailty > div > ul > li:nth-child(3) > span'),
+        'Checkout Button' => array('css' => '#fiberEligOk > a')
     );
 
     /**
@@ -289,5 +290,13 @@ class CheckoutPage extends Page
             $idCard = $this->getElement('Passport')->getText();
             Assertion::eq($idCard, $row['IdCard']);
         }
+    }
+
+    /*
+     * Press checkout button
+     */
+    public function pressCheckoutButton()
+    {
+        $this->getElement('Checkout Button')->click();
     }
 }

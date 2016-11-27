@@ -110,14 +110,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @Then I should see eligibility form container
-     */
-    public function iShouldSeeEligibilityFormContainer()
-    {
-        $this->elementExists('css', '#eligibilityFormContainer');
-    }
-
-    /**
      * @When I click button of a :arg1 product
      */
     public function iClickButtonOfAProduct($colour)
@@ -150,14 +142,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
             }
             return false;
         });
-    }
-
-    /**
-     * @Then I click the verification button
-     */
-    public function iClickTheVerificationButton()
-    {
-        $this->find('css', '#eligibilitySubmit')->click();
     }
 
     /**
@@ -202,22 +186,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function iShouldSeeTheMessageOfTheProductAvailability($text)
     {
         $this->iWaitForTextToAppear($text);
-    }
-
-    /**
-     * @Then /^I should see a spinner running$/
-     */
-    public function iShouldSeeASpinnerRunning()
-    {
-        $this->find('css', '#spinnerElig')->isVisible();
-    }
-
-    /**
-     * @Then /^I click checkout button$/
-     */
-    public function iClickCheckoutButton()
-    {
-        $this->find('css', "#fiberEligOk > a")->click();
     }
 
     /**
@@ -563,6 +531,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iShouldSeeOnTheAcknowledgmentPage($string)
     {
+        $this->iWaitFor('#my_success > div.header > h1');
         $orderNumber = $this->find('css', '#my_success > div.header > h1')->getText();
         Assertion::true(strpos($orderNumber, $string) !== false);
     }

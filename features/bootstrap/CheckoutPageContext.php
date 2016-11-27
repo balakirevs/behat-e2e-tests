@@ -205,4 +205,12 @@ class CheckoutPageContext extends PageObjectContext
         $this->checkCheckoutNationality($table);
         $this->checkCheckoutIdCard($table);
     }
+
+    /**
+     * @Then /^I click checkout button$/
+     */
+    public function iClickCheckoutButton()
+    {
+        $this->pressCheckoutButton();
+    }
 }

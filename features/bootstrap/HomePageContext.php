@@ -62,4 +62,28 @@ class HomePageContext extends PageObjectContext
         $this->enableElementId('billing_street2');
         $this->fillInAutocompleteForm($table, 'billing_street2', 'Autocomplete element', 'Number');
     }
+
+    /**
+     * @Then I should see eligibility form container
+     */
+    public function iShouldSeeEligibilityFormContainer()
+    {
+        $this->checkIfEligibilityElementExists();
+    }
+
+    /**
+     * @Then I click the verification button
+     */
+    public function iClickTheVerificationButton()
+    {
+        $this->clickVerificationButton();
+    }
+
+    /**
+     * @Then /^I should see a spinner running$/
+     */
+    public function iShouldSeeASpinnerRunning()
+    {
+        $this->runningSpinner();
+    }
 }

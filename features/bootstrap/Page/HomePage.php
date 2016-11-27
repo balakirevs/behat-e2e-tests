@@ -9,7 +9,10 @@ class HomePage extends Page
 {
     protected $elements = array(
         'Menu' => '.burger-icon',
-        'Reset' => array('css' => '#fiberEligOk')
+        'Reset' => array('css' => '#fiberEligOk'),
+        'Eligibility form' => '#eligibilityFormContainer',
+        'Verification Button' => '#eligibilitySubmit',
+        'Spinner' => '#spinnerElig'
     );
 
     /**
@@ -35,11 +38,17 @@ class HomePage extends Page
         }
     }
 
+    /*
+     * Wait for JS element
+     */
     private function jqueryWait($duration = 1000)
     {
         $this->getSession()->wait($duration, '(0 === jQuery.active && 0 === jQuery(\':animated\').length)');
     }
 
+    /*
+     * Enable element id
+     */
     public function enableElementId($element)
     {
         $js = "jQuery('#$element').prop('disabled', false);";
@@ -47,6 +56,9 @@ class HomePage extends Page
         $this->jqueryWait(10000);
     }
 
+    /*
+     * Reset fiber eligibility
+     */
     public function resetFiberEligibility()
     {
         $form = $this->getElement('Reset')->isVisible();
@@ -56,7 +68,34 @@ class HomePage extends Page
         }
     }
 
+    /*
+     * Click menu icon
+     */
     public function clickMenu(){
         $this->getElement('Menu')->click();
+    }
+
+    /*
+     * See the presence of eligibility element
+     */
+    public function checkIfEligibilityElementExists()
+    {
+        $this->getElement('Eligibility form')->isVisible();
+    }
+
+    /*
+     * Press verification button
+     */
+    public function clickVerificationButton()
+    {
+        $this->getElement('Verification Button')->click();
+    }
+
+    /*
+     * See if the spinner is running
+     */
+    public function runningSpinner()
+    {
+        $this->getElement('Spinner')->isVisible();
     }
 }
