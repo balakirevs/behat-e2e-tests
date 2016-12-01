@@ -17,8 +17,6 @@
             <antcall target="firefox"></antcall>
             <antcall target="safari"></antcall>
             <antcall target="phantomjs"></antcall>
-            <antcall target="preprod"></antcall>
-            <antcall target="preprod-phantomjs"></antcall>
         </parallel>
     </target>
     <target name="chrome">
@@ -110,20 +108,6 @@
         <mkdir dir="${basedir}/report/parallel" />
         <exec dir="${basedir}" executable="php" failonerror="true">
             <arg line= "bin/behat -f html --out report/parallel/phantomjs -f progress --out std -p phantomjs"/>
-        </exec>
-    </target>
-    <target name="preprod">
-        <delete dir="${basedir}/report/parallel" />
-        <mkdir dir="${basedir}/report/parallel" />
-        <exec dir="${basedir}" executable="php" failonerror="true">
-            <arg line= "bin/behat -p preprod --tags @product -f html --out report/parallel/firefox -f progress --out std -p firefox"/>
-        </exec>
-    </target>
-    <target name="preprod-phantomjs">
-        <delete dir="${basedir}/report/parallel" />
-        <mkdir dir="${basedir}/report/parallel" />
-        <exec dir="${basedir}" executable="php" failonerror="true">
-            <arg line= "bin/behat -p preprod-phantomjs --tags @account -f junit -o report -f progress -o std -p preprod-phantomjs"/>
         </exec>
     </target>
 </project>

@@ -7,6 +7,7 @@ use Behat\MinkExtension\Context\MinkContext;
 use MinkFieldRandomizer\Context\FilterContext;
 use Behat\Gherkin\Node\TableNode;
 use Assert\Assertion;
+use Behat\Behat\Hook\Scope\AfterStepScope;
 
 /**
  * Defines application features from the specific context.
@@ -69,6 +70,17 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         throw new \RuntimeException(sprintf(
             'The "%s()" method does not exist.', $method
         ));
+    }
+
+    /**
+     * @AfterStep
+     * @param \Behat\Behat\Hook\Scope\AfterStepScope $scope
+     */
+    public function afterStep(AfterStepScope $scope)
+    {
+        if (!$scope->getTestResult()->isPassed()) {
+            echo $scope->getStep()->getText();
+        }
     }
 
     /**
@@ -503,7 +515,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function theCostOfTheProductIs($price)
     {
-        $cost = $this->find('css', '#yourbasket > div > div.cell_block.block_products.none > div:nth-child(2) > div.product_component > div.component_price > span')->getText();
+        $cost = $this->find('xpath', '//*[@id="yourbasket"]/div/div[1]/div[2]/div[2]/div[2]/span')->getText();
         Assertion::eq($price, str_replace(".-", "", $cost));
     }
 

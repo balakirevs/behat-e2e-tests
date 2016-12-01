@@ -34,7 +34,16 @@ class CheckoutPage extends Page
     {
         $hash = $table->getHash();
         foreach ($hash as $row) {
-            $this->selectFieldOption($row['Field'], $row['Title']);
+            $field = $this->findField($row['Field']);
+            $id = $field->getAttribute('id');
+            $options = $field->findAll('named', array('option', $row['Title']));
+            foreach ($options as $option) {
+                $value = $option->getValue();
+            }
+            $js = "jQuery('#$id').val('$value');
+                   jQuery('#$id').trigger('chosen:updated');
+                   jQuery('#$id').trigger('change');";
+            $this->getSession()->executeScript($js);
         }
     }
 

@@ -38,6 +38,7 @@ class CheckoutPageContext extends PageObjectContext
      */
     public function iFillInCheckoutMobileContentFormWith(TableNode $table)
     {
+        $this->wait(5000);
         $this->fillInCheckoutTitleDetails($table);
         $this->fillInCheckoutMobilePersonalDetails();
     }
