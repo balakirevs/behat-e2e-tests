@@ -1,0 +1,21 @@
+image: php:7.0.4
+before_script:
+  - sh install-phantomjs-2.1.1.sh
+  - sudo apt-get update
+  - sudo apt-get install network-manager-openconnect network-manager-openconnect-gnome
+  - sudo apt-get update && sudo apt-get install --only-upgrade google-chrome-stable
+  - sudo apt-get install unzip
+  - wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip
+  - echo "y" | sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
+  - sudo chmod 755 /usr/local/bin/chromedriver
+  - wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
+  - sudo dpkg -i firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
+  - wget https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
+  - sudo composer self-update
+  - composer install
+  - echo $VPN_PASSWORD | sudo openconnect $VPN_HOST --user=$VPN_USERNAME --passwd-on-stdin > /dev/null &
+  - phantomjs --webdriver=4445 --ignore-ssl-errors=true > /dev/null &
+
+job1:
+  script:
+    - bin/behat -p phantomjs -f pretty -f progress
