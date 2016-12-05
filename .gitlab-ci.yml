@@ -1,6 +1,5 @@
 image: php:5.6
 before_script:
-  - sudo apt-get install network-manager-openconnect network-manager-openconnect-gnome
   - sudo composer self-update
   - composer install
   - echo $VPN_PASSWORD | sudo openconnect $VPN_HOST --user=$VPN_USERNAME --passwd-on-stdin > /dev/null &
